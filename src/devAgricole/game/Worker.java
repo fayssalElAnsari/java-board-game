@@ -19,9 +19,15 @@ public class Worker {
      */
     public Worker(Player owner){
         this.owner = owner;
-        this.gold = 1;
-        this.tile = owner.startingTile;
+        this.getPayed();
+        this.tile = owner.getStartingTile();
 
+    }
+
+    public void startRound(){
+        if (working) {
+            resources += speed;
+        }
     }
 
     /**
@@ -49,7 +55,7 @@ public class Worker {
         if (this.tile.getOwner() == null){
             if (this.gold >= 1){
                 this.working = true;
-
+                
             }
         }
     }
@@ -58,13 +64,19 @@ public class Worker {
         this.gold++;
     }
 
+    public void getPayed(int salary){
+        if(this.owner.getGold() >= salary){
+            this.gold += salary;
+        }
+    }
+
     public void sendResources(){
-        tile.
+        this.owner.receiveResources(this.tile.gTileProd(), resources);
         this.resources = 0;
     }
 
-    public void die(){
-        
+    public void nextRound(){
+        sendResources();
     }
     
 }

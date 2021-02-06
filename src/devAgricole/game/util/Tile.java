@@ -10,7 +10,7 @@ public abstract class Tile {
     private final TileType tileType;
     private final TileProd tileProd;
     private int resources = 5000;
-    private static final int maxWorkers = 5;
+    private static final int maxWorkers = 1;
     private Worker[] workers;
     private Player owner;
     
@@ -47,7 +47,8 @@ public abstract class Tile {
 
     public boolean addWorker(Worker newWorker){
         if(this.owner != null){
-            if 
+            int i = getFirstEmptySlot();
+            workers[i] = newWorker;
             return true;
         } else return false;
         
@@ -56,7 +57,7 @@ public abstract class Tile {
     public int getEmptySlots(){
         int empties = 0;
         for(int i=0; i < workers.length; i++){
-            if (workers)[i] == null){
+            if (workers[i] == null){
                 empties++;
             }
         }
@@ -78,8 +79,35 @@ public abstract class Tile {
         return result;
     }
 
-    public boolean emptyASlot(){
-        this.workers.
+    public void emptyASlot(){
+        int lastFullSlot = getFirstEmptySlot() -1;
+        this.workers[lastFullSlot] = null;
+        updateOwner();
+    }
+    
+
+    public TileType getTileType(){
+        return this.tileType;
+    }
+
+    public TileProd gTileProd(){
+        return this.tileProd;
+    }
+
+    public boolean checkIfEmpty(){
+        boolean isEmpty = true;
+        for(Worker worker: workers){
+            if(worker != null){
+                isEmpty = false;
+            }
+        }
+        return isEmpty;
+    }
+
+    public void updateOwner(){
+        if(checkIfEmpty()){
+            this.owner = null;
+        }
     }
 
 

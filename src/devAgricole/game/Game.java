@@ -10,11 +10,11 @@ public class Game {
 
     private Map map;
     private Player activePlayer;
-    
+
 
     private Player[] players;
     private Player winner;
-    private int nbRounds;
+    private int nbRounds = 6;
 
 
 }
