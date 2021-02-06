@@ -1,4 +1,4 @@
-package game;
+package devAgricole.game;
 
 public class GameMain {
     

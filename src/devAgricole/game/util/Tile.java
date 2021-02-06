@@ -1,9 +1,9 @@
-package game.util;
+package devAgricole.game.util;
 
-import game.Player;
-import game.Worker;
-import game.util.tile.TileProd;
-import game.util.tile.TileType;
+import devAgricole.game.Player;
+import devAgricole.game.Worker;
+import devAgricole.game.util.tile.TileProd;
+import devAgricole.game.util.tile.TileType;
 
 public abstract class Tile {
     private final Position position;

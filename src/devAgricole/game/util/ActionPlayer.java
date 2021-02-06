@@ -1,4 +1,4 @@
-package game.util;
+package devAgricole.game.util;
 
 public enum ActionPlayer {
     DEPLOY,

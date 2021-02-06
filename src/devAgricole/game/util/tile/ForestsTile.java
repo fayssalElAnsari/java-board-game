@@ -1,6 +1,6 @@
-package game.util.tile;
+package devAgricole.game.util.tile;
 
-import game.util.*;
+import devAgricole.game.util.*;
 
 public class ForestsTile extends Tile{
 

@@ -1,4 +1,4 @@
-package game.util.tile;
+package devAgricole.game.util.tile;
 
 public enum TileProd {
     ROCK,
