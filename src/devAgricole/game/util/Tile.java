@@ -10,6 +10,7 @@ public abstract class Tile {
     private final TileType tileType;
     private final TileProd tileProd;
     private int resources = 5000;
+    private static final int maxWorkers = 5;
     private Worker[] workers;
     private Player owner;
     
@@ -20,7 +21,66 @@ public abstract class Tile {
         this.tileProd = tileProd;
     }
 
-    
+    public Position getPosition(){
+        return this.position;
+    }
+
+    public double calculateDistance(Tile otherTile){
+        return this.position.calculateDistance(otherTile.position);
+    }
+
+    public Player getOwner(){
+        return this.owner;
+    }
+
+    public void setOwner(Player newOwner){
+        this.owner = newOwner;
+    }
+
+    public boolean loseResources(int loss){
+        if(resources > loss){
+            this.resources = this.resources - loss;
+            return true;
+        } else return false;
+        
+    }
+
+    public boolean addWorker(Worker newWorker){
+        if(this.owner != null){
+            if 
+            return true;
+        } else return false;
+        
+    }
+
+    public int getEmptySlots(){
+        int empties = 0;
+        for(int i=0; i < workers.length; i++){
+            if (workers)[i] == null){
+                empties++;
+            }
+        }
+        return empties;
+    }
+
+    /**
+     * finds the first empty worker slot of this tile
+     * @return 
+     */
+    public int getFirstEmptySlot(){
+        int result = -1;
+        for(int i=0; i < workers.length; i++){
+            if(workers[i] == null){
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public boolean emptyASlot(){
+        this.workers.
+    }
 
 
 }
