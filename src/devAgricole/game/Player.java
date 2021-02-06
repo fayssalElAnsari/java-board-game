@@ -17,6 +17,10 @@ public class Player {
     private ActionPlayer lastAction;
     private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
 
+    public String getName(){
+        return this.name;
+    }
+
     public Player(String name) {
         this.name = name;
         this.gold = 15;

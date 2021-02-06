@@ -19,6 +19,9 @@ public abstract class Tile {
         this.position = position;
         this.tileType = tileType;
         this.tileProd = tileProd;
+        this.workers = new Worker[maxWorkers];
+        
+
     }
 
     public Position getPosition(){
@@ -108,6 +111,17 @@ public abstract class Tile {
         if(checkIfEmpty()){
             this.owner = null;
         }
+    }
+
+    public int getNumberOfWorkers(){
+        int result = 0;
+        for(int i=0; i < workers.length; i++){
+            if(workers[i] != null){
+                result += 1;
+                break;
+            }
+        }
+        return result;
     }
 
 
