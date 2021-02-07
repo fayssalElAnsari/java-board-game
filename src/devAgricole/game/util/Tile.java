@@ -24,6 +24,10 @@ public abstract class Tile {
 
     }
 
+    public boolean isStartingTile(){
+        return this.isSpawnTile;
+    }
+
     public Position getPosition(){
         return this.position;
     }

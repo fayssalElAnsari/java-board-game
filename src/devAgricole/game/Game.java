@@ -45,7 +45,7 @@ public class Game {
         players[1].setStartingTile(map.getTile(new Position(map.getWidth()-1, map.getHeight()-1)));
         players[2].setStartingTile(map.getTile(new Position(map.getWidth()-1, 0)));
         players[3].setStartingTile(map.getTile(new Position(0, 0)));
-        
+
         // giving the spawn tiles to their rightfull owners
         this.map.getTile(players[0].getStartingTile().getPosition()).setOwner(players[0]);
         this.map.getTile(players[1].getStartingTile().getPosition()).setOwner(players[1]);
@@ -61,6 +61,7 @@ public class Game {
                 this.getMap().printMap();
                 System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
                 System.out.println("It's " + activePlayer.getName() + "\'s turn>");
+                activePlayer.printOutInventory();
                 String choiceOf3 = scanner.nextLine();
                 makeChoice(choiceOf3);
                 nextTurn();
@@ -72,7 +73,7 @@ public class Game {
 
     public void showStats(){
         for(int i = 0; i < players.length; i++){
-            System.out.println(players[i].getName() + " has " + players[i].getGold() + "gold; and " + players[i].getNumberOfWorkers() + " workers.");
+            System.out.println(players[i].getName() + " has " + players[i].getGold() + " gold; and " + players[i].getNumberOfWorkers() + " workers.");
         }
     }
 
@@ -132,6 +133,7 @@ public class Game {
     public void nextTurn(){
         // find the next player
         int n = -1;
+        this.activePlayer.nextTurn();
         for(int i = 0; i< players.length; i++){
             if(activePlayer == players[i]){
                 n = i;

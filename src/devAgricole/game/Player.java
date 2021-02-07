@@ -80,6 +80,14 @@ public class Player {
         }
     }
 
+    public void nextTurn(){
+        for (int i = 0; i < workers.length; i++){
+            if(workers[i] != null){
+                workers[i].nextTurn();
+            }
+        }
+    }
+
     public Worker getLastWorker(){
         Worker w;
         if(hasWorkers()){// if the player has atleast a worker
@@ -114,6 +122,15 @@ public class Player {
 
     public void getPayed(int profit){
         this.gold += profit;
+    }
+
+    public void printOutInventory(){
+        for (Entry<TileProd, Integer> entry : this.inventory.entrySet()) {
+            TileProd product = entry.getKey();
+            Integer quantity = entry.getValue();
+            System.out.print(product.toString()+": " + quantity+"; ");
+        }
+        System.out.println();
     }
 
     public void sellResources() {

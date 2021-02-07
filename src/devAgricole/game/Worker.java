@@ -6,7 +6,7 @@ public class Worker {
     private Player owner;
     private int gold = 0;
     private int speed = 100;
-    private int step = 1;
+    private double step = 1.7;
     private Tile tile;
     private int resources = 0;
     private boolean working = false;
@@ -21,12 +21,14 @@ public class Worker {
         this.owner = owner;
         this.getPayed();
         this.tile = owner.getStartingTile();
+        this.tile.addWorker(this);
 
     }
 
     public void startTurn(){
         if (working) {
             resources += speed;
+            System.out.println("/!\\ added resources: " + speed);
         }
     }
 
@@ -64,8 +66,10 @@ public class Worker {
      * if so he will start workin
      */
     public void work(){
-        this.working = true;
         this.tile.addWorker(this);
+        if(!this.tile.isStartingTile()){
+            this.working = true;
+        }
 
         // if (this.tile.getOwner() == null || this.tile.getOwner() == map...){
         //     if (this.gold >= 1){
@@ -89,7 +93,7 @@ public class Worker {
         this.resources = 0;
     }
 
-    public void nextRound(){
+    public void nextTurn(){
         sendResources();
     }
     
