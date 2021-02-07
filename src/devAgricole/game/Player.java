@@ -25,11 +25,15 @@ public class Player {
         return this.name;
     }
 
+    public Worker getWorkerByIndex(int i){
+        return this.workers[i];
+    }
+
     public Player(String name) {
         this.name = name;
         this.gold = 15;
         this.lastAction = ActionPlayer.NOTHING;
-        workers = new Worker[25];
+        workers = new Worker[10];
         for (TileProd resource : TileProd.values()) {
             inventory.put(resource, 0);
         }
@@ -42,7 +46,6 @@ public class Player {
         if (i != -1) {
             workers[i] = worker;
         }
-
     }
 
     public Tile getStartingTile() {
@@ -67,6 +70,12 @@ public class Player {
             }
         }
         return result;
+    }
+
+    public void startTurn(){
+        for (int i = 0; i < workers.length; i++){
+            workers[i].startTurn();
+        }
     }
 
     public Worker getLastWorker(){
@@ -146,6 +155,18 @@ public class Player {
             if(!affordable){
                 worker = null;
             }
+        }
+    }
+
+    public void printOutWorkersList(){
+        System.out.println("Available workers: ");
+        for (int i = 0; i < workers.length; i++){
+            if(workers[i] != null){
+                System.out.println(i+": in "+ workers[i].getTile().getPosition().toString() + " working " + workers[i].getTile().getTileProd() + " has " +workers[i].getResources());
+            } else {
+                System.out.println(i+": NOT BOUGHT YET!");
+            }
+            
         }
     }
 

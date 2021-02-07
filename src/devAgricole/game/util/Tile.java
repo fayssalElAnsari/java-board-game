@@ -92,7 +92,7 @@ public abstract class Tile {
         return this.tileType;
     }
 
-    public TileProd gTileProd(){
+    public TileProd getTileProd(){
         return this.tileProd;
     }
 

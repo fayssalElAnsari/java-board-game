@@ -24,7 +24,7 @@ public class Worker {
 
     }
 
-    public void startRound(){
+    public void startTurn(){
         if (working) {
             resources += speed;
         }
@@ -45,6 +45,10 @@ public class Worker {
         }        
         return false;
 
+    }
+
+    public int getResources(){
+        return this.resources;
     }
 
     public Tile getTile(){
@@ -78,7 +82,7 @@ public class Worker {
     }
 
     public void sendResources(){
-        this.owner.receiveResources(this.tile.gTileProd(), resources);
+        this.owner.receiveResources(this.tile.getTileProd(), resources);
         this.resources = 0;
     }
 

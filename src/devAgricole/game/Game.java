@@ -93,12 +93,13 @@ public class Game {
              * if the move is successful it's the end of the player's turn
              * if it's not succesful he has to chose a worker again...
              */
+            activePlayer.printOutWorkersList();
             System.out.println("chose a worker: ... ");
-            String workerIndex = scanner.nextLine();
+            int workerIndex = Integer.parseInt(scanner.nextLine());
             System.out.println("chose a position: ... ");
             String position = scanner.nextLine();
             Position newPos = new Position(Integer.parseInt(position.split(",")[0]), Integer.parseInt(position.split(",")[1]));
-            activePlayer.moveWorker(activePlayer.getLastWorker(), map.getTile(newPos));
+            activePlayer.moveWorker(activePlayer.getWorkerByIndex(workerIndex), map.getTile(newPos));
         } else if (line.equals("2")){
             activePlayer.setLastAction(ActionPlayer.EXCHANGE);
             // String choiceOf3 = scanner.nextLine();
