@@ -56,6 +56,7 @@ public class Game {
         while(this.getCurrentRound() <= this.getnbRounds()){
             for (int i = 0; i < players.length; i++){
                 System.out.println("ROUND: " + currentRound + " OF " + nbRounds);
+                showStats();
                 this.getMap().printMap();
                 System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
                 System.out.println("It's " + activePlayer.getName() + "\'s turn>");
@@ -68,11 +69,17 @@ public class Game {
         this.gameEnd();
     }
 
+    public void showStats(){
+        for(int i = 0; i < players.length; i++){
+            System.out.println(players[i].getName() + " has " + players[i].getGold() + " and " + players[i].getNumberOfWorkers() + " workers.");
+        }
+    }
+
     /**
      * a player can make one of 3 choices
-     * 1: 
-     * 2:
-     * 3:
+     * 1: deplayer a worker
+     * 2: exchange inventory resources for gold
+     * 3: skip round and get 1 gold for it
      * @param line the choice made by the user
      */
     private void makeChoice(String line) {

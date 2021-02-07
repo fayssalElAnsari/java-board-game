@@ -38,6 +38,9 @@ public class Worker {
     public boolean move(Tile newTile){
         if(this.tile.calculateDistance(tile) <= this.step){
             this.tile = newTile;
+            this.tile.setOwner(this.owner);
+            // we will make the worker start working automatically
+            work();
             return true;
         }        
         return false;
@@ -50,14 +53,18 @@ public class Worker {
 
     /**
      * start working in the current tile
+     * need to check if the owner of the worker is the owner of the tile 
+     * if so he will start workin
      */
     public void work(){
-        if (this.tile.getOwner() == null){
-            if (this.gold >= 1){
-                this.working = true;
-                
-            }
-        }
+        this.working = true;
+        this.tile.addWorker(this);
+
+        // if (this.tile.getOwner() == null || this.tile.getOwner() == map...){
+        //     if (this.gold >= 1){
+        //         this.working = true;
+        //     }
+        // }
     }
 
     public void getPayed(){

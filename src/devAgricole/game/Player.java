@@ -149,6 +149,17 @@ public class Player {
         }
     }
 
+    public int getNumberOfWorkers(){
+        int result = 0;
+        for(int i=0; i < workers.length; i++){
+            if(workers[i] != null){
+                result += 1;
+                break;
+            }
+        }
+        return result;
+    }
+
     public boolean payGold(int loss){
         if(this.gold >= loss){
             this.gold -= loss;
