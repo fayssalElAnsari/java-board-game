@@ -20,7 +20,6 @@ public abstract class Tile {
         this.tileType = tileType;
         this.tileProd = tileProd;
         this.workers = new Worker[maxWorkers];
-        
 
     }
 

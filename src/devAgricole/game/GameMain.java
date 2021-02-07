@@ -6,7 +6,11 @@ public class GameMain {
     
 
     public static void main(String[] args){
-        Map testMap = new Map("testMap", 4, 4);
-        testMap.printMap();
+        Game game = new Game();
+        while(game.getCurrentRound() <= game.getnbRounds()){
+            game.getMap().printMap();
+
+            game.nextRound();
+        }
     }
 }
