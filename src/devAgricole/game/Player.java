@@ -39,13 +39,14 @@ public class Player {
         }
     }
 
-    public void buyWorker() {
+    public Worker buyWorker() {
         this.payGold();
         Worker worker = new Worker(this);
         int i = getFirstEmptySlot();
         if (i != -1) {
             workers[i] = worker;
         }
+        return worker;
     }
 
     public Tile getStartingTile() {
@@ -100,9 +101,12 @@ public class Player {
 
     public void moveWorker(Worker worker, Tile tile) {
         this.lastAction = ActionPlayer.DEPLOY;
+        if (worker == null){
+            worker = buyWorker();
+        }
         for (int i = 0; i < workers.length; i++) {
             if (workers[i] == worker) {
-                worker.move(tile);
+                worker.move(i, tile);
             }
         }
     }

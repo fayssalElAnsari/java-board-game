@@ -82,8 +82,13 @@ public abstract class Tile {
     }
 
     public void emptyASlot(){
-        int lastFullSlot = getFirstEmptySlot() -1;
+        int lastFullSlot = getFirstEmptySlot();
         this.workers[lastFullSlot] = null;
+        updateOwner();
+    }
+
+    public void emptyASlot(int i){
+        this.workers[i] = null;
         updateOwner();
     }
     

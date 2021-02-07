@@ -35,8 +35,11 @@ public class Worker {
      * @param newTile the new tile the worker should go to
      * @return True if the move is succesful, false if not;
      */
-    public boolean move(Tile newTile){
+    public boolean move(int i, Tile newTile){
         if(this.tile.calculateDistance(tile) <= this.step){
+            if(this.tile.getNumberOfWorkers() != 0){
+                this.tile.emptyASlot(i);
+            }
             this.tile = newTile;
             this.tile.setOwner(this.owner);
             // we will make the worker start working automatically
