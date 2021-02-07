@@ -13,6 +13,7 @@ public abstract class Tile {
     private static final int maxWorkers = 1;
     private Worker[] workers;
     private Player owner;
+    private boolean isSpawnTile;
     
 
     public Tile(Position position, TileType tileType, TileProd tileProd){
@@ -112,8 +113,10 @@ public abstract class Tile {
     }
 
     public void updateOwner(){
-        if(checkIfEmpty()){
-            this.owner = null;
+        if(!isSpawnTile){
+            if(checkIfEmpty()){
+                this.owner = null;
+            }
         }
     }
 
@@ -127,6 +130,10 @@ public abstract class Tile {
         }
         return result;
     }
+
+	public void setIsStartingTile() {
+        this.isSpawnTile = true;
+	}
 
 
 }

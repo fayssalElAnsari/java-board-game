@@ -33,7 +33,7 @@ public class Player {
         this.name = name;
         this.gold = 15;
         this.lastAction = ActionPlayer.NOTHING;
-        workers = new Worker[10];
+        workers = new Worker[6];
         for (TileProd resource : TileProd.values()) {
             inventory.put(resource, 0);
         }
@@ -55,6 +55,7 @@ public class Player {
     
     public void setStartingTile(Tile tile) {
         this.startingTile = tile;
+        this.startingTile.setIsStartingTile();
     }
 
     /**
