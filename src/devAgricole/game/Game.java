@@ -45,6 +45,11 @@ public class Game {
         players[1].setStartingTile(map.getTile(new Position(map.getWidth()-1, map.getHeight()-1)));
         players[2].setStartingTile(map.getTile(new Position(map.getWidth()-1, 0)));
         players[3].setStartingTile(map.getTile(new Position(0, 0)));
+        // giving the spawn tiles to their rightfull owners
+        this.map.getTile(players[0].getStartingTile().getPosition()).setOwner(players[0]);
+        this.map.getTile(players[1].getStartingTile().getPosition()).setOwner(players[1]);
+        this.map.getTile(players[2].getStartingTile().getPosition()).setOwner(players[2]);
+        this.map.getTile(players[3].getStartingTile().getPosition()).setOwner(players[3]);
     }
 
     public void startGame(){
@@ -82,7 +87,7 @@ public class Game {
              * if it's not succesful he has to chose a worker again...
              */
             System.out.println("chose a worker: ... ");
-            String choiceOf3 = scanner.nextLine();
+            String workerIndex = scanner.nextLine();
             System.out.println("chose a position: ... ");
             String position = scanner.nextLine();
             Position newPos = new Position(Integer.parseInt(position.split(",")[0]), Integer.parseInt(position.split(",")[1]));
@@ -96,7 +101,7 @@ public class Game {
             // String choiceOf3 = scanner.nextLine();
             activePlayer.skipRound();
         } else {
-            System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
+            // System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
             System.out.println("It's " + activePlayer.getName() + "\'s turn>");
             String choiceOf3 = scanner.nextLine();
             makeChoice(choiceOf3);

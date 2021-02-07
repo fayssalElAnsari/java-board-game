@@ -36,7 +36,7 @@ public class Player {
     }
 
     public void buyWorker() {
-        this.gold -= 1;
+        this.payGold();
         Worker worker = new Worker(this);
         int i = getFirstEmptySlot();
         if (i != -1) {
@@ -71,7 +71,7 @@ public class Player {
 
     public Worker getLastWorker(){
         Worker w;
-        if(!hasNoWorkers()){
+        if(hasWorkers()){// if the player has atleast a worker
             w = workers[getFirstEmptySlot()-1];
             return w;
         } else {
@@ -85,8 +85,8 @@ public class Player {
      * check if the player has no workers in his arsenal XD
      * @return true if he has no workers; false if he has a worker
      */
-    public boolean hasNoWorkers(){
-        return (getFirstEmptySlot()==-1);
+    public boolean hasWorkers(){
+        return (getFirstEmptySlot() == -1);
     }
 
     public void moveWorker(Worker worker, Tile tile) {
