@@ -17,6 +17,10 @@ public class Player {
     private ActionPlayer lastAction;
     private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
 
+    public void setLastAction(ActionPlayer action){
+        this.lastAction = action;
+    }
+
     public String getName(){
         return this.name;
     }
@@ -44,6 +48,10 @@ public class Player {
     public Tile getStartingTile() {
         return this.startingTile;
     }
+    
+    public void setStartingTile(Tile tile) {
+        this.startingTile = tile;
+    }
 
     /**
      * finds the first empty worker slot of this tile
@@ -59,6 +67,26 @@ public class Player {
             }
         }
         return result;
+    }
+
+    public Worker getLastWorker(){
+        Worker w;
+        if(!hasNoWorkers()){
+            w = workers[getFirstEmptySlot()-1];
+            return w;
+        } else {
+            buyWorker();
+            return workers[0];
+        }
+        
+    }
+
+    /**
+     * check if the player has no workers in his arsenal XD
+     * @return true if he has no workers; false if he has a worker
+     */
+    public boolean hasNoWorkers(){
+        return (getFirstEmptySlot()==-1);
     }
 
     public void moveWorker(Worker worker, Tile tile) {

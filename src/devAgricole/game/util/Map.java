@@ -53,6 +53,15 @@ public class Map {
         }
     }
 
+    // does the same as findTileByPosition for now
+    public Tile getTile(Position pos){
+        return findTileByPosition(pos);
+    }
+
+    public Tile findTileByPosition(Position pos){
+        return tiles[pos.getXCoordinate()][pos.getYCoordinate()];
+    }
+
     public char getTileTypeSymbol(Tile tile){
         if(tile.getTileType() == TileType.MOUNTAINS){
             return 'M';
@@ -99,6 +108,14 @@ public class Map {
             }
             System.out.println();
         }
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
+
+    public int getWidth(){
+        return this.width;
     }
 
     

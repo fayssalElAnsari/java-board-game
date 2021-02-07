@@ -1,8 +1,11 @@
 package devAgricole.game;
 
 import java.util.Random;
+import java.util.Scanner;
 
+import devAgricole.game.util.ActionPlayer;
 import devAgricole.game.util.Map;
+import devAgricole.game.util.Position;
 
 public class Game {
 
@@ -18,21 +21,89 @@ public class Game {
     private Player winner;
     private int nbRounds = 6;
     private int currentRound = 1;
+    Scanner scanner = new Scanner(System.in);
 
     public Game(){
         map = new Map("testMap", 5, 5);
-        players = new Player[4];
-        // will make this using user input later 
-        players[0] = new Player("random");
-        players[1] = new Player("Citizen");
-        players[2] = new Player("Bro");
-        players[3] = new Player("Fayssal");
+        createPlayers();
         Random r = new Random();
         int n = r.nextInt(players.length);
         activePlayer = players[n];
+
     }
 
-    public Map getMap(){
+    public void createPlayers(){
+        players = new Player[4];
+        // will make this using user input later 
+        // setting names
+        players[0] = new Player("fayssal");
+        players[1] = new Player("aya");
+        players[2] = new Player("mehdi");
+        players[3] = new Player("ziko");
+        // setting worker spawn tile location
+        players[0].setStartingTile(map.getTile(new Position(0, map.getHeight()-1)));
+        players[1].setStartingTile(map.getTile(new Position(map.getWidth()-1, map.getHeight()-1)));
+        players[2].setStartingTile(map.getTile(new Position(map.getWidth()-1, 0)));
+        players[3].setStartingTile(map.getTile(new Position(0, 0)));
+    }
+
+    public void startGame(){
+        while(this.getCurrentRound() <= this.getnbRounds()){
+            for (int i = 0; i < players.length; i++){
+                System.out.println("ROUND: " + currentRound + " OF " + nbRounds);
+                this.getMap().printMap();
+                System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
+                System.out.println("It's " + activePlayer.getName() + "\'s turn>");
+                String choiceOf3 = scanner.nextLine();
+                makeChoice(choiceOf3);
+                nextTurn();
+            }
+            this.nextRound();
+        }
+        this.gameEnd();
+    }
+
+    /**
+     * a player can make one of 3 choices
+     * 1: 
+     * 2:
+     * 3:
+     * @param line the choice made by the user
+     */
+    private void makeChoice(String line) {
+        if ( line.equals("1")){
+            activePlayer.setLastAction(ActionPlayer.DEPLOY);
+            /**
+             * should check if player has some workers already
+             * if not he should buy
+             * if he does have wokers already he shoul chose which worker to move
+             * and where to move him to
+             * if the move is successful it's the end of the player's turn
+             * if it's not succesful he has to chose a worker again...
+             */
+            System.out.println("chose a worker: ... ");
+            String choiceOf3 = scanner.nextLine();
+            System.out.println("chose a position: ... ");
+            String position = scanner.nextLine();
+            Position newPos = new Position(Integer.parseInt(position.split(",")[0]), Integer.parseInt(position.split(",")[1]));
+            activePlayer.moveWorker(activePlayer.getLastWorker(), map.getTile(newPos));
+        } else if (line.equals("2")){
+            activePlayer.setLastAction(ActionPlayer.EXCHANGE);
+            // String choiceOf3 = scanner.nextLine();
+            activePlayer.sellResources();
+        } else if (line.equals("3")){
+            activePlayer.setLastAction(ActionPlayer.NOTHING);
+            // String choiceOf3 = scanner.nextLine();
+            activePlayer.skipRound();
+        } else {
+            System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
+            System.out.println("It's " + activePlayer.getName() + "\'s turn>");
+            String choiceOf3 = scanner.nextLine();
+            makeChoice(choiceOf3);
+        }
+    }
+
+    public Map getMap() {
         return this.map;
     }
 
@@ -45,7 +116,14 @@ public class Game {
     }
 
     public void nextTurn(){
-
+        // find the next player
+        int n = -1;
+        for(int i = 0; i< players.length; i++){
+            if(activePlayer == players[i]){
+                n = i;
+            }
+        }
+        activePlayer = players[(n+1)%players.length];
     }
 
     public void nextRound(){
@@ -64,6 +142,8 @@ public class Game {
 
     public void gameEnd(){
         findWinner();
+        System.out.println("The winner is...");
+        System.out.println(winner.getName() + " with " + winner.getGold() + " points!!");
     }
 
 }
