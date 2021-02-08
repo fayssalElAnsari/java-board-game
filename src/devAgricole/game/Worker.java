@@ -1,6 +1,7 @@
 package devAgricole.game;
 
 import devAgricole.game.util.Tile;
+import devAgricole.game.util.tile.TileType;
 
 public class Worker {
     private Player owner;
@@ -34,6 +35,35 @@ public class Worker {
         if (working) {
             resources += speed;
             System.out.println("  /!\\  added resources: " + speed);
+            this.getTurnSalary();
+        }
+    }
+
+    /**
+     * if the player is working will check which type of tile he's on
+     * and will get payed accordingly
+     */
+    public boolean getTurnSalary(){
+        boolean result = false;
+        if(this.working){
+            if(this.tile.getTileType() == TileType.MOUNTAINS){
+                this.getPayed(5);
+                return true;
+            } else if (this.tile.getTileType() == TileType.DESERTS) {
+                this.getPayed(3);
+                return true;
+            } else if (this.tile.getTileType() == TileType.FORESTS) {
+                this.getPayed();
+                return true;
+            } else if (this.tile.getTileType() == TileType.PLAINS) {
+                this.getPayed();
+                return true;
+            } else {
+                return result;
+            }
+        } else {
+            System.out.println("the working is not working XD");
+            return result;
         }
     }
 
@@ -52,7 +82,7 @@ public class Worker {
                 this.tile.setOwner(this.owner);
                 // we will make the worker start working automatically
                 work();
-                
+
                 return true;
             } else {
                 System.out.println("/!\\ The tile is too far away :(");

@@ -177,7 +177,12 @@ public class Player {
      * @return true if he has no workers; false if he has a worker
      */
     public boolean hasWorkers(){
-        return (getFirstEmptySlot() == -1);
+        for ( int i = 0; i < workers.length; i++){
+            if(workers[i] != null){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void moveWorker(Worker worker, Tile tile) {
