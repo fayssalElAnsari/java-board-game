@@ -2,13 +2,11 @@ package devAgricole.game;
 
 import java.util.Random;
 import java.util.Scanner;
-
 import devAgricole.game.util.ActionPlayer;
 import devAgricole.game.util.Map;
 import devAgricole.game.util.Position;
 
 public class Game {
-
     // private static final int winPoints = 1;
     // private static final int drawPoints = 0;
     // private static final int losePoints = -1;
@@ -16,22 +14,27 @@ public class Game {
     private Map map;
     private Player activePlayer;
 
-
     private Player[] players;
     private Player winner;
     private int nbRounds = 6;
     private int currentRound = 1;
     Scanner scanner = new Scanner(System.in);
 
+    /**
+     * public constructor for the game class
+     */
     public Game(){
         map = new Map("testMap", 5, 5);
         createPlayers();
+        // chose the first player in a random way
         Random r = new Random();
         int n = r.nextInt(players.length);
         activePlayer = players[n];
-
     }
 
+    /**
+     * create the players objects and populate the players array with them
+     */
     public void createPlayers(){
         players = new Player[4];
         // will make this using user input later 
@@ -40,28 +43,36 @@ public class Game {
         players[1] = new Player("aya");
         players[2] = new Player("mehdi");
         players[3] = new Player("ziko");
-        // setting worker spawn tile location
-        players[0].setStartingTile(map.getTile(new Position(0, map.getHeight()-1)));
-        players[1].setStartingTile(map.getTile(new Position(map.getWidth()-1, map.getHeight()-1)));
-        players[2].setStartingTile(map.getTile(new Position(map.getWidth()-1, 0)));
-        players[3].setStartingTile(map.getTile(new Position(0, 0)));
+
+        // setting up corners positions
+        Position[] corners = new Position[4];
+        corners[0] = new Position(0, map.getHeight()-1);
+        corners[1] = new Position(map.getWidth()-1, map.getHeight()-1);
+        corners[2] = new Position(map.getWidth()-1, 0);
+        corners[3] = new Position(0, 0);
+        for(int i = 0; i < corners.length; i++){
+            players[i].setStartingTile(this.map.findTileByPosition(corners[i]));
+        }
 
         // giving the spawn tiles to their rightfull owners
-        this.map.getTile(players[0].getStartingTile().getPosition()).setOwner(players[0]);
-        this.map.getTile(players[1].getStartingTile().getPosition()).setOwner(players[1]);
-        this.map.getTile(players[2].getStartingTile().getPosition()).setOwner(players[2]);
-        this.map.getTile(players[3].getStartingTile().getPosition()).setOwner(players[3]);
+        for(int i = 0; i < players.length; i++){
+            this.map.findTileByPosition(players[i].getStartingTile().getPosition()).setOwner(players[i]);
+        }
     }
 
+    /**
+     * 
+     */
     public void startGame(){
         while(this.getCurrentRound() <= this.getnbRounds()){
             for (int i = 0; i < players.length; i++){
                 System.out.println("ROUND: " + currentRound + " OF " + nbRounds);
                 showStats();
                 this.getMap().printMap();
-                System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
-                System.out.println("It's " + activePlayer.getName() + "\'s turn>");
+                System.out.println("It's " + activePlayer.getName() + "\'s turn: ");
                 activePlayer.printOutInventory();
+                System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
+                System.out.print("make your choice :> ");
                 String choiceOf3 = scanner.nextLine();
                 makeChoice(choiceOf3);
                 nextTurn();
@@ -71,6 +82,9 @@ public class Game {
         this.gameEnd();
     }
 
+    /**
+     * 
+     */
     public void showStats(){
         for(int i = 0; i < players.length; i++){
             System.out.println(players[i].getName() + " has " + players[i].getGold() + " gold; and " + players[i].getNumberOfWorkers() + " workers.");
@@ -79,7 +93,7 @@ public class Game {
 
     /**
      * a player can make one of 3 choices
-     * 1: deplayer a worker
+     * 1: deploy a worker
      * 2: exchange inventory resources for gold
      * 3: skip round and get 1 gold for it
      * @param line the choice made by the user
@@ -95,13 +109,16 @@ public class Game {
              * if the move is successful it's the end of the player's turn
              * if it's not succesful he has to chose a worker again...
              */
+            if (!activePlayer.hasWorkers()){
+                activePlayer.buyWorker();
+            }
             activePlayer.printOutWorkersList();
-            System.out.println("chose a worker: ... ");
+            System.out.print("chose a worker :> ");
             int workerIndex = Integer.parseInt(scanner.nextLine());
-            System.out.println("chose a position: ... ");
+            System.out.print("chose a position :> ");
             String position = scanner.nextLine();
             Position newPos = new Position(Integer.parseInt(position.split(",")[0]), Integer.parseInt(position.split(",")[1]));
-            activePlayer.moveWorker(activePlayer.getWorkerByIndex(workerIndex), map.getTile(newPos));
+            activePlayer.moveWorker(activePlayer.getWorkerByIndex(workerIndex), map.findTileByPosition(newPos));
         } else if (line.equals("2")){
             activePlayer.setLastAction(ActionPlayer.EXCHANGE);
             // String choiceOf3 = scanner.nextLine();
@@ -153,7 +170,6 @@ public class Game {
                 winner = players[i+1];
             }
         }
-
     }
 
     public void gameEnd(){

@@ -25,10 +25,15 @@ public class Worker {
 
     }
 
+    /**
+     * performs the actions needed by the worker at the beginning of each turn
+     * if the worker is working in its tile it will add the resources according the worker's speed
+     * if ther resources were added to the worker's inventory it will print it out
+     */
     public void startTurn(){
         if (working) {
             resources += speed;
-            System.out.println("/!\\ added resources: " + speed);
+            System.out.println("  /!\\  added resources: " + speed);
         }
     }
 
@@ -38,24 +43,40 @@ public class Worker {
      * @return True if the move is succesful, false if not;
      */
     public boolean move(int i, Tile newTile){
-        if(this.tile.calculateDistance(tile) <= this.step){
-            if(this.tile.getNumberOfWorkers() != 0){
-                this.tile.emptyASlot(i);
+        if(newTile.getOwner() == this.owner || newTile.getOwner() == null){
+            if(this.tile.calculateDistance(tile) <= this.step){
+                if(this.tile.getNumberOfWorkers() != 0){
+                    this.tile.emptyASlot(i);
+                }
+                this.tile = newTile;
+                this.tile.setOwner(this.owner);
+                // we will make the worker start working automatically
+                work();
+                
+                return true;
+            } else {
+                System.out.println("/!\\ The tile is too far away :(");
             }
-            this.tile = newTile;
-            this.tile.setOwner(this.owner);
-            // we will make the worker start working automatically
-            work();
-            return true;
-        }        
+        } else {
+            System.out.println("/!\\ Tile already has other owner :(");
+        }
+              
         return false;
 
     }
 
+    /**
+     * gets how much resources this worker has in its bag
+     * @return the amount of resources this worker has extracted
+     */
     public int getResources(){
         return this.resources;
     }
 
+    /**
+     * gets the tile this worker is on right now
+     * @return the tile of this worker
+     */
     public Tile getTile(){
         return this.tile;
     }
@@ -78,21 +99,35 @@ public class Worker {
         // }
     }
 
+    /**
+     * add one gold to the bag of this worker $
+     */
     public void getPayed(){
         this.gold++;
     }
 
+    /**
+     * same as getPayed() but with one or more coins
+     * @param salary the amount to be added to the bag of gold of this worker
+     */
     public void getPayed(int salary){
         if(this.owner.getGold() >= salary){
             this.gold += salary;
         }
     }
 
+    /**
+     * send the resources to the owner of this worker
+     */
     public void sendResources(){
         this.owner.receiveResources(this.tile.getTileProd(), resources);
         this.resources = 0;
     }
 
+    /**
+     * performs the actions the worker needs to do at the end of each turn 
+     * like sending the resources to the owner
+     */
     public void nextTurn(){
         sendResources();
     }

@@ -17,7 +17,6 @@ public class Map {
 
     // TODO: chose a random Tile
     // TODO: add the condition where all land tiles are connected 
-    // 
 
     /**
      * public constructor of the map
@@ -53,15 +52,30 @@ public class Map {
         }
     }
 
-    // does the same as findTileByPosition for now
-    public Tile getTile(Position pos){
-        return findTileByPosition(pos);
-    }
+    // /**
+    //  * gets a tile in this map using an index not a position?
+    //  * @param pos
+    //  * @return
+    //  */
+    // public Tile getTile(Position pos){
+    //     return findTileByPosition(pos);
+    // }
 
+    /**
+     * get a tile using its position in this map only
+     * @param pos the position of the wanted tile
+     * @return the tile that is in the passed in position
+     */
     public Tile findTileByPosition(Position pos){
         return tiles[pos.getXCoordinate()][pos.getYCoordinate()];
     }
 
+    /**
+     * gets the symbol for the passed in tile according to it' type
+     * if Mountains it will return M for example
+     * @param tile the tile to get the symbol of its type
+     * @return the symbol of the type of the passed in tile
+     */
     public char getTileTypeSymbol(Tile tile){
         if(tile.getTileType() == TileType.MOUNTAINS){
             return 'M';
@@ -77,6 +91,12 @@ public class Map {
         return 'O';
     }
 
+    /**
+     * gets the first charcter of the owner of a tile in this map
+     * ther could be ambiguity if two owners names start off with the same letter
+     * @param tile what tile to get the symbol of the owner for
+     * @return the first charcter of the name of the owner of a passed in tile
+     */
     public char getOwnerSymbol(Tile tile){
         if (tile.getOwner() != null){
             return tile.getOwner().getName().charAt(0);
@@ -84,6 +104,9 @@ public class Map {
         return '*';
     }
 
+    /**
+     * print out the map in an organized fashion
+     */
     public void printMap(){
         // print the header
         System.out.println("*===* "+this.name+" *===*");
@@ -110,10 +133,18 @@ public class Map {
         }
     }
 
+    /**
+     * get the height of this map
+     * @return the height of this map
+     */
     public int getHeight(){
         return this.height;
     }
 
+    /**
+     * get the width of this map
+     * @return the width of this map
+     */
     public int getWidth(){
         return this.width;
     }
