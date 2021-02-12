@@ -2,7 +2,6 @@ package game;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-
 import game.devagrico.Worker;
 import game.util.ActionPlayer;
 import game.util.Tile;
@@ -14,8 +13,8 @@ import game.util.tile.TileProd;
 
 public class Player {
 	private String name;
+	private Unit[] units;
 	private Worker[] workers;
-	private Tile startingTile;
 	private int gold;
 	private ActionPlayer lastAction;
 	private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
@@ -25,7 +24,6 @@ public class Player {
 	 * only 15 gold pieces the last action performed by this player is nothing (or
 	 * skip) each player will have 6 empty worker slots that will be filled later in
 	 * the game each player will have an inventory having 0 of each resource kind
-	 * 
 	 * @param name the name to be given to this player
 	 */
 	public Player(String name) {
@@ -107,27 +105,6 @@ public class Player {
 		Worker worker = new Worker(this);
 		workers[i] = worker;
 		return worker;
-	}
-
-	/**
-	 * get the tile which the newly bought workers will spawn in
-	 * 
-	 * @return the workers spawn Tile
-	 */
-	public Tile getStartingTile() {
-		return this.startingTile;
-	}
-
-	/**
-	 * sets the the tile which the newly bought workers will spawn in change the
-	 * setting of the spawn tile to IsStartingTile which will make it impossible for
-	 * workers to work in it
-	 * 
-	 * @param tile the tile to be sete as the spawn tile
-	 */
-	public void setStartingTile(Tile tile) {
-		this.startingTile = tile;
-		this.startingTile.setIsStartingTile();
 	}
 
 	/**

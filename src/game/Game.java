@@ -7,19 +7,21 @@ import game.util.ActionPlayer;
 import game.util.Map;
 import game.util.Position;
 
-public class Game {
+public abstract class Game {
 	// private static final int winPoints = 1;
 	// private static final int drawPoints = 0;
 	// private static final int losePoints = -1;
 
+	Scanner scanner = new Scanner(System.in);
 	private Map map;
 	private Player activePlayer;
 
 	private Player[] players;
 	private Player winner;
-	private int nbRounds = 6;
+	private int nbRounds = 10;
 	private int currentRound = 1;
-	Scanner scanner = new Scanner(System.in);
+
+	boolean debugMode = true;
 
 	/**
 	 * public constructor for the game class
@@ -37,24 +39,31 @@ public class Game {
 	 * create the players objects and populate the players array with them
 	 */
 	public void createPlayers() {
-		players = new Player[4];
-		// will make this using user input later
-		// setting names
-		players[0] = new Player("fayssal");
-		players[1] = new Player("aya");
-		players[2] = new Player("mehdi");
-		players[3] = new Player("ziko");
-
-		// setting up corners positions
-		Position[] corners = new Position[4];
-		corners[0] = new Position(0, map.getHeight() - 1);
-		corners[1] = new Position(map.getWidth() - 1, map.getHeight() - 1);
-		corners[2] = new Position(map.getWidth() - 1, 0);
-		corners[3] = new Position(0, 0);
-		for (int i = 0; i < corners.length; i++) {
-			players[i].setStartingTile(this.map.findTileByPosition(corners[i]));
+		if (debugMode){
+			players = new Player[4];
+			// setting names
+			players[0] = new Player("fayssal");
+			players[1] = new Player("aya");
+			players[2] = new Player("mehdi");
+			players[3] = new Player("ziko");
+		} else {
+			System.out.println("Possible number of players between 2 and 4");
+			System.out.println("Chose number of players :>");
+			int nbPlayers = Integer.parseInt(scanner.nextLine());
+			if (nbPlayers >= 2 && nbPlayers <= 4) {
+				players = new Player[nbPlayers];
+				// will make this using user input later
+				// setting names
+				String playerName;
+				for (int i = 0; i < nbPlayers; i++) {
+					System.out.println("Enter name of player nb " + i + 1 + " :> ");
+					playerName = scanner.nextLine();
+					players[i] = new Player(playerName);
+				}
+			} else {
+				createPlayers();
+			}
 		}
-
 	}
 
 	/**
@@ -104,12 +113,6 @@ public class Game {
 			 * move him to if the move is successful it's the end of the player's turn if
 			 * it's not succesful he has to chose a worker again...
 			 */
-			if (!activePlayer.hasWorkers()) {
-				activePlayer.buyWorker();
-			}
-			activePlayer.printOutWorkersList();
-			System.out.print("chose a worker :> ");
-			int workerIndex = Integer.parseInt(scanner.nextLine());
 			System.out.print("chose a position :> ");
 			String position = scanner.nextLine();
 			Position newPos = new Position(Integer.parseInt(position.split(",")[0]),
@@ -171,6 +174,10 @@ public class Game {
 		findWinner();
 		System.out.println("The winner is...");
 		System.out.println(winner.getName() + " with " + winner.getGold() + " points!!");
+	}
+
+	public void choseGameType() {
+
 	}
 
 }

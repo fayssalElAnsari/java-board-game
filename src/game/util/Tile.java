@@ -1,52 +1,36 @@
 package game.util;
 
 import game.Player;
+import game.Unit;
 import game.devagrico.Worker;
 import game.util.tile.TileProd;
+import game.war.Army;
 
 public abstract class Tile {
 	private final Position position;
 	private final TileProd tileProd;
 	private int resources = 5000;
-	private static final int maxWorkers = 5;
-	private Worker[] workers;
+	private Worker worker;
+	private Army army;
 	private Player owner;
 	private boolean isSpawnTile;
 
+	/**
+	 * public constructor for Tile 
+	 * @param position the position of the time in the map
+	 * @param tileProd the type of resource to be produced by the tile
+	 */
 	public Tile(Position position, TileProd tileProd) {
 		this.position = position;
 		this.tileProd = tileProd;
-		this.workers = new Worker[maxWorkers];
-
-	}
-
-	/**
-	 * check if this tile is a workers spawning tile
-	 * 
-	 * @return true if it's only for spawning working and cannot be worked on
-	 */
-	public boolean isStartingTile() {
-		return this.isSpawnTile;
 	}
 
 	/**
 	 * gets the position of this tile
-	 * 
 	 * @return the exact position of this tile
 	 */
 	public Position getPosition() {
 		return this.position;
-	}
-
-	/**
-	 * calculate the distance between this tile and another one
-	 * 
-	 * @param otherTile the tile to calculate the distance between it and this tile
-	 *                  object
-	 * @return the distance between the two tiles
-	 */
-	public double calculateDistance(Tile otherTile) {
-		return this.position.calculateDistance(otherTile.position);
 	}
 
 	/**
@@ -65,6 +49,7 @@ public abstract class Tile {
 	 */
 	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
+		this.worker = new Worker(this.owner);
 	}
 
 	/**
@@ -84,103 +69,23 @@ public abstract class Tile {
 	}
 
 	/**
-	 * add a worker to this tile and start working if it's not a spawn tile
-	 * 
-	 * @param newWorker the new worker object to be added to this tile
-	 * @return true if the worker was added to this tile successfully, false if the
-	 *         worker could not be added to this tile's array of workers
+	 * give the tile production resource type
+	 * @return the tile production type
 	 */
-	public boolean addWorker(Worker newWorker) {
-		if (this.owner != null) {
-			int i = getFirstEmptySlot();
-			workers[i] = newWorker;
-			return true;
-		} else
-			return false;
-
-	}
-
-	/**
-	 * gets the number of empty slots still available in this tile
-	 * 
-	 * @return the number of empty worker slots in this tile
-	 */
-	public int getEmptySlots() {
-		int empties = 0;
-		for (int i = 0; i < workers.length; i++) {
-			if (workers[i] == null) {
-				empties++;
-			}
-		}
-		return empties;
-	}
-
-	/**
-	 * finds the first empty worker slot of this tile
-	 * 
-	 * @return the first empty workers array slot in this tile
-	 */
-	public int getFirstEmptySlot() {
-		int result = -1;
-		for (int i = 0; i < workers.length; i++) {
-			if (workers[i] == null) {
-				result = i;
-				break;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * empties the last full slot from this tile's array of workers by setting it to
-	 * null
-	 */
-	public void emptyASlot() {
-		int lastFullSlot = getFirstEmptySlot();
-		this.workers[lastFullSlot] = null;
-		updateOwner();
-	}
-
-	public void emptyASlot(int i) {
-		this.workers[i] = null;
-		updateOwner();
-	}
-
 	public TileProd getTileProd() {
 		return this.tileProd;
 	}
 
+	/**
+	 * checks if the current tile has an owner and a unit
+	 * @return
+	 */
 	public boolean checkIfEmpty() {
-		boolean isEmpty = true;
-		for (Worker worker : workers) {
-			if (worker != null) {
-				isEmpty = false;
-			}
-		}
-		return isEmpty;
+		return ((this.owner != null) && (this.worker != null));
 	}
 
-	public void updateOwner() {
-		if (!isSpawnTile) {
-			if (checkIfEmpty()) {
-				this.owner = null;
-			}
-		}
-	}
-
-	public int getNumberOfWorkers() {
-		int result = 0;
-		for (int i = 0; i < workers.length; i++) {
-			if (workers[i] != null) {
-				result += 1;
-				break;
-			}
-		}
-		return result;
-	}
-
-	public void setIsStartingTile() {
-		this.isSpawnTile = true;
+	public void setWorker(Unit unit) {
+		this.worker = worker;
 	}
 
 }

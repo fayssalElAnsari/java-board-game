@@ -13,15 +13,14 @@ public class Map {
 	private String name;
 	private int width;
 	private int height;
-
 	// TODO: chose a random Tile
 	// TODO: add the condition where all land tiles are connected
 
 	/**
 	 * public constructor of the map
 	 * 
-	 * @param name   the name of the map
-	 * @param width  the width of the map
+	 * @param name the name of the map
+	 * @param width the width of the map
 	 * @param height the height of the map
 	 */
 	public Map(String name, int width, int height) {
@@ -47,19 +46,10 @@ public class Map {
 				} else if (n == 4) {
 					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
 				}
-
 			}
 		}
 	}
 
-	// /**
-	// * gets a tile in this map using an index not a position?
-	// * @param pos
-	// * @return
-	// */
-	// public Tile getTile(Position pos){
-	// return findTileByPosition(pos);
-	// }
 
 	/**
 	 * get a tile using its position in this map only
@@ -72,7 +62,7 @@ public class Map {
 	}
 
 	/**
-	 * gets the symbol for the passed in tile according to it' type if Mountains it
+	 * gets the symbol for the passed in tile according to it' type of Mountains it
 	 * will return M for example
 	 * 
 	 * @param tile the tile to get the symbol of its type
@@ -113,24 +103,21 @@ public class Map {
 	public void printMap() {
 		// print the header
 		System.out.println("*===* " + this.name + " *===*");
-		System.out.print("*     ");
+		System.out.print("*    ");
 		for (int i = 0; i < width; i++) {
-			System.out.print(i + "         ");
+			System.out.print(i + "      ");
 		}
 		System.out.println();
-
 		// print the content of the map
 		// [tileType, owner first letter, numberOfWorkers]
 		char tileSymbol;
 		char ownerSymbol;
-		int nbWorkers;
 		for (int j = 0; j < height; j++) {
 			System.out.print(j + " ");
 			for (int i = 0; i < width; i++) {
 				tileSymbol = getTileTypeSymbol(tiles[i][j]);
 				ownerSymbol = getOwnerSymbol(tiles[i][j]);
-				nbWorkers = tiles[i][j].getNumberOfWorkers();
-				System.out.print("[" + tileSymbol + ", " + ownerSymbol + ", " + +nbWorkers + "] ");
+				System.out.print("[" + tileSymbol + ", " + ownerSymbol + "] ");
 			}
 			System.out.println();
 		}

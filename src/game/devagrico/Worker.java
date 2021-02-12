@@ -13,7 +13,6 @@ public class Worker extends Unit {
 	private int gold = 0;
 	private Tile tile;
 	private int resources = 0;
-	private boolean working = false;
 
 	/**
 	 * public constructor for a worker the worker will start with only 1 gold which
@@ -25,22 +24,29 @@ public class Worker extends Unit {
 	public Worker(Player owner) {
 		this.owner = owner;
 		this.getPayed();
-		this.tile = owner.getStartingTile();
 		this.tile.addWorker(this);
+	}
 
+	public boolean putOnTile(Tile newTile) {
+		if (newTile.getOwner() == this.owner || newTile.getOwner() == null) {
+			this.tile = newTile;
+			this.tile.setOwner(this.owner);
+			return true;
+		} else {
+			System.out.println("/!\\ Tile already has another owner :(");
+		}
+		return false;
 	}
 
 	/**
 	 * performs the actions needed by the worker at the beginning of each turn if
 	 * the worker is working in its tile it will add the resources according the
-	 * worker's speed if ther resources were added to the worker's inventory it will
+	 * worker's speed if the resources were added to the worker's inventory it will
 	 * print it out
 	 */
 	public void startTurn() {
-		if (working) {
 			System.out.println("  /!\\  added resources: ");
 			this.getTurnSalary();
-		}
 	}
 
 	/**
@@ -49,24 +55,19 @@ public class Worker extends Unit {
 	 */
 	public boolean getTurnSalary() {
 		boolean result = false;
-		if (this.working) {
-			if (this.tile instanceof MountainsTile) {
-				this.getPayed(5);
-				return true;
-			} else if (this.tile instanceof DesertsTile) {
-				this.getPayed(3);
-				return true;
-			} else if (this.tile instanceof ForestsTile) {
-				this.getPayed();
-				return true;
-			} else if (this.tile instanceof PlainsTile) {
-				this.getPayed();
-				return true;
-			} else {
-				return result;
-			}
+		if (this.tile instanceof MountainsTile) {
+			this.getPayed(5);
+			return true;
+		} else if (this.tile instanceof DesertsTile) {
+			this.getPayed(3);
+			return true;
+		} else if (this.tile instanceof ForestsTile) {
+			this.getPayed();
+			return true;
+		} else if (this.tile instanceof PlainsTile) {
+			this.getPayed();
+			return true;
 		} else {
-			System.out.println("the working is not working XD");
 			return result;
 		}
 	}
@@ -87,23 +88,6 @@ public class Worker extends Unit {
 	 */
 	public Tile getTile() {
 		return this.tile;
-	}
-
-	/**
-	 * start working in the current tile need to check if the owner of the worker is
-	 * the owner of the tile if so he will start working
-	 */
-	public void work() {
-		this.tile.addWorker(this);
-		if (!this.tile.isStartingTile()) {
-			this.working = true;
-		}
-
-		// if (this.tile.getOwner() == null || this.tile.getOwner() == map...){
-		// if (this.gold >= 1){
-		// this.working = true;
-		// }
-		// }
 	}
 
 	/**

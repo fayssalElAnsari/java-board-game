@@ -1,14 +1,38 @@
 package game;
 
-import game.util.Map;
+import java.util.Scanner;
+
+import game.devagrico.FarmGame;
+import game.war.WarGame;
 
 public class GameMain {
-    
 
-    public static void main(String[] args){
-        Game game = new Game();
-        game.startGame();
+	static Scanner scanner = new Scanner(System.in);
+	static Game game;
+	static GameType chosenGameType;
 
-    }
+	public static void main(String[] args) {
+		choseGameType();
+		game.startGame();
+	}
+
+	public static void choseGameType() {
+		System.out.println("1: war; 2: farm");
+		System.out.println("Choose game type:> ");
+		String gameType = scanner.nextLine();
+		gameTypeChoice(gameType);
+	}
+
+	public static void gameTypeChoice(String gameType) {
+		if (gameType.equals("1")) {
+			System.out.println("User chosen: " + WarGame.class.getName());
+			chosenGameType = GameType.WARGAME;
+			game = new WarGame();
+		} else if (gameType.equals("2")) {
+			System.out.println("User chosen: " + FarmGame.class.getName());
+			chosenGameType = GameType.FARMGAME;
+			game = new FarmGame();
+		}
+	}
+
 }
-
