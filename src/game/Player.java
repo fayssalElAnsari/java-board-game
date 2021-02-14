@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import game.devagrico.Worker;
 import game.util.ActionPlayer;
-import game.util.Tile;
 import game.util.tile.DesertsTile;
 import game.util.tile.ForestsTile;
 import game.util.tile.MountainsTile;

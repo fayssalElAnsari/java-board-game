@@ -1,5 +1,7 @@
 package game.util;
 
+import game.Game;
+import game.GameMain;
 import game.Player;
 import game.Unit;
 import game.devagrico.Worker;
@@ -10,7 +12,7 @@ public abstract class Tile {
 	private final Position position;
 	private final TileProd tileProd;
 	private int resources = 5000;
-	private Worker worker;
+	private Unit unit;
 	private Army army;
 	private Player owner;
 	private boolean isSpawnTile;
@@ -85,7 +87,8 @@ public abstract class Tile {
 	}
 
 	public void setWorker(Unit unit) {
-		this.worker = worker;
+		if(GameMain.)
+		this.worker = unit;
 	}
 
 }

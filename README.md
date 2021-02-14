@@ -4,7 +4,7 @@
 
 - Aya LAKEHAL
 - Mehdi BOUTAB  
-- Fayssal AL ANSARI
+- Fayssal EL ANSARI
 - Zakaria HASSEIN BEY
 
 # Sujet
