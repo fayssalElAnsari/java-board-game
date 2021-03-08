@@ -6,7 +6,7 @@ import game.war.WarGame;
 
 public class GameMain {
 	static Scanner scanner = new Scanner(System.in);
-	static Game game;
+	static Game game;()
 	static GameType chosenGameType;// devrait etre public?
 
 	
