@@ -87,8 +87,8 @@ public abstract class Tile {
 	}
 
 	public void setWorker(Unit unit) {
-		if(GameMain.)
-		this.worker = unit;
+		// if(GameMain.)
+		// this.worker = unit;
 	}
 
 }
