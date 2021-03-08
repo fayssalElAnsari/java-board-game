@@ -13,8 +13,8 @@ public class Map {
 	private String name;
 	private int width;
 	private int height;
-	// TODO: chose a random Tile
 	// TODO: add the condition where all land tiles are connected
+	// TODO: at least two ocean tiles in a map
 
 	/**
 	 * public constructor of the map
@@ -30,11 +30,21 @@ public class Map {
 		tiles = new Tile[width][height];
 		// Class[] possibleClasses = {DesertsTile.class, ForestsTile.class,
 		// MountainsTile.class, PlainsTile.class};
-		Random r = new Random();
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width; i++) {
+				tiles[i][j] = new OceanTile(new Position(i, j));
+			}
+		}
+
+		Random r = new Random();
+		for (int j = 1; j < height-1; j++) {
+			for (int i = 1; i < width-1; i++) {
 				// there should be a better way to do this obviously XD
 				int n = r.nextInt(5);
+				if (getNumberOfAdjacentOceans(tiles[i][j]) == 4){
+					n = r.nextInt(4);
+					// System.out.println("/!\\ found an island inside the island :O");
+				}
 				if (n == 0) {
 					tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
 				} else if (n == 1) {
@@ -46,10 +56,59 @@ public class Map {
 				} else if (n == 4) {
 					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
 				}
+
 			}
 		}
+		
+
+
 	}
 
+	/**
+	 * 
+	 * 	check the tile to the top, left, down, right
+		if three of these tile are ocean then the next random choice shouldn't have ocean in it
+		to check we could increment a number from 0 whenever we find an ocean tile
+		so when the number is equal to 3 the new tile choice pool shouldn't contain ocean tile
+		there are also 4 cases where there could be only 3 adjacent tiles 
+		that is when the current tile is in the edges of the map
+		so when we are on the edges we should start out by one
+		and another 4 cases that is the corners with 2 starting ocean tiles
+		meaning we will assume that everything that isn't showing on the map is an ocean
+		the easiest way to do this is to actually surround the map with ocean tiles like the teacher did
+		for now we will do the EZ way
+
+	 * @param tile the tile to check its neighbours
+	 * @return the number of adjacent ocean tiles
+	 */
+
+	public int getNumberOfAdjacentOceans(Tile tile){
+		int result = 0;
+		int x = tile.getPosition().getXCoordinate();
+		int y = tile.getPosition().getYCoordinate();
+
+		if(tiles[x-1][y] instanceof OceanTile){
+			result++;
+		}
+		if(tiles[x+1][y] instanceof OceanTile){
+			result++;
+		}
+		if(tiles[x][y-1] instanceof OceanTile){
+			result++;
+		}
+		if(tiles[x][y+1] instanceof OceanTile){
+			result++;
+		}
+		// for(int i = x; i < x+3; i=i+2){
+		// 	for(int j = y; j < y+3; j=j+2){
+		// 		if(tiles[x][y] instanceof OceanTile){
+		// 			result++;
+		// 		}
+		// 	}
+		// }
+		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
+		return result;
+	}
 
 	/**
 	 * get a tile using its position in this map only
