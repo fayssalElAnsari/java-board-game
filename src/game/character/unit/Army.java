@@ -12,7 +12,7 @@ public class Army extends Unit {
 
     private Player owner;
 	private Tile tile;
-    private Soldier soldiers[];
+    private int size;
 
     /**
      * public constructor for a worker the worker will start with only 1 gold which
@@ -21,8 +21,9 @@ public class Army extends Unit {
      * 
      * @param owner the new owner of the newly created worker object
      */
-	public Army(Player owner) {
+	public Army(Player owner, int size) {
         super(owner);
+		this.size = size;
 
 
 	}
