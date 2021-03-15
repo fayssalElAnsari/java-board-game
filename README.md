@@ -55,48 +55,91 @@ Choose game type:>
 1
 User chosen: game.WarGame
 (1,1) has 4 ocean tiles.
+
 (2,1) has 3 ocean tiles.
+
 (3,1) has 3 ocean tiles.
+
 (4,1) has 4 ocean tiles.
+
 (5,1) has 3 ocean tiles.
+
 (6,1) has 3 ocean tiles.
+
 (1,2) has 3 ocean tiles.
+
 (2,2) has 2 ocean tiles.
+
 (1,3) has 3 ocean tiles.
+
 (2,3) has 3 ocean tiles.
+
 (3,3) has 3 ocean tiles.
+
 (4,3) has 3 ocean tiles.
+
 (5,3) has 3 ocean tiles.
+
 (6,3) has 3 ocean tiles.
+
 (1,4) has 3 ocean tiles.
+
 (2,4) has 2 ocean tiles.
+
 (1,5) has 3 ocean tiles.
+
 (2,5) has 3 ocean tiles.
+
 (3,5) has 3 ocean tiles.
+
 (4,5) has 4 ocean tiles.
+
 (5,5) has 3 ocean tiles.
+
 (6,5) has 3 ocean tiles.
+
 (1,6) has 3 ocean tiles.
+
 (2,6) has 2 ocean tiles.
+
 ROUND: 1 OF 10
+
 fayssal has 15 gold; and 0 workers.
+
 aya has 15 gold; and 0 workers.
+
 mehdi has 15 gold; and 0 workers.
+
 ziko has 15 gold; and 0 workers.
+
 *===* testMap *===*
-*    0      1      2      3      4      5      6      7      
+
+*    0      1      2      3      4      5      6      7  
+
 0 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+
 1 [O, *] [F, *] [M, *] [O, *] [F, *] [M, *] [D, *] [O, *] 
+
 2 [O, *] [M, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+
 3 [O, *] [P, *] [P, *] [D, *] [M, *] [M, *] [D, *] [O, *] 
-4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+
+4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
+
 5 [O, *] [P, *] [M, *] [O, *] [M, *] [M, *] [F, *] [O, *] 
-6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+
+6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
+
 7 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+
 It's fayssal's turn: 
+
 ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
+
 1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
+
 make your choice :> 1
+
 chose a position :> 1,1 // c'est dans ce niveau où normalement le joeur prend la position dans la cellule (1,1) mais ça ne fonctionne pas pour l'instant : 
 
 ROUND: 1 OF 10
