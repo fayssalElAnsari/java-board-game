@@ -43,11 +43,16 @@ faire presque toutes les classes necessaire pour le jeu
 ### Difficultés restant à résoudre
 pouvoir affichée l'interface graphique (map)
 ## Livrable 4
-
+Dans cette semaie on a pu réaliser les deux condition pour pouvoir créer "Map" qui sont 
+ • le plateau doit comporter au minimum deux tiers de tuiles de type océan 
+ • toutes les tuiles de type montagne, plaine, désert ou forêt doivent au moins avoir une tuile adjacente qui n’est pas
+de type océan.
+On a fait un changement au niveau de packetage .
 ### Atteinte des objectifs
-
+finir la classe Map
 ### Difficultés restant à résoudre
-
+On a eu des diffecultés au niveu de tuiles pour qui'elles doivent au moins avoir une tuile adjacente qui n’est pas
+de type océan.
 # Journal de bord
 
 ## Semaine 1
@@ -57,7 +62,7 @@ On a eu du mal pour comprendre si certaine classes sont necessaire où pas comme
 ## Semaine 3
 Dans l'evolution de faire des nouvelles methodes pour pouvoir affficher le plateau avec les tuiles et les joeurs. 
 ## Semaine 4
-
+danscette semaine on a finit la classe Map pour pouvoir continuer le reste des condtion pour chaque jeux . 
 ## Semaine 5
 
 ## Semaine 6
