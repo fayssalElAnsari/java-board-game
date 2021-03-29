@@ -15,7 +15,6 @@ public abstract class Tile {
 	private Unit unit;
 	private Army army;
 	private Player owner;
-	private boolean isSpawnTile;
 
 	/**
 	 * public constructor for Tile 
