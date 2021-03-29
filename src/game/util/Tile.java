@@ -21,7 +21,7 @@ public abstract class Tile {
 	 * @param position the position of the time in the map
 	 * @param tileProd the type of resource to be produced by the tile
 	 */
-	public Tile(Position position, TileProd tileProd) {
+	public Tile(final Position position, final TileProd tileProd) {
 		this.position = position;
 		this.tileProd = tileProd;
 	}
@@ -48,7 +48,7 @@ public abstract class Tile {
 	 * 
 	 * @param newOwner the newowner of this tile object
 	 */
-	public void setOwner(Player newOwner) {
+	public void setOwner(final Player newOwner) {
 		this.owner = newOwner;
 		this.unit = new Worker(this.owner);
 	}
@@ -60,7 +60,7 @@ public abstract class Tile {
 	 * @return true if the amount available for extraction is bigger than the amount
 	 *         to be extracted, false if the extraction was not succesful
 	 */
-	public boolean loseResources(int loss) {
+	public boolean loseResources(final int loss) {
 		if (resources > loss) {
 			this.resources = this.resources - loss;
 			return true;
@@ -85,7 +85,7 @@ public abstract class Tile {
 		return ((this.owner != null) && (this.unit != null));
 	}
 
-	public void setWorker(Unit unit) {
+	public void setWorker(final Unit unit) {
 		// if(GameMain.)
 		// this.worker = unit;
 	}

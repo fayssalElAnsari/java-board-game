@@ -114,8 +114,6 @@ public abstract class Game {
 		System.out.println(winner.getName() + " with " + winner.getGold() + " points!!");
 	}
 
-	public void startGame() {
-		// will be in wargame or farmgame
-	}
+	public abstract void startGame();
 
 }

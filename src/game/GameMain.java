@@ -2,6 +2,14 @@ package game;
 
 import java.util.Scanner;
 
+//TODO: DIVISER PLAYER EN DEUX CLASSES => aya
+//TODO: AJOUTERR LES TESSTS POUR CHAQUE METHODE POUUR CHAQUE CLASSE => ziko, mehdi
+//TODO: AJOUTERR LE FONCTIONEMENT DE DEPLOYEMENT D'ARMEE SUR LE PLATEUXX => fayssal
+//TODO: LES ACTIONSS PUBLICS ET PRIVEES => aya, fayssal
+//TODO: AJOUTER LEES ACTIONNS APRESS LE DEPLYEMENT => fayssal
+
+//TODO: MODIFIER MAP POUR AFFICHER LES COULEURS => AYA
+
 public class GameMain {
 	static Scanner scanner = new Scanner(System.in);
 	static Game game;
