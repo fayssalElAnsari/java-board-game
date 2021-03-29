@@ -123,7 +123,6 @@ public class Player {
 			u = units[getFirstEmptySlot() - 1];
 			return u;
 		} else {
-			buyUnit();
 			return units[0];
 		}
 	}
@@ -197,42 +196,16 @@ public class Player {
 	}
 
 	/**
-	 * at the beginning of each turn the player needs to pay his workers accordignly
-	 * to what type of tile they are working on
-	 */
-	public void payWorkers() {
-		boolean affordable = true;
-		for (Worker worker : workers) {
-			if (worker.getTile() instanceof MountainsTile) {
-				affordable = payGold(5);
-				worker.getPayed(5);
-			} else if (worker.getTile() instanceof DesertsTile) {
-				payGold(3);
-				worker.getPayed(3);
-			} else if (worker.getTile() instanceof ForestsTile) {
-				payGold(1);
-				worker.getPayed();
-			} else if (worker.getTile() instanceof PlainsTile) {
-				payGold(1);
-				worker.getPayed();
-			}
-			if (!affordable) {
-				worker = null;
-			}
-		}
-	}
-
-	/**
 	 * prints out general information about the workers of this player the index:
 	 * the position, what the worker is workign in, how many resources accumulted so
 	 * far
 	 */
-	public void printOutWorkersList() {
+	public void printOutUnitsList() {
 		System.out.println("Available workers: ");
-		for (int i = 0; i < workers.length; i++) {
-			if (workers[i] != null) {
-				System.out.print(i + ": in " + workers[i].getTile().getPosition().toString() + " working "
-						+ workers[i].getTile().getTileProd() + " has " + workers[i].getResources() + "; ");
+		for (int i = 0; i < units.length; i++) {
+			if (units[i] != null) {
+				System.out.print(i + ": in " + units[i].getTile().getPosition().toString() + " working "
+						+ units[i].getTile().getTileProd() + " has " + units[i].getResources() + "; ");
 			} else {
 				System.out.print(i + ": NONE! ");
 			}
@@ -249,8 +222,8 @@ public class Player {
 	 */
 	public int getNumberOfWorkers() {
 		int result = 0;
-		for (int i = 0; i < workers.length; i++) {
-			if (workers[i] != null) {
+		for (int i = 0; i < units.length; i++) {
+			if (units[i] != null) {
 				result += 1;
 				break;
 			}
