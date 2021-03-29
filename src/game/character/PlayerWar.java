@@ -3,6 +3,7 @@ package game.character;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import game.character.unit.Army;
 import game.character.unit.Unit;
 import game.character.unit.Worker;
 import game.util.ActionPlayer;
@@ -12,10 +13,9 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 import game.util.tile.TileProd;
 
-public class PlayerWar {
+public class PlayerWar extends Player{
 	private String name;
 	private Unit[] units;
-	private Worker[] workers;
 	private int gold;
 	private ActionPlayer lastAction;
 	private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
@@ -27,11 +27,11 @@ public class PlayerWar {
 	 * the game each player will have an inventory having 0 of each resource kind
 	 * @param name the name to be given to this player
 	 */
-	public Player(String name) {
-		this.name = name;
-		this.gold = 15;
-		this.lastAction = ActionPlayer.NOTHING;
-		workers = new Worker[6];
+	public PlayerWar(String name) {
+        // call the constructor of Player
+        super();
+        // create the units as some armies
+		units = new Army[6];
 		for (TileProd resource : TileProd.values()) {
 			inventory.put(resource, 0);
 		}

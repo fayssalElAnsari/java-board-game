@@ -12,7 +12,10 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 import game.util.tile.TileProd;
 
-public class Player {
+public class PlayerFarm {
+
+
+
 	private String name;
 	private Unit[] units;
 	private int gold;
