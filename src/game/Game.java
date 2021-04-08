@@ -38,34 +38,10 @@ public abstract class Game {
 
 	/**
 	 * create the players objects and populate the players array with them
+	 * this method isn't defined here because we need to make for every game type 
+	 * the appropriate player type
 	 */
-	public void createPlayers() {
-		if (debugMode){
-			players = new Player[4];
-			// setting names
-			players[0] = new Player("fayssal");
-			players[1] = new Player("aya");
-			players[2] = new Player("mehdi");
-			players[3] = new Player("ziko");
-		} else {
-			System.out.println("Possible number of players between 2 and 4");
-			System.out.println("Chose number of players :>");
-			int nbPlayers = Integer.parseInt(scanner.nextLine());
-			if (nbPlayers >= 2 && nbPlayers <= 4) {
-				players = new Player[nbPlayers];
-				// will make this using user input later
-				// setting names
-				String playerName;
-				for (int i = 0; i < nbPlayers; i++) {
-					System.out.println("Enter name of player nb " + i + 1 + " :> ");
-					playerName = scanner.nextLine();
-					players[i] = new Player(playerName);
-				}
-			} else {
-				createPlayers();
-			}
-		}
-	}
+	public abstract void createPlayers(); 
 
 
 	public Map getMap() {

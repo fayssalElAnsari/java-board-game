@@ -12,9 +12,15 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 import game.util.tile.TileProd;
 
-public class PlayerFarm {
+public class PlayerFarm extends Player {
 
 
+
+	public PlayerFarm(String name) {
+		super(name);
+		//TODO Auto-generated constructor stub
+		
+	}
 
 	private String name;
 	private Unit[] units;

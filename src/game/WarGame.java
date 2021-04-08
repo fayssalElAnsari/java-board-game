@@ -1,5 +1,6 @@
 package game;
 
+import game.character.PlayerWar;
 import game.util.ActionPlayer;
 import game.util.Position;
 
@@ -9,6 +10,37 @@ public class WarGame extends Game {
 			super();
 			// TODO Auto-generated constructor stub
 			
+	}
+
+	/**
+	 * create the players objects and populate the players array with them
+	 */
+	public void createPlayers() {
+		if (debugMode){
+			players = new PlayerWar[4];
+			// setting names
+			players[0] = new PlayerWar("fayssal");
+			players[1] = new PlayerWar("aya");
+			players[2] = new PlayerWar("mehdi");
+			players[3] = new PlayerWar("ziko");
+		} else {
+			System.out.println("Possible number of players between 2 and 4");
+			System.out.println("Chose number of players :>");
+			int nbPlayers = Integer.parseInt(scanner.nextLine());
+			if (nbPlayers >= 2 && nbPlayers <= 4) {
+				players = new PlayerWar[nbPlayers];
+				// will make this using user input later
+				// setting names
+				String playerName;
+				for (int i = 0; i < nbPlayers; i++) {
+					System.out.println("Enter name of player nb " + i + 1 + " :> ");
+					playerName = scanner.nextLine();
+					players[i] = new PlayerWar(playerName);
+				}
+			} else {
+				createPlayers();
+			}
+		}
 	}
 
 	public void startGame() {
@@ -66,7 +98,7 @@ public class WarGame extends Game {
 	public void showStats() {
 		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i].getName() + " has " + players[i].getGold() + " gold; and "
-					+ players[i].getNumberOfWorkers() + " soldiers.");
+					+ players[i].getSoldiers() + " soldiers.");
 		}
 	}
 

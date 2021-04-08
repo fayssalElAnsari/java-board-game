@@ -1,7 +1,6 @@
 package game.character.unit;
 
 import game.character.Player;
-import game.character.unit.Unit;
 import game.util.Tile;
 import game.util.tile.DesertsTile;
 import game.util.tile.ForestsTile;

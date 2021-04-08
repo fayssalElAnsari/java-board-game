@@ -12,23 +12,24 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 import game.util.tile.TileProd;
 
-public class Player {
-	private String name;
-	private Unit[] units;
-	private int gold;
-	private ActionPlayer lastAction;
-	private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
+public abstract class Player {
+	protected String name;
+	protected Unit[] units;
+	protected int soldiers;
+	protected int gold;
+	protected ActionPlayer lastAction;
+	protected HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
 
 	/**
 	 * public constructor for the Player class each player starts off the game with
-	 * only 15 gold pieces the last action performed by this player is nothing (or
+	 * 0 gold pieces the last action performed by this player is nothing (or
 	 * skip) each player will have 6 empty worker slots that will be filled later in
 	 * the game each player will have an inventory having 0 of each resource kind
 	 * @param name the name to be given to this player
 	 */
 	public Player(String name) {
 		this.name = name;
-		this.gold = 15;
+		this.gold = 0;
 		this.lastAction = ActionPlayer.NOTHING;
 		// if wargame create army else creaate workers
 		for (TileProd resource : TileProd.values()) {
@@ -104,9 +105,11 @@ public class Player {
 	 * need to do at the end of each turn
 	 */
 	public void nextTurn() {
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				units[i].nextTurn();
+		if(units != null){
+			for (int i = 0; i < units.length; i++) {
+				if (units[i] != null) {
+					units[i].nextTurn();
+				}
 			}
 		}
 	}
@@ -220,8 +223,9 @@ public class Player {
 	 * 
 	 * @return the number of initiated workers in the workers array of this player
 	 */
-	public int getNumberOfWorkers() {
+	public int getNumberOfUnits() {
 		int result = 0;
+
 		for (int i = 0; i < units.length; i++) {
 			if (units[i] != null) {
 				result += 1;
@@ -279,5 +283,10 @@ public class Player {
 	public int getGold() {
 		return this.gold;
 	}
+
+	public int getSoldiers() {
+		return this.soldiers;
+	}
+
 
 }
