@@ -49,141 +49,150 @@ Dans cette semaie on a pu réaliser les deux condition pour pouvoir créer "Map"
 de type océan.
 On a fait un changement au niveau de packetage .
 Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
-```
-1: war; 2: farm
-Choose game type:> 
-1
-User chosen: game.WarGame
-(1,1) has 4 ocean tiles.
 
-(2,1) has 3 ocean tiles.
+<details>
+  <summary>
+    output du terminal:
+  </summary>
+  ```
+    1: war; 2: farm
+    Choose game type:> 
+    1
+    User chosen: game.WarGame
+    (1,1) has 4 ocean tiles.
 
-(3,1) has 3 ocean tiles.
+    (2,1) has 3 ocean tiles.
 
-(4,1) has 4 ocean tiles.
+    (3,1) has 3 ocean tiles.
 
-(5,1) has 3 ocean tiles.
+    (4,1) has 4 ocean tiles.
 
-(6,1) has 3 ocean tiles.
+    (5,1) has 3 ocean tiles.
 
-(1,2) has 3 ocean tiles.
+    (6,1) has 3 ocean tiles.
 
-(2,2) has 2 ocean tiles.
+    (1,2) has 3 ocean tiles.
 
-(1,3) has 3 ocean tiles.
+    (2,2) has 2 ocean tiles.
 
-(2,3) has 3 ocean tiles.
+    (1,3) has 3 ocean tiles.
 
-(3,3) has 3 ocean tiles.
+    (2,3) has 3 ocean tiles.
 
-(4,3) has 3 ocean tiles.
+    (3,3) has 3 ocean tiles.
 
-(5,3) has 3 ocean tiles.
+    (4,3) has 3 ocean tiles.
 
-(6,3) has 3 ocean tiles.
+    (5,3) has 3 ocean tiles.
 
-(1,4) has 3 ocean tiles.
+    (6,3) has 3 ocean tiles.
 
-(2,4) has 2 ocean tiles.
+    (1,4) has 3 ocean tiles.
 
-(1,5) has 3 ocean tiles.
+    (2,4) has 2 ocean tiles.
 
-(2,5) has 3 ocean tiles.
+    (1,5) has 3 ocean tiles.
 
-(3,5) has 3 ocean tiles.
+    (2,5) has 3 ocean tiles.
 
-(4,5) has 4 ocean tiles.
+    (3,5) has 3 ocean tiles.
 
-(5,5) has 3 ocean tiles.
+    (4,5) has 4 ocean tiles.
 
-(6,5) has 3 ocean tiles.
+    (5,5) has 3 ocean tiles.
 
-(1,6) has 3 ocean tiles.
+    (6,5) has 3 ocean tiles.
 
-(2,6) has 2 ocean tiles.
+    (1,6) has 3 ocean tiles.
 
-ROUND: 1 OF 10
+    (2,6) has 2 ocean tiles.
 
-fayssal has 15 gold; and 0 workers.
+    ROUND: 1 OF 10
 
-aya has 15 gold; and 0 workers.
+    fayssal has 15 gold; and 0 workers.
 
-mehdi has 15 gold; and 0 workers.
+    aya has 15 gold; and 0 workers.
 
-ziko has 15 gold; and 0 workers.
+    mehdi has 15 gold; and 0 workers.
 
-*===* testMap *===*
+    ziko has 15 gold; and 0 workers.
 
-    0    1    2    3    4    5    6    7  
+    *===* testMap *===*
 
-0 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+        0    1    2    3    4    5    6    7  
 
-1 [O, *] [F, *] [M, *] [O, *] [F, *] [M, *] [D, *] [O, *] 
+    0 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-2 [O, *] [M, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    1 [O, *] [F, *] [M, *] [O, *] [F, *] [M, *] [D, *] [O, *] 
 
-3 [O, *] [P, *] [P, *] [D, *] [M, *] [M, *] [D, *] [O, *] 
+    2 [O, *] [M, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
+    3 [O, *] [P, *] [P, *] [D, *] [M, *] [M, *] [D, *] [O, *] 
 
-5 [O, *] [P, *] [M, *] [O, *] [M, *] [M, *] [F, *] [O, *] 
+    4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
 
-6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
+    5 [O, *] [P, *] [M, *] [O, *] [M, *] [M, *] [F, *] [O, *] 
 
-7 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *]
 
-It's fayssal's turn: 
+    7 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
+    It's fayssal's turn: 
 
-1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
+    ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
 
-make your choice :> 1
+    1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
 
-chose a position :> 1,1 // c'est dans ce niveau où normalement le joeur prend la position dans la cellule (1,1) mais ça ne fonctionne pas pour l'instant : 
+    make your choice :> 1
 
-ROUND: 1 OF 10
+    chose a position :> 1,1 // c'est dans ce niveau où normalement le joeur prend la position dans la cellule (1,1) mais ça ne fonctionne pas pour l'instant : 
 
-fayssal has 15 gold; and 0 workers.
+    ROUND: 1 OF 10
 
-aya has 15 gold; and 0 workers.
+    fayssal has 15 gold; and 0 workers.
 
-mehdi has 15 gold; and 0 workers.
+    aya has 15 gold; and 0 workers.
 
-ziko has 15 gold; and 0 workers.
+    mehdi has 15 gold; and 0 workers.
 
-*===* testMap *===*
+    ziko has 15 gold; and 0 workers.
 
-    0    1    2    3    4    5    6    7  
+    *===* testMap *===*
 
-0 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+        0    1    2    3    4    5    6    7  
 
-1 [O, *] [F, *] [M, *] [O, *] [F, *] [M, *] [D, *] [O, *] 
+    0 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-2 [O, *] [M, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    1 [O, *] [F, *] [M, *] [O, *] [F, *] [M, *] [D, *] [O, *] 
 
-3 [O, *] [P, *] [P, *] [D, *] [M, *] [M, *] [D, *] [O, *] 
+    2 [O, *] [M, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    3 [O, *] [P, *] [P, *] [D, *] [M, *] [M, *] [D, *] [O, *] 
 
-5 [O, *] [P, *] [M, *] [O, *] [M, *] [M, *] [F, *] [O, *] 
+    4 [O, *] [D, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    5 [O, *] [P, *] [M, *] [O, *] [M, *] [M, *] [F, *] [O, *] 
 
-7 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
+    6 [O, *] [F, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-It's aya's turn: 
+    7 [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] [O, *] 
 
-ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
+    It's aya's turn: 
 
-1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
-```
+    ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
+
+    1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
+    ```
+</details>
+
+
 ## Livrable 7
 * les methodes unecessaires ont etes supprimes
 * les methodes repetes entre les superclass et les subclasses ont etes suprimme
 * utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
 * division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
-* le programme maintenant nous donne comme output:
+* le programme maintenant nous donne comme output:  
+
   ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
   
 
