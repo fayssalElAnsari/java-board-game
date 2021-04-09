@@ -13,6 +13,7 @@ public class Map {
 	private String name;
 	private int width;
 	private int height;
+	private boolean colorEnabled = true;
 
 	/**
 	 * public constructor of the map
@@ -172,19 +173,59 @@ public class Map {
 			System.out.print(i + "      ");
 		}
 		System.out.println();
-		// print the content of the map
-		// [tileType, owner first letter, numberOfWorkers]
-		char tileSymbol;
-		char ownerSymbol;
-		for (int j = 0; j < height; j++) {
-			System.out.print(j + " ");
-			for (int i = 0; i < width; i++) {
-				tileSymbol = getTileTypeSymbol(tiles[i][j]);
-				ownerSymbol = getOwnerSymbol(tiles[i][j]);
-				System.out.print("[" + tileSymbol + ", " + ownerSymbol + "] ");
+		if(colorEnabled){
+			// print the content of the map
+			// [tileType, owner first letter, numberOfWorkers]
+			char tileSymbol;
+			char ownerSymbol;
+			String colorCodeFg = "";
+			String colorCodeBg = "";
+			for (int j = 0; j < height; j++) {
+				System.out.print(j + " ");
+				for (int i = 0; i < width; i++) {
+					tileSymbol = getTileTypeSymbol(tiles[i][j]);
+					ownerSymbol = getOwnerSymbol(tiles[i][j]);
+					// sets the color symbol for every tile type
+					if(tiles[i][j] instanceof OceanTile){
+						colorCodeFg = "\033[37m";
+						colorCodeBg = "\033[44m";
+					}
+					if(tiles[i][j] instanceof DesertsTile){
+						colorCodeFg = "\033[30m";
+						colorCodeBg = "\033[103m";
+					}
+					if(tiles[i][j] instanceof ForestsTile){
+						colorCodeFg = "\033[97m";
+						colorCodeBg = "\033[102m";
+					}
+					if(tiles[i][j] instanceof MountainsTile){
+						colorCodeFg = "\033[97m";
+						colorCodeBg = "\033[100m";
+					}
+					if(tiles[i][j] instanceof PlainsTile){
+						colorCodeFg = "\033[30m";
+						colorCodeBg = "\033[107m";
+					}
+					System.out.print(colorCodeBg+colorCodeFg +"[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");
+				}
+				System.out.println();
 			}
-			System.out.println();
+		} else {
+			// print the content of the map
+			// [tileType, owner first letter, numberOfWorkers]
+			char tileSymbol;
+			char ownerSymbol;
+			for (int j = 0; j < height; j++) {
+				System.out.print(j + " ");
+				for (int i = 0; i < width; i++) {
+					tileSymbol = getTileTypeSymbol(tiles[i][j]);
+					ownerSymbol = getOwnerSymbol(tiles[i][j]);
+					System.out.print("[" + tileSymbol + ", " + ownerSymbol + "] ");
+				}
+				System.out.println();
+			}
 		}
+		
 	}
 
 	/**
