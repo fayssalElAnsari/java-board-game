@@ -188,10 +188,6 @@ ROCK: 0; CORN: 0; SAND: 0; WOOD: 0;
   
 
 ## Livrable 8
-* todo: actions des characters
-* todo: les tests de quelques classes
-* todo: ajoute de couleurs a la class map pour chaque systeme d'exploitation.
-  
 
 
 
@@ -220,7 +216,13 @@ danscette semaine on a finit la classe Map pour pouvoir continuer le reste des c
 * correction du design des classes utilises dans le projet
   
 ## Semaine 8
+* todo: actions des characters
+* todo: les tests de quelques classes
+* todo: ajoute de couleurs a la class map pour chaque systeme d'exploitation.
+* test de map qui s'affiche maintenant avec des couleurs:
+  ![map](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/map_with_color.png)
 
+    * des fois les couleurs ne marchent pas a cause du systeme d'exploitation peut etre ou du type de terminal utilise.
 ## Semaine 9
 
 ## Semaine 10
