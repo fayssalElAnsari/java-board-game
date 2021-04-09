@@ -7,6 +7,7 @@ public class MountainsTile extends Tile {
 
 	public MountainsTile(Position position) {
 		super(position, TileProd.ROCK);
+		maxNbSoldiers = 3;
 	}
 
 }

@@ -26,7 +26,7 @@ public abstract class Game {
 	 * public constructor for the game class
 	 */
 	public Game() {
-		map = new Map("testMap", 8, 8);
+		map = new Map("testMap", 16, 16);
 		createPlayers();
 		// chose the first player in a random way
 		Random r = new Random();
@@ -35,12 +35,11 @@ public abstract class Game {
 	}
 
 	/**
-	 * create the players objects and populate the players array with them
-	 * this method isn't defined here because we need to make for every game type 
-	 * the appropriate player type
+	 * create the players objects and populate the players array with them this
+	 * method isn't defined here because we need to make for every game type the
+	 * appropriate player type
 	 */
-	public abstract void createPlayers(); 
-
+	public abstract void createPlayers();
 
 	public Map getMap() {
 		return this.map;

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import game.character.unit.Unit;
 import game.character.unit.Worker;
 import game.util.ActionPlayer;
+import game.util.Tile;
 import game.util.tile.DesertsTile;
 import game.util.tile.ForestsTile;
 import game.util.tile.MountainsTile;
@@ -14,12 +15,10 @@ import game.util.tile.TileProd;
 
 public class PlayerFarm extends Player {
 
-
-
 	public PlayerFarm(String name) {
 		super(name);
-		//TODO Auto-generated constructor stub
-		
+		// TODO Auto-generated constructor stub
+
 	}
 
 	private String name;
@@ -135,6 +134,11 @@ public class PlayerFarm extends Player {
 			buyUnit();
 			return units[0];
 		}
+	}
+
+	private void buyUnit() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -314,6 +318,12 @@ public class PlayerFarm extends Player {
 	 */
 	public int getGold() {
 		return this.gold;
+	}
+
+	@Override
+	public boolean createArmy(int armySize, Tile tile) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

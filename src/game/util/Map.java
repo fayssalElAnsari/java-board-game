@@ -18,8 +18,8 @@ public class Map {
 	/**
 	 * public constructor of the map
 	 * 
-	 * @param name the name of the map
-	 * @param width the width of the map
+	 * @param name   the name of the map
+	 * @param width  the width of the map
 	 * @param height the height of the map
 	 */
 	public Map(String name, int width, int height) {
@@ -36,17 +36,17 @@ public class Map {
 		}
 
 		Random r = new Random();
-		for (int j = 1; j < height-1; j++) {
-			for (int i = 1; i < width-1; i++) {
+		for (int j = 1; j < height - 1; j++) {
+			for (int i = 1; i < width - 1; i++) {
 				// there should be a better way to do this obviously XD
 				int n = r.nextInt(5);
 				int nbOfOceans = getNumberOfAdjacentOceans(tiles[i][j]);
-				if (nbOfOceans < 3 ){
+				if (nbOfOceans < 3) {
 					tiles[i][j] = new OceanTile(new Position(i, j));
 					break;
 				}
-				
-				if (nbOfOceans == 4){
+
+				if (nbOfOceans == 4) {
 					n = r.nextInt(4);
 					// System.out.println("/!\\ found an island inside the island :O");
 				}
@@ -62,55 +62,51 @@ public class Map {
 					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
 				}
 
-
 			}
 		}
-		
-
 
 	}
 
 	/**
 	 * 
-	 * 	check the tile to the top, left, down, right
-		if three of these tile are ocean then the next random choice shouldn't have ocean in it
-		to check we could increment a number from 0 whenever we find an ocean tile
-		so when the number is equal to 3 the new tile choice pool shouldn't contain ocean tile
-		there are also 4 cases where there could be only 3 adjacent tiles 
-		that is when the current tile is in the edges of the map
-		so when we are on the edges we should start out by one
-		and another 4 cases that is the corners with 2 starting ocean tiles
-		meaning we will assume that everything that isn't showing on the map is an ocean
-		the easiest way to do this is to actually surround the map with ocean tiles like the teacher did
-		for now we will do the EZ way
-
+	 * check the tile to the top, left, down, right if three of these tile are ocean
+	 * then the next random choice shouldn't have ocean in it to check we could
+	 * increment a number from 0 whenever we find an ocean tile so when the number
+	 * is equal to 3 the new tile choice pool shouldn't contain ocean tile there are
+	 * also 4 cases where there could be only 3 adjacent tiles that is when the
+	 * current tile is in the edges of the map so when we are on the edges we should
+	 * start out by one and another 4 cases that is the corners with 2 starting
+	 * ocean tiles meaning we will assume that everything that isn't showing on the
+	 * map is an ocean the easiest way to do this is to actually surround the map
+	 * with ocean tiles like the teacher did for now we will do the EZ way
+	 * 
 	 * @param tile the tile to check its neighbours
 	 * @return the number of adjacent ocean tiles
 	 */
 
-	public int getNumberOfAdjacentOceans(Tile tile){
+	public int getNumberOfAdjacentOceans(Tile tile) {
 		int result = 0;
 		int x = tile.getPosition().getXCoordinate();
 		int y = tile.getPosition().getYCoordinate();
 
-		if(tiles[x-1][y] instanceof OceanTile){
+		if (tiles[x - 1][y] instanceof OceanTile) {
 			result++;
 		}
-		if(tiles[x+1][y] instanceof OceanTile){
+		if (tiles[x + 1][y] instanceof OceanTile) {
 			result++;
 		}
-		if(tiles[x][y-1] instanceof OceanTile){
+		if (tiles[x][y - 1] instanceof OceanTile) {
 			result++;
 		}
-		if(tiles[x][y+1] instanceof OceanTile){
+		if (tiles[x][y + 1] instanceof OceanTile) {
 			result++;
 		}
 		// for(int i = x; i < x+3; i=i+2){
-		// 	for(int j = y; j < y+3; j=j+2){
-		// 		if(tiles[x][y] instanceof OceanTile){
-		// 			result++;
-		// 		}
-		// 	}
+		// for(int j = y; j < y+3; j=j+2){
+		// if(tiles[x][y] instanceof OceanTile){
+		// result++;
+		// }
+		// }
 		// }
 		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
 		return result;
@@ -170,10 +166,10 @@ public class Map {
 		System.out.println("*===* " + this.name + " *===*");
 		System.out.print("*    ");
 		for (int i = 0; i < width; i++) {
-			System.out.print(i + "      ");
+			System.out.print(i + "     ");
 		}
 		System.out.println();
-		if(colorEnabled){
+		if (colorEnabled) {
 			// print the content of the map
 			// [tileType, owner first letter, numberOfWorkers]
 			char tileSymbol;
@@ -186,27 +182,27 @@ public class Map {
 					tileSymbol = getTileTypeSymbol(tiles[i][j]);
 					ownerSymbol = getOwnerSymbol(tiles[i][j]);
 					// sets the color symbol for every tile type
-					if(tiles[i][j] instanceof OceanTile){
+					if (tiles[i][j] instanceof OceanTile) {
 						colorCodeFg = "\033[37m";
 						colorCodeBg = "\033[44m";
 					}
-					if(tiles[i][j] instanceof DesertsTile){
+					if (tiles[i][j] instanceof DesertsTile) {
 						colorCodeFg = "\033[30m";
 						colorCodeBg = "\033[103m";
 					}
-					if(tiles[i][j] instanceof ForestsTile){
+					if (tiles[i][j] instanceof ForestsTile) {
 						colorCodeFg = "\033[97m";
 						colorCodeBg = "\033[102m";
 					}
-					if(tiles[i][j] instanceof MountainsTile){
+					if (tiles[i][j] instanceof MountainsTile) {
 						colorCodeFg = "\033[97m";
 						colorCodeBg = "\033[100m";
 					}
-					if(tiles[i][j] instanceof PlainsTile){
+					if (tiles[i][j] instanceof PlainsTile) {
 						colorCodeFg = "\033[30m";
 						colorCodeBg = "\033[107m";
 					}
-					System.out.print(colorCodeBg+colorCodeFg +"[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");
+					System.out.print(colorCodeBg + colorCodeFg + "[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");
 				}
 				System.out.println();
 			}
@@ -225,7 +221,7 @@ public class Map {
 				System.out.println();
 			}
 		}
-		
+
 	}
 
 	/**
@@ -245,5 +241,32 @@ public class Map {
 	public int getWidth() {
 		return this.width;
 	}
+
+	/**
+	 * this method creates a valid regex to evaluate the validity of a user input
+	 * the coordinates chosen by the user should be valid; meaning the tile chosen
+	 * should actually exist on this map object and not be null this is long from
+	 * being a perfect regex generator for a coordinate system but it's perfectly
+	 * functional for a (99,99) coordinate system
+	 * 
+	 * @return the valid regex for this map object tiles positions
+	 */
+//	public String createValidCoordinateRegex() {
+//		String regex = "";
+//
+//		int hNbRep, hFirstLimit, hSecondLimit;
+//		int wNbRep, wFirstLimit, wSecondLimit;
+//
+//		hSecondLimit = (this.getHeight() - 1) / 10;
+//		hFirstLimit = (this.getHeight() - 1) % 10;
+//
+//		wSecondLimit = (this.getWidth() - 1) / 10;
+//		wFirstLimit = (this.getWidth() - 1) % 10;
+//
+//		regex = "^[0-" + hSecondLimit + "]{0," + hSecondLimit + "}[0-" + hFirstLimit + "],[0-" + wSecondLimit + "]{0,"
+//				+ wSecondLimit + "}[0-" + wFirstLimit + "]$";
+//		System.out.println(regex);
+//		return regex;
+//	}
 
 }

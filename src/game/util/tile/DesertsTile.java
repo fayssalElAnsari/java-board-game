@@ -7,6 +7,7 @@ public class DesertsTile extends Tile {
 
 	public DesertsTile(Position position) {
 		super(position, TileProd.SAND);
+		maxNbSoldiers = 3;
 	}
 
 }

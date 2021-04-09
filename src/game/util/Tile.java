@@ -10,9 +10,19 @@ public abstract class Tile {
 	private int resources = 5000;
 	private Unit unit;
 	private Player owner;
+	protected int maxNbSoldiers = 5;
+
+	public int getMaxNbSoldiers() {
+		return maxNbSoldiers;
+	}
+
+	public void setMaxNbSoldiers(int maxNbSoldiers) {
+		this.maxNbSoldiers = maxNbSoldiers;
+	}
 
 	/**
-	 * public constructor for Tile 
+	 * public constructor for Tile
+	 * 
 	 * @param position the position of the time in the map
 	 * @param tileProd the type of resource to be produced by the tile
 	 */
@@ -23,6 +33,7 @@ public abstract class Tile {
 
 	/**
 	 * gets the position of this tile
+	 * 
 	 * @return the exact position of this tile
 	 */
 	public Position getPosition() {
@@ -66,6 +77,7 @@ public abstract class Tile {
 
 	/**
 	 * give the tile production resource type
+	 * 
 	 * @return the tile production type
 	 */
 	public TileProd getTileProd() {
@@ -74,6 +86,7 @@ public abstract class Tile {
 
 	/**
 	 * checks if the current tile has an owner and a unit
+	 * 
 	 * @return
 	 */
 	public boolean checkIfEmpty() {

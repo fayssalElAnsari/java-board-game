@@ -12,6 +12,16 @@ public class FarmGame extends Game {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void createPlayers() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void startGame() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
-
-
