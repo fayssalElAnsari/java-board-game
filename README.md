@@ -54,7 +54,8 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
   <summary>
     output du terminal:
   </summary>
-  ```
+  ```bash
+
     1: war; 2: farm
     Choose game type:> 
     1
@@ -191,8 +192,7 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 * les methodes repetes entre les superclass et les subclasses ont etes suprimme
 * utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
 * division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
-* le programme maintenant nous donne comme output:  
-
+* le programme maintenant nous donne comme output: <br /> 
   ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
   
 
