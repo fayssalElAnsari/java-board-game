@@ -66,15 +66,20 @@ public class WarGame extends Game {
 		if (line.equals("1")) {
 			activePlayer.setLastAction(ActionPlayer.DEPLOY);
 			/**
-			 * should check if player has some workers already if not he should buy if he
-			 * does have wokers already he shoul chose which worker to move and where to
+			 * should check if player has some units left if not he should buy if he
+			 * does have wokers already he should chose which worker to move and where to
 			 * move him to if the move is successful it's the end of the player's turn if
 			 * it's not succesful he has to chose a worker again...
 			 */
 			System.out.print("chose a position :> ");
 			String position = scanner.nextLine();
 			Position newPos = new Position(Integer.parseInt(position.split(",")[0]),
-					Integer.parseInt(position.split(",")[1]));
+				Integer.parseInt(position.split(",")[1]));
+
+			System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; chose army size :> ");
+			int armySize = Integer.parseInt(scanner.nextLine());
+			activePlayer.createArmy(armySize, this.getMap().findTileByPosition(newPos));
+			
 		} else if (line.equals("2")) {
 			activePlayer.setLastAction(ActionPlayer.EXCHANGE);
 			// String choiceOf3 = scanner.nextLine();

@@ -1,11 +1,7 @@
 package game.util;
 
-import game.Game;
-import game.GameMain;
 import game.character.Player;
 import game.character.unit.Unit;
-import game.character.unit.Army;
-import game.character.unit.Worker;
 import game.util.tile.TileProd;
 
 public abstract class Tile {
@@ -13,7 +9,6 @@ public abstract class Tile {
 	private final TileProd tileProd;
 	private int resources = 5000;
 	private Unit unit;
-	private Army army;
 	private Player owner;
 
 	/**
@@ -48,9 +43,9 @@ public abstract class Tile {
 	 * 
 	 * @param newOwner the newowner of this tile object
 	 */
-	public void setOwner(final Player newOwner) {
+	public void setOwner(final Player newOwner, Tile newTile) {
 		this.owner = newOwner;
-		this.unit = new Worker(this.owner);
+		// this.unit = new Unit(this.owner, newTile);
 	}
 
 	/**
@@ -85,9 +80,8 @@ public abstract class Tile {
 		return ((this.owner != null) && (this.unit != null));
 	}
 
-	public void setWorker(final Unit unit) {
-		// if(GameMain.)
-		// this.worker = unit;
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 
 }

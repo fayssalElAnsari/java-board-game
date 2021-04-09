@@ -2,14 +2,9 @@ package game.character;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-
 import game.character.unit.Unit;
-import game.character.unit.Worker;
 import game.util.ActionPlayer;
-import game.util.tile.DesertsTile;
-import game.util.tile.ForestsTile;
-import game.util.tile.MountainsTile;
-import game.util.tile.PlainsTile;
+import game.util.Tile;
 import game.util.tile.TileProd;
 
 public abstract class Player {
@@ -30,6 +25,7 @@ public abstract class Player {
 	public Player(String name) {
 		this.name = name;
 		this.gold = 0;
+		this.units = new Unit[40];// i think it would be simpler to just use a list instead could do it later idk
 		this.lastAction = ActionPlayer.NOTHING;
 		// if wargame create army else creaate workers
 		for (TileProd resource : TileProd.values()) {
@@ -284,9 +280,16 @@ public abstract class Player {
 		return this.gold;
 	}
 
+	/**
+	 * each player could have a predefined number of soldiers 
+	 * this method get that that number (only used by PlayerWar for the moment)
+	 * @return int the number of soldiers of this player
+	 */
 	public int getSoldiers() {
 		return this.soldiers;
 	}
+
+    public abstract boolean createArmy(int armySize, Tile tile);
 
 
 }

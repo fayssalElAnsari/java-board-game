@@ -4,9 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import game.character.Player;
-import game.util.ActionPlayer;
 import game.util.Map;
-import game.util.Position;
 
 public abstract class Game {
 	// private static final int winPoints = 1;

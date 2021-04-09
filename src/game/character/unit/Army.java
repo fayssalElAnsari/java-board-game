@@ -8,9 +8,6 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 
 public class Army extends Unit {
-
-    private Player owner;
-	private Tile tile;
     private int size;
 
     /**
@@ -20,17 +17,16 @@ public class Army extends Unit {
      * 
      * @param owner the new owner of the newly created worker object
      */
-	public Army(Player owner, int size) {
-        super(owner);
+	public Army(Player owner, Tile newTile, int size) {
+        super(owner, newTile);
 		this.size = size;
-
 
 	}
 
 	public boolean putOnTile(Tile newTile) {
-		if (newTile.getOwner() == this.owner || newTile.getOwner() == null) {
+		if (newTile.getOwner() == null) {
 			this.tile = newTile;
-			this.tile.setOwner(this.owner);
+			this.tile.setOwner(this.owner, newTile);
 			return true;
 		} else {
 			System.out.println("/!\\ Tile already has another owner :(");

@@ -8,11 +8,10 @@ import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 
 public abstract class Unit {
-
-    private Player owner;
-	private int gold = 0;
-	private Tile tile;
-	private int resources = 0;
+    protected Player owner;
+	protected int gold = 0;
+	protected Tile tile;
+	protected int resources = 0;
 
 	/**
 	 * public constructor for a worker the worker will start with only 1 gold which
@@ -21,17 +20,20 @@ public abstract class Unit {
 	 * 
 	 * @param owner the new owner of the newly created worker object
 	 */
-	public Unit(Player owner) {
+	public Unit(Player owner, Tile newTile) {
 		this.owner = owner;
+		this.putOnTile(newTile);
 		this.getPayed();
-		this.tile.setWorker(this);
+		this.tile.setUnit(this);
 	}
 
 	public boolean putOnTile(Tile newTile) {
-		if (newTile.getOwner() == this.owner || newTile.getOwner() == null) {
+		if ( newTile.getOwner() == null) {
 			this.tile = newTile;
-			this.tile.setOwner(this.owner);
+			this.tile.setOwner(this.owner, newTile);
 			return true;
+		} else if (newTile.getOwner() == this.owner){
+			System.out.println("/!\\ You already own this tile :)");
 		} else {
 			System.out.println("/!\\ Tile already has another owner :(");
 		}
