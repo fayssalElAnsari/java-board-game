@@ -49,7 +49,7 @@ Dans cette semaie on a pu réaliser les deux condition pour pouvoir créer "Map"
 de type océan.
 On a fait un changement au niveau de packetage .
 Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
-
+```
 1: war; 2: farm
 Choose game type:> 
 1
@@ -177,6 +177,13 @@ It's aya's turn:
 ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
 
 1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
+```
+
+## Livrable 8
+* todo: actions des joueurs
+* todo: les tests de quelques classes
+* le programme maintenant nous donne comme output:
+  [une gif contenant l'execution]()
 
 
 ### Atteinte des objectifs
@@ -201,7 +208,9 @@ danscette semaine on a finit la classe Map pour pouvoir continuer le reste des c
 ## Semaine 7
 
 ## Semaine 8
-
+* suppression des methodes unecessaires/repetees.
+* changement de la visibilite de quelque variables de publique vers privees/protected
+* correction du design des classes utilises dans le projet
 ## Semaine 9
 
 ## Semaine 10
