@@ -3,6 +3,7 @@ package game;
 import game.character.PlayerWar;
 import game.util.ActionPlayer;
 import game.util.Position;
+import game.util.tile.OceanTile;
 
 public class WarGame extends Game {
 
@@ -75,10 +76,19 @@ public class WarGame extends Game {
 			String position = scanner.nextLine();
 			Position newPos = new Position(Integer.parseInt(position.split(",")[0]),
 				Integer.parseInt(position.split(",")[1]));
+			if(this.getMap().findTileByPosition(newPos) instanceof OceanTile){
+				System.out.println(" [NOTE]: Please chose another tile this one will drown your army XD");
+				makeChoice("1");
+			} else if(this.getMap().findTileByPosition(newPos).checkIfEmpty()){
+				System.out.println("/!\\ This tile isn't empty unfortunately, please chose another one.");
+				makeChoice("1");
+			} else {
+				System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; chose army size :> ");
+				int armySize = Integer.parseInt(scanner.nextLine());
+				activePlayer.createArmy(armySize, this.getMap().findTileByPosition(newPos));
+			}
 
-			System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; chose army size :> ");
-			int armySize = Integer.parseInt(scanner.nextLine());
-			activePlayer.createArmy(armySize, this.getMap().findTileByPosition(newPos));
+			
 			
 		} else if (line.equals("2")) {
 			activePlayer.setLastAction(ActionPlayer.EXCHANGE);
