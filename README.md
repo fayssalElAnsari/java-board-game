@@ -178,12 +178,20 @@ ROCK: 0; CORN: 0; SAND: 0; WOOD: 0;
 
 1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
 ```
-
-## Livrable 8
-* todo: actions des joueurs
-* todo: les tests de quelques classes
+## Livrable 7
+* les methodes unecessaires ont etes supprimes
+* les methodes repetes entre les superclass et les subclasses ont etes suprimme
+* utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
+* division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
 * le programme maintenant nous donne comme output:
   ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
+  
+
+## Livrable 8
+* todo: actions des characters
+* todo: les tests de quelques classes
+* todo: ajoute de couleurs a la class map pour chaque systeme d'exploitation.
+  
 
 
 
@@ -207,11 +215,12 @@ danscette semaine on a finit la classe Map pour pouvoir continuer le reste des c
 ## Semaine 6
 
 ## Semaine 7
-
-## Semaine 8
 * suppression des methodes unecessaires/repetees.
 * changement de la visibilite de quelque variables de publique vers privees/protected
 * correction du design des classes utilises dans le projet
+  
+## Semaine 8
+
 ## Semaine 9
 
 ## Semaine 10
