@@ -183,7 +183,8 @@ ROCK: 0; CORN: 0; SAND: 0; WOOD: 0;
 * todo: actions des joueurs
 * todo: les tests de quelques classes
 * le programme maintenant nous donne comme output:
-  [une gif contenant l'execution]()
+  [une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/tree/master/images)
+  
 
 
 ### Atteinte des objectifs
