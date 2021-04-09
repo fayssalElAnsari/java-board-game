@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 // bugs: les couleurs de map me marchent pas avec tout les systemes d'exploitation :(
 // bugs: l'algorithm de definition de type de tuile sur map n'est pas completment correcte
-	// des fois il y a des tuile tout seuls entoure des oceans
+// des fois il y a des tuile tout seuls entoure des oceans
 
 //TODO: AJOUTERR LES TESSTS POUR CHAQUE METHODE POUUR CHAQUE CLASSE => ziko, mehdi
 //TODO: LES ACTIONS PUBLICS ET PRIVEES => aya, fayssal
@@ -14,10 +14,9 @@ import java.util.Scanner;
 
 public class GameMain {
 	static Scanner scanner = new Scanner(System.in);
-	static Game game;
+	public static Game game;
 	static GameType chosenGameType;// devrait etre public?
 
-	
 	public static void main(String[] args) {
 		choseGameType();
 		game.startGame();

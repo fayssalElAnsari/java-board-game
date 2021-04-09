@@ -2,6 +2,7 @@ package game.util;
 
 import java.util.Random;
 
+import game.GameMain;
 import game.util.tile.DesertsTile;
 import game.util.tile.ForestsTile;
 import game.util.tile.MountainsTile;
@@ -164,9 +165,9 @@ public class Map {
 	public void printMap() {
 		// print the header
 		System.out.println("*===* " + this.name + " *===*");
-		System.out.print("*    ");
+		System.out.print("     ");
 		for (int i = 0; i < width; i++) {
-			System.out.print(i + "     ");
+			System.out.print(String.format("%02d", i) + "    ");
 		}
 		System.out.println();
 		if (colorEnabled) {
@@ -177,13 +178,13 @@ public class Map {
 			String colorCodeFg = "";
 			String colorCodeBg = "";
 			for (int j = 0; j < height; j++) {
-				System.out.print(j + " ");
+				System.out.print(String.format("%02d", j) + " ");
 				for (int i = 0; i < width; i++) {
 					tileSymbol = getTileTypeSymbol(tiles[i][j]);
 					ownerSymbol = getOwnerSymbol(tiles[i][j]);
 					// sets the color symbol for every tile type
 					if (tiles[i][j] instanceof OceanTile) {
-						colorCodeFg = "\033[37m";
+						colorCodeFg = "\033[34m";
 						colorCodeBg = "\033[44m";
 					}
 					if (tiles[i][j] instanceof DesertsTile) {
@@ -202,7 +203,16 @@ public class Map {
 						colorCodeFg = "\033[30m";
 						colorCodeBg = "\033[107m";
 					}
-					System.out.print(colorCodeBg + colorCodeFg + "[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");
+					if (tiles[i][j].getOwner() == GameMain.game.activePlayer) {// bold;underlined
+						colorCodeFg = "\033[1;4m";
+					}
+					if (tiles[i][j].getOwner() == null) {
+//						colorCodeFg = colorCodeBg;
+						System.out.print(colorCodeBg + colorCodeFg + "      " + "\033[0m");
+					} else {
+						System.out
+								.print(colorCodeBg + colorCodeFg + "[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");
+					}
 				}
 				System.out.println();
 			}
@@ -256,7 +266,7 @@ public class Map {
 //
 //		int hNbRep, hFirstLimit, hSecondLimit;
 //		int wNbRep, wFirstLimit, wSecondLimit;
-//
+//	
 //		hSecondLimit = (this.getHeight() - 1) / 10;
 //		hFirstLimit = (this.getHeight() - 1) % 10;
 //

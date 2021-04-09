@@ -26,7 +26,7 @@ public abstract class Game {
 	 * public constructor for the game class
 	 */
 	public Game() {
-		map = new Map("testMap", 16, 16);
+		map = new Map("testMap", 20, 20);
 		createPlayers();
 		// chose the first player in a random way
 		Random r = new Random();
