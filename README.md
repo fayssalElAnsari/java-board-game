@@ -187,14 +187,17 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 </details>
 
 
-## Livrable 7
+## Livrable 5
 * les methodes unecessaires ont etes supprimes
 * les methodes repetes entre les superclass et les subclasses ont etes suprimme
 * utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
 * division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
 * le programme maintenant nous donne comme output: <br /> 
   ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
-  
+
+## Livrable 6
+
+## Livrable 7
 
 ## Livrable 8
 
