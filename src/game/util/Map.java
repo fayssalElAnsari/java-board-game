@@ -9,6 +9,12 @@ import game.util.tile.MountainsTile;
 import game.util.tile.OceanTile;
 import game.util.tile.PlainsTile;
 
+/**
+ * now I will try to
+ * 
+ * @author fayss
+ *
+ */
 public class Map {
 	private Tile[][] tiles;
 	private String name;
@@ -24,47 +30,48 @@ public class Map {
 	 * @param height the height of the map
 	 */
 	public Map(String name, int width, int height) {
+		int nbOceans = 0;
+		int nbNonOceans = 0;
+		int totalTiles = width * height;
 		this.name = name;
 		this.width = width;
 		this.height = height;
 		tiles = new Tile[width][height];
-		// Class[] possibleClasses = {DesertsTile.class, ForestsTile.class,
-		// MountainsTile.class, PlainsTile.class};
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
-				tiles[i][j] = new OceanTile(new Position(i, j));
-			}
-		}
 
 		Random r = new Random();
-		for (int j = 1; j < height - 1; j++) {
-			for (int i = 1; i < width - 1; i++) {
-				// there should be a better way to do this obviously XD
+		double ratio = (double) nbOceans / (double) nbNonOceans;// div by 0?
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
+				ratio = (double) nbOceans / (double) nbNonOceans;
 				int n = r.nextInt(5);
-				int nbOfOceans = getNumberOfAdjacentOceans(tiles[i][j]);
-				if (nbOfOceans < 3) {
+				if (ratio <= (double) 2 / (double) 3) {
 					tiles[i][j] = new OceanTile(new Position(i, j));
-					break;
-				}
-
-				if (nbOfOceans == 4) {
-					n = r.nextInt(4);
-					// System.out.println("/!\\ found an island inside the island :O");
-				}
-				if (n == 0) {
-					tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
-				} else if (n == 1) {
-					tiles[i][j] = new PlainsTile(new Position(i, j));// position redundancy??
-				} else if (n == 2) {
-					tiles[i][j] = new DesertsTile(new Position(i, j));// position redundancy??
-				} else if (n == 3) {
-					tiles[i][j] = new ForestsTile(new Position(i, j));// position redundancy??
-				} else if (n == 4) {
-					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+					nbOceans++;
+				} else {
+					n = r.nextInt(5);
+					if (n == 0) {
+						tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
+						nbNonOceans++;
+					} else if (n == 1) {
+						tiles[i][j] = new PlainsTile(new Position(i, j));// position redundancy??
+						nbNonOceans++;
+					} else if (n == 2) {
+						tiles[i][j] = new DesertsTile(new Position(i, j));// position redundancy??
+						nbNonOceans++;
+					} else if (n == 3) {
+						tiles[i][j] = new ForestsTile(new Position(i, j));// position redundancy??
+						nbNonOceans++;
+					} else if (n == 4) {
+						tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+						nbOceans++;
+					}
 				}
 
 			}
 		}
+		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
+				+ nbOceans + "; NonOceans=" + nbNonOceans);
+		System.out.println(ratio > ((double) 2 / (double) 3));
 
 	}
 
@@ -90,27 +97,52 @@ public class Map {
 		int x = tile.getPosition().getXCoordinate();
 		int y = tile.getPosition().getYCoordinate();
 
-		if (tiles[x - 1][y] instanceof OceanTile) {
-			result++;
+		for (int i = x - 1; i < x + 2; i++) {
+			for (int j = y - 2; j < y + 2; j++) {
+				if ((Math.abs(i - x) + Math.abs(j + y)) % 2 != 0) {
+					try {
+						if (tiles[i][j] instanceof OceanTile) {
+							result++;
+						}
+					} catch (Exception e) {
+
+					}
+				}
+			}
 		}
-		if (tiles[x + 1][y] instanceof OceanTile) {
-			result++;
-		}
-		if (tiles[x][y - 1] instanceof OceanTile) {
-			result++;
-		}
-		if (tiles[x][y + 1] instanceof OceanTile) {
-			result++;
-		}
-		// for(int i = x; i < x+3; i=i+2){
-		// for(int j = y; j < y+3; j=j+2){
-		// if(tiles[x][y] instanceof OceanTile){
-		// result++;
-		// }
-		// }
-		// }
+
 		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
 		return result;
+	}
+
+	/**
+	 * same as getNumberOfAdjacentOceans() but with checking all 9 neighbors this
+	 * time
+	 * 
+	 * @param tile
+	 * @return
+	 */
+	public int getNumberOfAdjacentOceans2(Tile tile) {
+		int result = 0;
+		int x = tile.getPosition().getXCoordinate();
+		int y = tile.getPosition().getYCoordinate();
+		for (int i = x - 1; i < x + 2; i++) {
+			for (int j = y - 2; j < y + 2; j++) {
+				try {
+					if (!(i == x && j == y)) {
+						if (tiles[i][j] instanceof OceanTile) {
+							result++;
+						}
+					}
+				} catch (Exception e) {
+
+				}
+
+			}
+		}
+//		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
+		return result;
+
 	}
 
 	/**
