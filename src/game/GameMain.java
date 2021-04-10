@@ -31,7 +31,12 @@ public class GameMain {
 		System.out.println("1: war; 2: farm");
 		System.out.println("Choose game type:> ");
 		String gameType = scanner.nextLine();
-		gameTypeChoice(gameType);
+		if (gameType.equals("1") || gameType.equals("2")) {
+			gameTypeChoice(gameType);
+		} else {
+			choseGameType();
+		}
+
 	}
 
 	public static void gameTypeChoice(String gameType) {

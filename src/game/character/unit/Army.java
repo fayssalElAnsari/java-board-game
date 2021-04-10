@@ -22,8 +22,7 @@ public class Army extends Unit {
 	 */
 	public Army(Player owner, Tile newTile, int size) {
 		super(owner, newTile);// on super we already call putOnTile()
-		this.size = size;
-		this.attackPoints = size + newTile.getBonusAttackPoints();
+		setSize(size);
 		// after defining the attack points we need to attack nearby tiles
 		this.conquerEnemies();
 		System.out.println(this.toString());
@@ -50,6 +49,15 @@ public class Army extends Unit {
 	}
 
 	/**
+	 * set the size and update the attack points of the army accordingly to the new
+	 * size
+	 */
+	public void setSize(int size) {
+		this.size = size;
+		this.attackPoints = size + this.tile.getBonusAttackPoints();
+	}
+
+	/**
 	 * this army will only attack a certain tile from this one the first case is if
 	 * the size of the victim army is smaller we calculate the half, if the half is
 	 * less than one then it had only one soldier therefore the soldier will change
@@ -65,13 +73,16 @@ public class Army extends Unit {
 				// first case
 				if (this.getAttackPoints() > victimSize) {
 					if (victimTile.getOwner() != this.getOwner()) {
-						int newArmySize = victimSize / 2;
+						int newArmySize = victimTile.getUnit().getSize() / 2;
 						if (newArmySize < 1) {
 							victimTile.setOwner(this.owner);// the units change side automatically
-							System.out.println(" [ATTACK] Conquered an enemy his tile is now yours");
+							System.out.println(
+									" [ATTACK] Conquered an enemy! His tile" + victimTile.toString() + " is now yours");
 						} else {
+							int oldSize = victimTile.getUnit().getSize();
 							victimTile.getUnit().setSize(newArmySize);
-							System.out.println(" [ATTACK] The size of the enemy army has deminished!");
+							System.out.println(" [ATTACK] The size of the enemy army has deminished from:" + oldSize
+									+ "; to:" + victimTile.getUnit().getSize());
 						}
 						this.getPayed(2);
 					} else {
