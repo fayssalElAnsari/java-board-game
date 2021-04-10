@@ -7,32 +7,60 @@ import game.util.tile.ForestsTile;
 import game.util.tile.MountainsTile;
 import game.util.tile.PlainsTile;
 
+/**
+ * 
+ * @author fayss
+ *
+ */
 public abstract class Unit {
-    protected Player owner;
+	protected Player owner;
 	protected int gold = 0;
 	protected Tile tile;
+	protected int size = 1;
 	protected int resources = 0;
+	protected int attackPoints = 1;
+	protected int foodConsumption = 1;
 
 	/**
-	 * public constructor for a worker the worker will start with only 1 gold which
-	 * he will take from the player the worker will spawn in the owner's starting
-	 * tile
 	 * 
 	 * @param owner the new owner of the newly created worker object
 	 */
 	public Unit(Player owner, Tile newTile) {
 		this.owner = owner;
 		this.putOnTile(newTile);
-		this.getPayed();
 		this.tile.setUnit(this);
 	}
 
+	public int getAttackPoints() {
+		return this.attackPoints;
+	}
+
+	public void setAttackPoints(int attackPoints) {
+		this.attackPoints = attackPoints;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public boolean putOnTile(Tile newTile) {
-		if ( newTile.getOwner() == null) {
+		if (newTile.getOwner() == null) {
 			this.tile = newTile;
-			this.tile.setOwner(this.owner, newTile);
+			this.tile.setOwner(this.owner);
 			return true;
-		} else if (newTile.getOwner() == this.owner){
+		} else if (newTile.getOwner() == this.owner) {
 			System.out.println("/!\\ You already own this tile :)");
 		} else {
 			System.out.println("/!\\ Tile already has another owner :(");
@@ -47,8 +75,8 @@ public abstract class Unit {
 	 * print it out
 	 */
 	public void startTurn() {
-			System.out.println("  /!\\  added resources: ");
-			this.getTurnSalary();
+		System.out.println("  /!\\  added resources: ");
+		this.getTurnSalary();
 	}
 
 	/**
@@ -124,5 +152,17 @@ public abstract class Unit {
 	 */
 	public void nextTurn() {
 		sendResources();
+	}
+
+	public void incrementSize() {
+		if (this.tile.getMaxNbSoldiers() > this.size) {
+			System.out.println(" [SUPPORT] You have succesfully trained [1 soldier] on"
+					+ this.getTile().getPosition().toString() + " !");
+			this.size++;
+		} else {
+			System.out.println(" [INFO] You can't increase the army size on" + this.getTile().getPosition().toString()
+					+ " anymore!");
+		}
+
 	}
 }

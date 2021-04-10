@@ -2,16 +2,17 @@ package game;
 
 import java.util.Scanner;
 
-// bugs: les couleurs de map me marchent pas avec tout les systemes d'exploitation :(
-// bugs: l'algorithm de definition de type de tuile sur map n'est pas completment correcte
-// des fois il y a des tuile tout seuls entoure des oceans
+// bugs: les couleurs de map me marchent pas avec tout les systemes d'exploitation a cause du support code ANSII
 
 //TODO: AJOUTERR LES TESSTS POUR CHAQUE METHODE POUUR CHAQUE CLASSE => ziko, mehdi
 //TODO: LES ACTIONS PUBLICS ET PRIVEES => aya, fayssal
 //TODO: AJOUTER LEES ACTIONNS APRESS LE DEPLOYEMENT => fayssal
-//TODO: LORSQUE L'UTILISATEUR FAIT UN CHOIX UNVALID IL FAUT REPETER LE PROMPT DU CHOIX => fayssal
-//TODO: MODIFIER MAP POUR AFFICHER LES COULEURS => AYA
 
+/**
+ * 
+ * @author fayss
+ *
+ */
 public class GameMain {
 	static Scanner scanner = new Scanner(System.in);
 	public static Game game;

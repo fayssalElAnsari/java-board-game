@@ -11,6 +11,7 @@ public class MountainsTile extends Tile {
 		typeSymbol = 'M';
 		colorCodeFg = "\033[97m";
 		colorCodeBg = "\033[100m";
+		bonusAttackPoints = 2;
 	}
 
 }

@@ -11,6 +11,7 @@ public class DesertsTile extends Tile {
 		typeSymbol = 'D';
 		colorCodeFg = "\033[30m";
 		colorCodeBg = "\033[103m";
+		bonusFoodConsumption = 2;
 	}
 
 }

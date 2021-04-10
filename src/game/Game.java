@@ -6,6 +6,11 @@ import java.util.Scanner;
 import game.character.Player;
 import game.util.Map;
 
+/**
+ * 
+ * @author fayss
+ *
+ */
 public abstract class Game {
 	// private static final int winPoints = 1;
 	// private static final int drawPoints = 0;

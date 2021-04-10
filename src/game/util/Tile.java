@@ -1,9 +1,15 @@
 package game.util;
 
+import game.GameMain;
 import game.character.Player;
 import game.character.unit.Unit;
 import game.util.tile.TileProd;
 
+/**
+ * 
+ * @author fayss
+ *
+ */
 public abstract class Tile {
 	private final Position position;
 	private final TileProd tileProd;
@@ -15,6 +21,20 @@ public abstract class Tile {
 	protected String colorCodeFg = "";
 	protected String colorCodeBg = "";
 	protected boolean isOcean = false;
+	protected int bonusAttackPoints = 0;
+	protected int bonusFoodConsumption = 0;
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public int getBonusFoodConsumption() {
+		return bonusFoodConsumption;
+	}
+
+	public int getBonusAttackPoints() {
+		return bonusAttackPoints;
+	}
 
 	public boolean isOcean() {
 		return isOcean;
@@ -44,6 +64,20 @@ public abstract class Tile {
 	}
 
 	/**
+	 * gets the first charcter of the owner of a tile in this map ther could be
+	 * ambiguity if two owners names start off with the same letter
+	 * 
+	 * @param tile what tile to get the symbol of the owner for
+	 * @return the first charcter of the name of the owner of a passed in tile
+	 */
+	public char getOwnerSymbol() {
+		if (this.getOwner() != null) {
+			return this.getOwner().getName().charAt(0);
+		}
+		return '*';
+	}
+
+	/**
 	 * gets the position of this tile
 	 * 
 	 * @return the exact position of this tile
@@ -58,6 +92,11 @@ public abstract class Tile {
 	 * @return the player who owns this tile (has workers on it)
 	 */
 	public Player getOwner() {
+//		if (this.owner != null) {
+//			return this.owner;
+//		} else {
+//			return
+//		}
 		return this.owner;
 	}
 
@@ -66,9 +105,11 @@ public abstract class Tile {
 	 * 
 	 * @param newOwner the newowner of this tile object
 	 */
-	public void setOwner(final Player newOwner, Tile newTile) {
+	public void setOwner(Player newOwner) {
 		this.owner = newOwner;
-		// this.unit = new Unit(this.owner, newTile);
+		if (this.getUnit() != null) {
+			this.unit.setOwner(newOwner);// if the owner of this tile changes then the units on it go on his side
+		}
 	}
 
 	/**
@@ -107,6 +148,84 @@ public abstract class Tile {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	/**
+	 * this need a lot of modifications but we'll just try to make it work for now
+	 * 
+	 * @return an array containing all the adjacent tiles to this one
+	 */
+	public Tile[] getAdjacent() {
+		int nb = 0;
+		Tile tiles[] = new Tile[4];
+		try {
+			if (!GameMain.game.getMap()
+					.findTileByPosition(
+							new Position(this.position.getXCoordinate() - 1, this.position.getYCoordinate()))
+					.isOcean()) {
+				nb++;
+				tiles[0] = GameMain.game.getMap().findTileByPosition(
+						new Position(this.position.getXCoordinate() - 1, this.position.getYCoordinate()));
+
+			}
+		} catch (Exception e) {
+
+		}
+		try {
+			if (!GameMain.game.getMap()
+					.findTileByPosition(
+							new Position(this.position.getXCoordinate() + 1, this.position.getYCoordinate()))
+					.isOcean()) {
+				tiles[1] = GameMain.game.getMap().findTileByPosition(
+						new Position(this.position.getXCoordinate() + 1, this.position.getYCoordinate()));
+				nb++;
+			}
+		} catch (Exception e) {
+
+		}
+		try {
+			if (!GameMain.game.getMap().findTileByPosition(
+					new Position(this.position.getXCoordinate(), this.position.getYCoordinate() - 1)).isOcean) {
+				tiles[2] = GameMain.game.getMap().findTileByPosition(
+						new Position(this.position.getXCoordinate(), this.position.getYCoordinate() - 1));
+				nb++;
+			}
+		} catch (Exception e) {
+
+		}
+		try {
+			if (!GameMain.game.getMap()
+					.findTileByPosition(
+							new Position(this.position.getXCoordinate(), this.position.getYCoordinate() + 1))
+					.isOcean()) {
+				tiles[3] = GameMain.game.getMap().findTileByPosition(
+						new Position(this.position.getXCoordinate(), this.position.getYCoordinate() + 1));
+				nb++;
+			}
+		} catch (Exception e) {
+
+		}
+		Tile nonEmptyTiles[] = new Tile[nb];
+		int i = 0;
+		int j = 0;
+		while (i < nb && j < 4) {
+			if (tiles[j] != null) {
+				nonEmptyTiles[i] = tiles[j];
+//				System.out.println("!!!! " + nonEmptyTiles[i].toString());
+				i++;
+			}
+			j++;
+		}
+//		System.out.println("!!!! found " + nb + " tiles nearby");
+		return nonEmptyTiles;
+	}
+
+	public String toString() {
+		String owner = "NO_ONE";
+		if (this.getOwner() != null) {
+			owner = this.getOwner().toString();
+		}
+		return "pos: " + this.position.toString() + "; Owner: " + owner + "; Type: " + this.getTypeSymbol();
 	}
 
 }

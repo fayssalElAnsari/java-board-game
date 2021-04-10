@@ -10,9 +10,7 @@ import game.util.tile.OceanTile;
 import game.util.tile.PlainsTile;
 
 /**
- * now I will try to
- * 
- * @author fayss
+ * @author fayssal
  *
  */
 public class Map {
@@ -181,20 +179,6 @@ public class Map {
 	}
 
 	/**
-	 * gets the first charcter of the owner of a tile in this map ther could be
-	 * ambiguity if two owners names start off with the same letter
-	 * 
-	 * @param tile what tile to get the symbol of the owner for
-	 * @return the first charcter of the name of the owner of a passed in tile
-	 */
-	public char getOwnerSymbol(Tile tile) {
-		if (tile.getOwner() != null) {
-			return tile.getOwner().getName().charAt(0);
-		}
-		return '*';
-	}
-
-	/**
 	 * print out the map in an organized fashion
 	 */
 	public void printMap() {
@@ -216,7 +200,7 @@ public class Map {
 				System.out.print(String.format("%02d", j) + " ");
 				for (int i = 0; i < width; i++) {
 					tileSymbol = tiles[i][j].getTypeSymbol();
-					ownerSymbol = getOwnerSymbol(tiles[i][j]);
+					ownerSymbol = tiles[i][j].getOwnerSymbol();
 					// sets the color symbol for every tile type
 					colorCodeFg = tiles[i][j].colorCodeFg;
 					colorCodeFg = tiles[i][j].colorCodeBg;
@@ -242,7 +226,7 @@ public class Map {
 				System.out.print(j + " ");
 				for (int i = 0; i < width; i++) {
 					tileSymbol = tiles[i][j].getTypeSymbol();
-					ownerSymbol = getOwnerSymbol(tiles[i][j]);
+					ownerSymbol = tiles[i][j].getOwnerSymbol();
 					System.out.print("[" + tileSymbol + ", " + ownerSymbol + "] ");
 				}
 				System.out.println();

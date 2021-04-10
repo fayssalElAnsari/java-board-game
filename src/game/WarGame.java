@@ -5,6 +5,11 @@ import game.util.ActionPlayer;
 import game.util.Position;
 import game.util.Tile;
 
+/**
+ * 
+ * @author fayss
+ *
+ */
 public class WarGame extends Game {
 
 	public WarGame() {
