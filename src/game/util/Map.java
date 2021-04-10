@@ -75,13 +75,14 @@ public class Map {
 				if (getNumberOfAdjacentOceans(tiles[i][j]) >= 4) {
 					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
 					nbOceans++;
+//					System.out.println("island NUKED!!");
 				}
 			}
 		}
-
-//		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
-//				+ nbOceans + "; NonOceans=" + nbNonOceans);
-//		System.out.println(ratio > ((double) 2 / (double) 3));
+		ratio = (double) nbOceans / (double) nbNonOceans;
+		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
+				+ nbOceans + "; NonOceans=" + nbNonOceans);
+		System.out.println(ratio > ((double) 2 / (double) 3));
 
 	}
 
@@ -98,7 +99,7 @@ public class Map {
 	 * map is an ocean the easiest way to do this is to actually surround the map
 	 * with ocean tiles like the teacher did for now we will do the EZ way
 	 * 
-	 * @param tile the tile to check its neighbours
+	 * @param tile the tile to check its neighbors
 	 * @return the number of adjacent ocean tiles
 	 */
 
@@ -107,28 +108,28 @@ public class Map {
 		int x = tile.getPosition().getXCoordinate();
 		int y = tile.getPosition().getYCoordinate();
 		try {
-			if (tiles[x - 1][y] instanceof OceanTile) {
+			if (tiles[x - 1][y].isOcean()) {
 				result++;
 			}
 		} catch (Exception e) {
 			result++;
 		}
 		try {
-			if (tiles[x + 1][y] instanceof OceanTile) {
+			if (tiles[x + 1][y].isOcean()) {
 				result++;
 			}
 		} catch (Exception e) {
 			result++;
 		}
 		try {
-			if (tiles[x][y - 1] instanceof OceanTile) {
+			if (tiles[x][y - 1].isOcean()) {
 				result++;
 			}
 		} catch (Exception e) {
 			result++;
 		}
 		try {
-			if (tiles[x][y + 1] instanceof OceanTile) {
+			if (tiles[x][y + 1].isOcean()) {
 				result++;
 			}
 		} catch (Exception e) {
@@ -180,28 +181,6 @@ public class Map {
 	}
 
 	/**
-	 * gets the symbol for the passed in tile according to it' type of Mountains it
-	 * will return M for example
-	 * 
-	 * @param tile the tile to get the symbol of its type
-	 * @return the symbol of the type of the passed in tile
-	 */
-	public char getTileTypeSymbol(Tile tile) {
-		if (tile instanceof MountainsTile) {
-			return 'M';
-		} else if (tile instanceof DesertsTile) {
-			return 'D';
-		} else if (tile instanceof ForestsTile) {
-			return 'F';
-		} else if (tile instanceof PlainsTile) {
-			return 'P';
-		} else if (tile instanceof OceanTile) {
-			return 'O';
-		}
-		return 'O';
-	}
-
-	/**
 	 * gets the first charcter of the owner of a tile in this map ther could be
 	 * ambiguity if two owners names start off with the same letter
 	 * 
@@ -236,31 +215,13 @@ public class Map {
 			for (int j = 0; j < height; j++) {
 				System.out.print(String.format("%02d", j) + " ");
 				for (int i = 0; i < width; i++) {
-					tileSymbol = getTileTypeSymbol(tiles[i][j]);
+					tileSymbol = tiles[i][j].getTypeSymbol();
 					ownerSymbol = getOwnerSymbol(tiles[i][j]);
 					// sets the color symbol for every tile type
-					if (tiles[i][j] instanceof OceanTile) {
-						colorCodeFg = "\033[34m";
-						colorCodeBg = "\033[44m";
-					}
-					if (tiles[i][j] instanceof DesertsTile) {
-						colorCodeFg = "\033[30m";
-						colorCodeBg = "\033[103m";
-					}
-					if (tiles[i][j] instanceof ForestsTile) {
-						colorCodeFg = "\033[97m";
-						colorCodeBg = "\033[102m";
-					}
-					if (tiles[i][j] instanceof MountainsTile) {
-						colorCodeFg = "\033[97m";
-						colorCodeBg = "\033[100m";
-					}
-					if (tiles[i][j] instanceof PlainsTile) {
-						colorCodeFg = "\033[30m";
-						colorCodeBg = "\033[107m";
-					}
+					colorCodeFg = tiles[i][j].colorCodeFg;
+					colorCodeFg = tiles[i][j].colorCodeBg;
 					if (tiles[i][j].getOwner() == GameMain.game.activePlayer) {// bold;underlined
-						colorCodeFg = "\033[1;4m";
+						colorCodeFg = "\033[1;4;37m";
 					}
 					if (tiles[i][j].getOwner() == null) {
 //						colorCodeFg = colorCodeBg;
@@ -280,7 +241,7 @@ public class Map {
 			for (int j = 0; j < height; j++) {
 				System.out.print(j + " ");
 				for (int i = 0; i < width; i++) {
-					tileSymbol = getTileTypeSymbol(tiles[i][j]);
+					tileSymbol = tiles[i][j].getTypeSymbol();
 					ownerSymbol = getOwnerSymbol(tiles[i][j]);
 					System.out.print("[" + tileSymbol + ", " + ownerSymbol + "] ");
 				}
@@ -307,32 +268,5 @@ public class Map {
 	public int getWidth() {
 		return this.width;
 	}
-
-	/**
-	 * this method creates a valid regex to evaluate the validity of a user input
-	 * the coordinates chosen by the user should be valid; meaning the tile chosen
-	 * should actually exist on this map object and not be null this is long from
-	 * being a perfect regex generator for a coordinate system but it's perfectly
-	 * functional for a (99,99) coordinate system
-	 * 
-	 * @return the valid regex for this map object tiles positions
-	 */
-//	public String createValidCoordinateRegex() {
-//		String regex = "";
-//
-//		int hNbRep, hFirstLimit, hSecondLimit;
-//		int wNbRep, wFirstLimit, wSecondLimit;
-//	
-//		hSecondLimit = (this.getHeight() - 1) / 10;
-//		hFirstLimit = (this.getHeight() - 1) % 10;
-//
-//		wSecondLimit = (this.getWidth() - 1) / 10;
-//		wFirstLimit = (this.getWidth() - 1) % 10;
-//
-//		regex = "^[0-" + hSecondLimit + "]{0," + hSecondLimit + "}[0-" + hFirstLimit + "],[0-" + wSecondLimit + "]{0,"
-//				+ wSecondLimit + "}[0-" + wFirstLimit + "]$";
-//		System.out.println(regex);
-//		return regex;
-//	}
 
 }

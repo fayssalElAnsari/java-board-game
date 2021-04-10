@@ -7,8 +7,9 @@ public class ForestsTile extends Tile {
 
 	public ForestsTile(Position position) {
 		super(position, TileProd.WOOD);
+		typeSymbol = 'F';
+		colorCodeFg = "\033[97m";
+		colorCodeBg = "\033[102m";
 	}
-
-	
 
 }

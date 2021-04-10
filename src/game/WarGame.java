@@ -4,7 +4,6 @@ import game.character.PlayerWar;
 import game.util.ActionPlayer;
 import game.util.Position;
 import game.util.Tile;
-import game.util.tile.OceanTile;
 
 public class WarGame extends Game {
 
@@ -88,7 +87,7 @@ public class WarGame extends Game {
 				makeChoice("1");
 				return;
 			}
-			if (this.getMap().findTileByPosition(newPos) instanceof OceanTile) {
+			if (this.getMap().findTileByPosition(newPos).isOcean()) {
 				System.out.println(" [NOTE]: Please chose another tile this one will [~]drown[~] your army XD");
 				makeChoice("1");
 			} else if (this.getMap().findTileByPosition(newPos).checkIfEmpty()) {

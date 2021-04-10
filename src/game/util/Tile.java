@@ -11,6 +11,18 @@ public abstract class Tile {
 	private Unit unit;
 	private Player owner;
 	protected int maxNbSoldiers = 5;
+	protected char typeSymbol = 'T';
+	protected String colorCodeFg = "";
+	protected String colorCodeBg = "";
+	protected boolean isOcean = false;
+
+	public boolean isOcean() {
+		return isOcean;
+	}
+
+	public char getTypeSymbol() {
+		return typeSymbol;
+	}
 
 	public int getMaxNbSoldiers() {
 		return maxNbSoldiers;
