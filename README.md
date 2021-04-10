@@ -235,6 +235,8 @@ danscette semaine on a finit la classe Map pour pouvoir continuer le reste des c
 ![map](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/map_with_color.png)
 
     * des fois les couleurs ne marchent pas a cause du systeme d'exploitation peut etre ou du type de terminal utilise.
+* apres ajoute de couleurs et ajout de l'analyse de l'entrée utilisateur:
+![gif contenant un test apres modifications](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-10%2005-03-41.gif)
 ## Semaine 9
 
 ## Semaine 10
