@@ -44,7 +44,7 @@ public class Map {
 			for (int i = 0; i < width; i++) {
 				ratio = (double) nbOceans / (double) nbNonOceans;
 				int n = r.nextInt(5);
-				if (ratio <= (double) 2 / (double) 3) {
+				if (ratio <= ((double) 2 / (double) 3)) {
 					tiles[i][j] = new OceanTile(new Position(i, j));
 					nbOceans++;
 				} else {
@@ -69,9 +69,19 @@ public class Map {
 
 			}
 		}
-		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
-				+ nbOceans + "; NonOceans=" + nbNonOceans);
-		System.out.println(ratio > ((double) 2 / (double) 3));
+		// nuking the f islands
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
+				if (getNumberOfAdjacentOceans(tiles[i][j]) >= 4) {
+					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+					nbOceans++;
+				}
+			}
+		}
+
+//		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
+//				+ nbOceans + "; NonOceans=" + nbNonOceans);
+//		System.out.println(ratio > ((double) 2 / (double) 3));
 
 	}
 
@@ -96,22 +106,36 @@ public class Map {
 		int result = 0;
 		int x = tile.getPosition().getXCoordinate();
 		int y = tile.getPosition().getYCoordinate();
-
-		for (int i = x - 1; i < x + 2; i++) {
-			for (int j = y - 2; j < y + 2; j++) {
-				if ((Math.abs(i - x) + Math.abs(j + y)) % 2 != 0) {
-					try {
-						if (tiles[i][j] instanceof OceanTile) {
-							result++;
-						}
-					} catch (Exception e) {
-
-					}
-				}
+		try {
+			if (tiles[x - 1][y] instanceof OceanTile) {
+				result++;
 			}
+		} catch (Exception e) {
+			result++;
+		}
+		try {
+			if (tiles[x + 1][y] instanceof OceanTile) {
+				result++;
+			}
+		} catch (Exception e) {
+			result++;
+		}
+		try {
+			if (tiles[x][y - 1] instanceof OceanTile) {
+				result++;
+			}
+		} catch (Exception e) {
+			result++;
+		}
+		try {
+			if (tiles[x][y + 1] instanceof OceanTile) {
+				result++;
+			}
+		} catch (Exception e) {
+			result++;
 		}
 
-		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
+//		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
 		return result;
 	}
 
