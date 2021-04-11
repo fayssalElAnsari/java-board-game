@@ -35,7 +35,7 @@ public class Map {
 		int totalTiles = width * height;
 		double ratioLimit = 2;// 2 car c'est (2/3)/(1/3)
 		int nbOceans = 0;
-		int nbNonOceans = 1;
+		int nbNonOceans = 0;
 		double ratio;
 
 		// making all the tiles oceans
@@ -48,51 +48,33 @@ public class Map {
 		if (mode == 1) {// start off by by making the two thirds full of oceans then random tiles
 						// including oceans since it's bigger >= 2/3 oceans and not strictly > 2/3
 			ratioLimit = (double) 2 / (double) 3;
-
 			Random r = new Random();
 			ratio = (double) nbOceans / (double) nbNonOceans;// div by 0?
+			int n;
+
 			for (int j = 0; j < height; j++) {
 				for (int i = 0; i < width; i++) {
 					ratio = (double) nbOceans / totalTiles;
-					int n = r.nextInt(5);
-					if (ratio <= ratioLimit) {
+					if (ratio < ratioLimit) {// Haven't reached the wanted ratio limit yet so keep making oceans
 						tiles[i][j] = new OceanTile(new Position(i, j));
 						nbOceans++;
-					} else {
+					} else {// Reached the wanted ratio therefore make random tile types
 						n = r.nextInt(5);
-						if (n == 0) {
-							tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
-							nbNonOceans++;
-						} else if (n == 1) {
-							tiles[i][j] = new PlainsTile(new Position(i, j));// position redundancy??
-							nbNonOceans++;
-						} else if (n == 2) {
-							tiles[i][j] = new DesertsTile(new Position(i, j));// position redundancy??
-							nbNonOceans++;
-						} else if (n == 3) {
-							tiles[i][j] = new ForestsTile(new Position(i, j));// position redundancy??
-							nbNonOceans++;
-						} else if (n == 4) {
-							tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+						tiles[i][j] = chooseRandomTileType(i, j, n);
+						if (tiles[i][j].isOcean) {
 							nbOceans++;
+						} else {
+							nbNonOceans++;
 						}
 					}
+				}
+			}
 
-				}
-			}
-			// nuking the f islands
-			for (int j = 0; j < height; j++) {
-				for (int i = 0; i < width; i++) {
-					if (getNumberOfAdjacentOceans(tiles[i][j]) == 4 && !tiles[i][j].isOcean) {
-						tiles[i][j] = new OceanTile(new Position(i, j));
-						nbOceans++;
-						nbNonOceans--;
-//						System.out.println("island NUKED!!");
-					}
-				}
-			}
 		} else if (mode == 2) {// put an island of random tile in the middle surrounded by oceans tiles only
-
+			int centerX = this.getWidth() / 2;
+			int centerY = this.getHeight() / 2;
+			int wantedNonOceans = totalTiles / 3;
+//			while ( centerX < )
 		} else if (mode == 3) {// Divide map into sections and alternate between making a section strictly not
 								// ocean or ocean
 
@@ -101,11 +83,49 @@ public class Map {
 
 		}
 
+		// nuking the f islands
+		// this part is independent from the chosen mode since it's another important
+		// condition that no single tile island exists
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
+				if (getNumberOfAdjacentOceans(tiles[i][j]) == 4 && !tiles[i][j].isOcean) {
+					tiles[i][j] = new OceanTile(new Position(i, j));
+					nbOceans++;
+					nbNonOceans--;
+//								System.out.println("island NUKED!!");
+				}
+			}
+		}
+
 		ratio = (double) nbOceans / (double) totalTiles;
 		System.out.println("Ocean tiles take around: " + ratio + " of the total map; Total=" + totalTiles + "; Oceans="
 				+ nbOceans + "; NonOceans=" + nbNonOceans);
 		System.out.println(ratio > ratioLimit);
 
+	}
+
+	/**
+	 * choose a random tile type for a tile and return it
+	 * 
+	 * @param i
+	 * @param j
+	 * @param n
+	 * @return
+	 */
+	public Tile chooseRandomTileType(int i, int j, int n) {
+		Tile tile;
+		if (n == 0) {
+			tile = new MountainsTile(new Position(i, j));
+		} else if (n == 1) {
+			tile = new PlainsTile(new Position(i, j));
+		} else if (n == 2) {
+			tile = new DesertsTile(new Position(i, j));
+		} else if (n == 3) {
+			tile = new ForestsTile(new Position(i, j));
+		} else {
+			tile = new OceanTile(new Position(i, j));
+		}
+		return tile;
 	}
 
 	/**
