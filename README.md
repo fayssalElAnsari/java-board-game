@@ -54,7 +54,6 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
   <summary>
     output du terminal:
   </summary>
-  ```bash
 
     1: war; 2: farm
     Choose game type:> 
@@ -183,7 +182,6 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
     ROCK: 0; CORN: 0; SAND: 0; WOOD: 0; 
 
     1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP
-    ```
 </details>
 
 
@@ -234,9 +232,13 @@ danscette semaine on a finit la classe Map pour pouvoir continuer le reste des c
 * test de map qui s'affiche maintenant avec des couleurs:  
 ![map](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/map_with_color.png)
 
-    * des fois les couleurs ne marchent pas a cause du systeme d'exploitation peut etre ou du type de terminal utilise.
+    * des fois les couleurs ne marchent pas a cause du manque du support code ASCII dans la console utilisee.
 * apres ajoute de couleurs et ajout de l'analyse de l'entrée utilisateur:
 ![gif contenant un test apres modifications](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-10%2005-03-41.gif)
+* demonstration actions support:
+![gif support](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-11%2018-12-54.gif)
+* demonstration actions attack:
+![gif attack](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-11%2018-17-04.gif)
 ## Semaine 9
 
 ## Semaine 10
