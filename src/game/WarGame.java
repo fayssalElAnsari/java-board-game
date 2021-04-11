@@ -57,6 +57,7 @@ public class WarGame extends Game {
 				this.getMap().printMap();
 				System.out.println("It's " + activePlayer.getName() + "\'s turn: ");
 				activePlayer.printOutInventory();
+				activePlayer.startTurn();
 				System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
 				System.out.print("make your choice :> ");
 				String choiceOf3 = scanner.nextLine();

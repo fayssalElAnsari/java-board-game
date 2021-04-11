@@ -21,8 +21,9 @@ public class Army extends Unit {
 	 * @param owner the new owner of the newly created worker object
 	 */
 	public Army(Player owner, Tile newTile, int size) {
-		super(owner, newTile);// on super we already call putOnTile()
+		super(owner, newTile);// on super we already call putOnTile() maybe it's better not to and do it here?
 		setSize(size);
+		this.foodConsumption = size * this.tile.getBonusFoodConsumption();
 		// after defining the attack points we need to attack nearby tiles
 		this.conquerEnemies();
 		System.out.println(this.toString());

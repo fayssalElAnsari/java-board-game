@@ -23,6 +23,7 @@ public abstract class Tile {
 	protected boolean isOcean = false;
 	protected int bonusAttackPoints = 0;
 	protected int bonusFoodConsumption = 0;
+	protected int bonusPoints = 0;
 
 	public Unit getUnit() {
 		return unit;

@@ -10,6 +10,7 @@ public class PlainsTile extends Tile {
 		typeSymbol = 'P';
 		colorCodeFg = "\033[30m";
 		colorCodeBg = "\033[107m";
+		bonusPoints = 1;
 	}
 
 }

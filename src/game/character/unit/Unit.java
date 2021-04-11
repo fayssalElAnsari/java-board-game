@@ -31,6 +31,10 @@ public abstract class Unit {
 		this.tile.setUnit(this);
 	}
 
+	public void eat() {
+		this.getOwner().loseFood(this.foodConsumption);
+	}
+
 	public int getAttackPoints() {
 		return this.attackPoints;
 	}
@@ -75,8 +79,9 @@ public abstract class Unit {
 	 * print it out
 	 */
 	public void startTurn() {
+		this.eat();
 		System.out.println("  /!\\  added resources: ");
-		this.getTurnSalary();
+//		this.getTurnSalary();
 	}
 
 	/**

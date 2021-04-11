@@ -10,6 +10,7 @@ public class ForestsTile extends Tile {
 		typeSymbol = 'F';
 		colorCodeFg = "\033[97m";
 		colorCodeBg = "\033[102m";
+		bonusPoints = 2;
 	}
 
 }

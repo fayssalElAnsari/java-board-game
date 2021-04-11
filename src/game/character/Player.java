@@ -2,6 +2,7 @@ package game.character;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+
 import game.character.unit.Unit;
 import game.util.ActionPlayer;
 import game.util.Tile;
@@ -12,14 +13,16 @@ public abstract class Player {
 	protected Unit[] units;
 	protected int soldiers;
 	protected int gold;
+	protected int foodUnits;
 	protected ActionPlayer lastAction;
 	protected HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
 
 	/**
 	 * public constructor for the Player class each player starts off the game with
-	 * 0 gold pieces the last action performed by this player is nothing (or
-	 * skip) each player will have 6 empty worker slots that will be filled later in
-	 * the game each player will have an inventory having 0 of each resource kind
+	 * 0 gold pieces the last action performed by this player is nothing (or skip)
+	 * each player will have 6 empty worker slots that will be filled later in the
+	 * game each player will have an inventory having 0 of each resource kind
+	 * 
 	 * @param name the name to be given to this player
 	 */
 	public Player(String name) {
@@ -41,6 +44,31 @@ public abstract class Player {
 	 */
 	public void setLastAction(ActionPlayer action) {
 		this.lastAction = action;
+	}
+
+	/**
+	 * lose n of foodUnits probably by sending them to deployed units to eat
+	 * 
+	 * @param n the number of foodUnits to be sent to the units
+	 */
+	public void loseFood(int foodConsumption) {
+		// TODO Auto-generated method stub
+		this.foodUnits = this.foodUnits - foodConsumption;
+	}
+
+	/**
+	 * sell a unit to slavery for as cheap as 1 gold coin
+	 * 
+	 * @param unit the unit that will lose its freedom *angry face*
+	 */
+	public void sell(Unit unit) {
+		try {
+			killUnit(unit);
+			getPayed(1);
+		} catch (Exception e) {
+			System.out.println("couldn't sell unit :(");
+		}
+
 	}
 
 	/**
@@ -92,8 +120,20 @@ public abstract class Player {
 	 */
 	public void startTurn() {
 		for (int i = 0; i < units.length; i++) {
-			units[i].startTurn();
+			if (units[i] != null) {
+				units[i].startTurn();
+			}
 		}
+	}
+
+	/**
+	 * a method to delete a certain object of type Unit it will be used to kill
+	 * units
+	 * 
+	 * @param unit the unit to be killed
+	 */
+	public void killUnit(Unit unit) {
+		unit = null;
 	}
 
 	/**
@@ -101,7 +141,7 @@ public abstract class Player {
 	 * need to do at the end of each turn
 	 */
 	public void nextTurn() {
-		if(units != null){
+		if (units != null) {
 			for (int i = 0; i < units.length; i++) {
 				if (units[i] != null) {
 					units[i].nextTurn();
@@ -281,15 +321,15 @@ public abstract class Player {
 	}
 
 	/**
-	 * each player could have a predefined number of soldiers 
-	 * this method get that that number (only used by PlayerWar for the moment)
+	 * each player could have a predefined number of soldiers this method get that
+	 * that number (only used by PlayerWar for the moment)
+	 * 
 	 * @return int the number of soldiers of this player
 	 */
 	public int getSoldiers() {
 		return this.soldiers;
 	}
 
-    public abstract boolean createArmy(int armySize, Tile tile);
-
+	public abstract boolean createArmy(int armySize, Tile tile);
 
 }
