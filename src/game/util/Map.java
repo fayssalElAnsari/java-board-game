@@ -27,60 +27,84 @@ public class Map {
 	 * @param width  the width of the map
 	 * @param height the height of the map
 	 */
-	public Map(String name, int width, int height) {
-		int nbOceans = 0;
-		int nbNonOceans = 0;
-		int totalTiles = width * height;
+	public Map(String name, int width, int height, int mode) {
 		this.name = name;
 		this.width = width;
 		this.height = height;
 		tiles = new Tile[width][height];
+		int totalTiles = width * height;
+		double ratioLimit = 2;// 2 car c'est (2/3)/(1/3)
+		int nbOceans = 0;
+		int nbNonOceans = 1;
+		double ratio;
 
-		Random r = new Random();
-		double ratio = (double) nbOceans / (double) nbNonOceans;// div by 0?
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
-				ratio = (double) nbOceans / (double) nbNonOceans;
-				int n = r.nextInt(5);
-				if (ratio <= ((double) 2 / (double) 3)) {
-					tiles[i][j] = new OceanTile(new Position(i, j));
-					nbOceans++;
-				} else {
-					n = r.nextInt(5);
-					if (n == 0) {
-						tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
-						nbNonOceans++;
-					} else if (n == 1) {
-						tiles[i][j] = new PlainsTile(new Position(i, j));// position redundancy??
-						nbNonOceans++;
-					} else if (n == 2) {
-						tiles[i][j] = new DesertsTile(new Position(i, j));// position redundancy??
-						nbNonOceans++;
-					} else if (n == 3) {
-						tiles[i][j] = new ForestsTile(new Position(i, j));// position redundancy??
-						nbNonOceans++;
-					} else if (n == 4) {
-						tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+		// making all the tiles oceans
+//		for (int j = 0; j < height; j++) {
+//			for (int i = 0; i < width; i++) {
+//				tiles[i][j] = new OceanTile(new Position(i, j));
+//			}
+//		}
+
+		if (mode == 1) {// start off by by making the two thirds full of oceans then random tiles
+						// including oceans since it's bigger >= 2/3 oceans and not strictly > 2/3
+			ratioLimit = (double) 2 / (double) 3;
+
+			Random r = new Random();
+			ratio = (double) nbOceans / (double) nbNonOceans;// div by 0?
+			for (int j = 0; j < height; j++) {
+				for (int i = 0; i < width; i++) {
+					ratio = (double) nbOceans / totalTiles;
+					int n = r.nextInt(5);
+					if (ratio <= ratioLimit) {
+						tiles[i][j] = new OceanTile(new Position(i, j));
 						nbOceans++;
+					} else {
+						n = r.nextInt(5);
+						if (n == 0) {
+							tiles[i][j] = new MountainsTile(new Position(i, j));// position redundancy??
+							nbNonOceans++;
+						} else if (n == 1) {
+							tiles[i][j] = new PlainsTile(new Position(i, j));// position redundancy??
+							nbNonOceans++;
+						} else if (n == 2) {
+							tiles[i][j] = new DesertsTile(new Position(i, j));// position redundancy??
+							nbNonOceans++;
+						} else if (n == 3) {
+							tiles[i][j] = new ForestsTile(new Position(i, j));// position redundancy??
+							nbNonOceans++;
+						} else if (n == 4) {
+							tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
+							nbOceans++;
+						}
+					}
+
+				}
+			}
+			// nuking the f islands
+			for (int j = 0; j < height; j++) {
+				for (int i = 0; i < width; i++) {
+					if (getNumberOfAdjacentOceans(tiles[i][j]) == 4 && !tiles[i][j].isOcean) {
+						tiles[i][j] = new OceanTile(new Position(i, j));
+						nbOceans++;
+						nbNonOceans--;
+//						System.out.println("island NUKED!!");
 					}
 				}
+			}
+		} else if (mode == 2) {// put an island of random tile in the middle surrounded by oceans tiles only
 
-			}
+		} else if (mode == 3) {// Divide map into sections and alternate between making a section strictly not
+								// ocean or ocean
+
+		} else if (mode == 4) {// a combination of mode 2 and 3 by making a couple of islands inside sections
+								// surrounded by oceans
+
 		}
-		// nuking the f islands
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
-				if (getNumberOfAdjacentOceans(tiles[i][j]) >= 4) {
-					tiles[i][j] = new OceanTile(new Position(i, j));// position redundancy??
-					nbOceans++;
-//					System.out.println("island NUKED!!");
-				}
-			}
-		}
-		ratio = (double) nbOceans / (double) nbNonOceans;
-//		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
-//				+ nbOceans + "; NonOceans=" + nbNonOceans);
-//		System.out.println(ratio > ((double) 2 / (double) 3));
+
+		ratio = (double) nbOceans / (double) totalTiles;
+		System.out.println("Ocean tiles take around: " + ratio + " of the total map; Total=" + totalTiles + "; Oceans="
+				+ nbOceans + "; NonOceans=" + nbNonOceans);
+		System.out.println(ratio > ratioLimit);
 
 	}
 
