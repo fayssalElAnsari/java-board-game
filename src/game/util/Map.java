@@ -78,9 +78,9 @@ public class Map {
 			}
 		}
 		ratio = (double) nbOceans / (double) nbNonOceans;
-		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
-				+ nbOceans + "; NonOceans=" + nbNonOceans);
-		System.out.println(ratio > ((double) 2 / (double) 3));
+//		System.out.println("the ratio of oceans to non oceans is: " + ratio + "; Total=" + totalTiles + "; Oceans="
+//				+ nbOceans + "; NonOceans=" + nbNonOceans);
+//		System.out.println(ratio > ((double) 2 / (double) 3));
 
 	}
 

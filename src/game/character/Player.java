@@ -20,7 +20,7 @@ public abstract class Player {
 	/**
 	 * public constructor for the Player class each player starts off the game with
 	 * 0 gold pieces the last action performed by this player is nothing (or skip)
-	 * each player will have 6 empty worker slots that will be filled later in the
+	 * each player will have 6 empty unit slots that will be filled later in the
 	 * game each player will have an inventory having 0 of each resource kind
 	 * 
 	 * @param name the name to be given to this player
@@ -51,9 +51,16 @@ public abstract class Player {
 	 * 
 	 * @param n the number of foodUnits to be sent to the units
 	 */
-	public void loseFood(int foodConsumption) {
+	public boolean loseFood(int foodConsumption) {
 		// TODO Auto-generated method stub
-		this.foodUnits = this.foodUnits - foodConsumption;
+		if (this.foodUnits >= foodConsumption) {
+			this.foodUnits = this.foodUnits - foodConsumption;
+			return true;
+		} else {
+			System.out.println("You don't have enough [FOOD UNITS] to feed.");
+			return false;
+		}
+
 	}
 
 	/**
@@ -92,8 +99,8 @@ public abstract class Player {
 	/**
 	 * get the unit in index i from the array of units[] units
 	 * 
-	 * @param i the index of the wanted worker
-	 * @return the worker in index i
+	 * @param i the index of the wanted unit
+	 * @return the unit in index i
 	 */
 	public Unit getUnitByIndex(int i) {
 		return this.units[i];
@@ -132,7 +139,7 @@ public abstract class Player {
 	 * 
 	 * @param unit the unit to be killed
 	 */
-	public void killUnit(Unit unit) {
+	private void killUnit(Unit unit) {
 		unit = null;
 	}
 
@@ -151,14 +158,14 @@ public abstract class Player {
 	}
 
 	/**
-	 * get the worker with the biggest index (last worker) from this player's array
-	 * of workers
+	 * get the unit with the biggest index (last unit) from this player's array of
+	 * workers
 	 * 
-	 * @return the worker with the biggest index
+	 * @return the unit with the biggest index
 	 */
 	public Unit getLastUnit() {
 		Unit u;
-		if (hasUnits()) {// if the player has atleast a worker
+		if (hasUnits()) {// if the player has atleast a unit
 			u = units[getFirstEmptySlot() - 1];
 			return u;
 		} else {
@@ -169,7 +176,7 @@ public abstract class Player {
 	/**
 	 * check if the player has no workers in his arsenal XD
 	 * 
-	 * @return true if he has no workers; false if he has a worker
+	 * @return true if he has no workers; false if he has a unit
 	 */
 	public boolean hasUnits() {
 		for (int i = 0; i < units.length; i++) {
@@ -212,6 +219,7 @@ public abstract class Player {
 			TileProd product = entry.getKey();
 			Integer quantity = entry.getValue();
 			int profit = 0;
+
 			if (product == TileProd.ROCK) {
 				profit = quantity * 8;
 			} else if (product == TileProd.CORN) {
@@ -236,7 +244,7 @@ public abstract class Player {
 
 	/**
 	 * prints out general information about the workers of this player the index:
-	 * the position, what the worker is workign in, how many resources accumulted so
+	 * the position, what the unit is workign in, how many resources accumulted so
 	 * far
 	 */
 	public void printOutUnitsList() {
@@ -254,8 +262,8 @@ public abstract class Player {
 	}
 
 	/**
-	 * get the exact number of NON NULL worker objects of this player if there are
-	 * non it will return 0
+	 * get the exact number of NON NULL unit objects of this player if there are non
+	 * it will return 0
 	 * 
 	 * @return the number of initiated workers in the workers array of this player
 	 */
@@ -331,5 +339,13 @@ public abstract class Player {
 	}
 
 	public abstract boolean createArmy(int armySize, Tile tile);
+
+	public int getFoodUnits() {
+		return foodUnits;
+	}
+
+	public void setFoodUnits(int foodUnits) {
+		this.foodUnits = foodUnits;
+	}
 
 }

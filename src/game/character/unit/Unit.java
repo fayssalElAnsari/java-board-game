@@ -2,10 +2,6 @@ package game.character.unit;
 
 import game.character.Player;
 import game.util.Tile;
-import game.util.tile.DesertsTile;
-import game.util.tile.ForestsTile;
-import game.util.tile.MountainsTile;
-import game.util.tile.PlainsTile;
 
 /**
  * 
@@ -23,16 +19,18 @@ public abstract class Unit {
 
 	/**
 	 * 
-	 * @param owner the new owner of the newly created worker object
+	 * @param owner the new owner of the newly created unit object
 	 */
 	public Unit(Player owner, Tile newTile) {
 		this.owner = owner;
 		this.putOnTile(newTile);
 		this.tile.setUnit(this);
+		this.tile.getUnit().harvest();// the army will start harvesting as soon as it's put on the tile
 	}
 
-	public void eat() {
-		this.getOwner().loseFood(this.foodConsumption);
+	public boolean eat() {
+		System.out.println(" just ate: " + foodConsumption);
+		return this.getOwner().loseFood(this.foodConsumption);
 	}
 
 	public int getAttackPoints() {
@@ -73,15 +71,32 @@ public abstract class Unit {
 	}
 
 	/**
-	 * performs the actions needed by the worker at the beginning of each turn if
-	 * the worker is working in its tile it will add the resources according the
-	 * worker's speed if the resources were added to the worker's inventory it will
-	 * print it out
+	 * performs the actions needed by the unit at the beginning of each turn if the
+	 * unit is working in its tile it will add the resources according the unit's
+	 * speed if the resources were added to the unit's inventory it will print it
+	 * out
 	 */
 	public void startTurn() {
-		this.eat();
-		System.out.println("  /!\\  added resources: ");
+		if (this.eat()) {
+			this.harvest();
+		} else {
+			this.owner.sell(this);
+		}
+
 //		this.getTurnSalary();
+	}
+
+	/**
+	 * harvest resources from this unit's tile and put it in its inventory
+	 */
+	protected void harvest() {
+		if (this.tile.loseResources(this.getSize())) {
+			this.resources = this.getSize();
+			System.out.println("  /!\\  added resources: " + this.getSize());
+		} else {
+			System.out.println(" [WARNING] There are not resources left to be [harvested] on this tile");
+		}
+
 	}
 
 	/**
@@ -89,44 +104,34 @@ public abstract class Unit {
 	 * payed accordingly
 	 */
 	public boolean getTurnSalary() {
-		boolean result = false;
-		if (this.tile instanceof MountainsTile) {
-			this.getPayed(5);
+		try {
+			this.getPayed(this.tile.getTurnSalary());
 			return true;
-		} else if (this.tile instanceof DesertsTile) {
-			this.getPayed(3);
-			return true;
-		} else if (this.tile instanceof ForestsTile) {
-			this.getPayed();
-			return true;
-		} else if (this.tile instanceof PlainsTile) {
-			this.getPayed();
-			return true;
-		} else {
-			return result;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 
 	/**
-	 * gets how much resources this worker has in its bag
+	 * gets how much resources this unit has in its bag
 	 * 
-	 * @return the amount of resources this worker has extracted
+	 * @return the amount of resources this unit has extracted
 	 */
 	public int getResources() {
 		return this.resources;
 	}
 
 	/**
-	 * gets the tile this worker is on right now
+	 * gets the tile this unit is on right now
 	 * 
-	 * @return the tile of this worker
+	 * @return the tile of this unit
 	 */
 	public Tile getTile() {
 		return this.tile;
 	}
 
 	/**
-	 * add one gold to the bag of this worker $
+	 * add one gold to the bag of this unit $
 	 */
 	public void getPayed() {
 		this.gold++;
@@ -135,7 +140,7 @@ public abstract class Unit {
 	/**
 	 * same as getPayed() but with one or more coins
 	 * 
-	 * @param salary the amount to be added to the bag of gold of this worker
+	 * @param salary the amount to be added to the bag of gold of this unit
 	 */
 	public void getPayed(int salary) {
 		if (this.owner.getGold() >= salary) {
@@ -144,7 +149,7 @@ public abstract class Unit {
 	}
 
 	/**
-	 * send the resources to the owner of this worker
+	 * send the resources to the owner of this unit
 	 */
 	public void sendResources() {
 		this.owner.receiveResources(this.tile.getTileProd(), resources);
@@ -152,7 +157,7 @@ public abstract class Unit {
 	}
 
 	/**
-	 * performs the actions the worker needs to do at the end of each turn like
+	 * performs the actions the unit needs to do at the end of each turn like
 	 * sending the resources to the owner
 	 */
 	public void nextTurn() {

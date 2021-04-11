@@ -13,6 +13,7 @@ public class MountainsTile extends Tile {
 		colorCodeBg = "\033[100m";
 		bonusAttackPoints = 2;
 		bonusPoints = 4;
+		turnSalary = 5;
 	}
 
 }

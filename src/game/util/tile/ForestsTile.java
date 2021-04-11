@@ -11,6 +11,7 @@ public class ForestsTile extends Tile {
 		colorCodeFg = "\033[97m";
 		colorCodeBg = "\033[102m";
 		bonusPoints = 2;
+		turnSalary = 1;
 	}
 
 }

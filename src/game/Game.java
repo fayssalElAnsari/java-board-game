@@ -12,10 +12,6 @@ import game.util.Map;
  *
  */
 public abstract class Game {
-	// private static final int winPoints = 1;
-	// private static final int drawPoints = 0;
-	// private static final int losePoints = -1;
-
 	Scanner scanner = new Scanner(System.in);
 	private Map map;
 	public Player activePlayer;

@@ -56,8 +56,9 @@ public class WarGame extends Game {
 				showStats();
 				this.getMap().printMap();
 				System.out.println("It's " + activePlayer.getName() + "\'s turn: ");
-				activePlayer.printOutInventory();
 				activePlayer.startTurn();
+				activePlayer.printOutInventory();// print out the inventory after the start of the turn so the data is
+													// updated
 				System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
 				System.out.print("make your choice :> ");
 				String choiceOf3 = scanner.nextLine();
@@ -160,7 +161,7 @@ public class WarGame extends Game {
 	public void showStats() {
 		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i].getName() + " has " + players[i].getGold() + " gold; and "
-					+ players[i].getSoldiers() + " soldiers.");
+					+ players[i].getSoldiers() + " soldiers; and " + players[i].getFoodUnits() + " food units;");
 		}
 	}
 

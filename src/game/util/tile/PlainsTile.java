@@ -11,6 +11,7 @@ public class PlainsTile extends Tile {
 		colorCodeFg = "\033[30m";
 		colorCodeBg = "\033[107m";
 		bonusPoints = 1;
+		turnSalary = 1;
 	}
 
 }

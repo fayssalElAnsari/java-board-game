@@ -3,7 +3,6 @@ package game.character;
 import game.character.unit.Army;
 import game.character.unit.Unit;
 import game.util.Tile;
-import game.util.tile.TileProd;
 
 public class PlayerWar extends Player {
 
@@ -21,10 +20,6 @@ public class PlayerWar extends Player {
 		// create the units as some armies
 		soldiers = 35;
 		foodUnits = 10;
-		gold = 0;
-		for (TileProd resource : TileProd.values()) {
-			inventory.put(resource, 0);
-		}
 	}
 
 	/**

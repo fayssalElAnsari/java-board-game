@@ -24,6 +24,15 @@ public abstract class Tile {
 	protected int bonusAttackPoints = 0;
 	protected int bonusFoodConsumption = 0;
 	protected int bonusPoints = 0;
+	protected int turnSalary = 0;
+
+	public int getTurnSalary() {
+		return turnSalary;
+	}
+
+	public void setTurnSalary(int turnSalary) {
+		this.turnSalary = turnSalary;
+	}
 
 	public Unit getUnit() {
 		return unit;

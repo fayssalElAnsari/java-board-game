@@ -41,11 +41,11 @@ public class GameMain {
 
 	public static void gameTypeChoice(String gameType) {
 		if (gameType.equals("1")) {
-			System.out.println("User chosen: " + WarGame.class.getName());
+//			System.out.println("User chosen: " + WarGame.class.getName());
 			chosenGameType = GameType.WARGAME;
 			game = new WarGame();
 		} else if (gameType.equals("2")) {
-			System.out.println("User chosen: " + FarmGame.class.getName());
+//			System.out.println("User chosen: " + FarmGame.class.getName());
 			chosenGameType = GameType.FARMGAME;
 			game = new FarmGame();
 		}
