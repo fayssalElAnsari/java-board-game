@@ -1,5 +1,6 @@
 package game;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public abstract class Game {
 	 * public constructor for the game class
 	 */
 	public Game() {
-		map = new Map("testMap", 8, 8);
+		map = new Map("testMap", 15, 8);
 		createPlayers();
 		// chose the first player in a random way
 		Random r = new Random();
@@ -67,6 +68,8 @@ public abstract class Game {
 			}
 		}
 		activePlayer = players[(n + 1) % players.length];
+		clearConsole();
+
 	}
 
 	public void nextRound() {
@@ -89,5 +92,37 @@ public abstract class Game {
 	}
 
 	public abstract void startGame();
+
+	/*
+	 * in case we want to clear the console and use this game as a console game this
+	 * will be used to make a constant refresh of the screen there should be a menu
+	 * screen where the user can chose the game using arrows then after the creation
+	 * of the map object there should be constant refresh of the screen the user
+	 * will make the choice by typing the corresponding number from 1 2 or 3 if the
+	 * user choses 1 a flashing brackets will appear where the user can move using
+	 * the arrows pressing enter will confirm the location choice then the user will
+	 * enter the army size as previously done then press enter the screen will have
+	 * a constant refresh rat with a maximum limit; the fps rate should be shown on
+	 * the screen also some other info about the gameplay like the inventory and
+	 * round ... it would be better to implement this functionality using a game
+	 * engine meaning the code will make should be reusable in the future for other
+	 * projects and easier to modify in case of future improvements to the game
+	 * model; there should also be a seed for generating maps which will help with
+	 * doing tests for certain actions
+	 */
+	public static void clearConsole() {
+		try {
+			if (System.getProperty("os.name").contains("Windows")) {
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} else {
+				System.out.print("\033\143");
+			}
+		} catch (IOException | InterruptedException ex) {
+			System.out.println("couldn't clear console :( " + ex.getMessage());
+		}
+//		
+//		System.out.print("\033[H\033[2J");  
+//	    System.out.flush(); 
+	}
 
 }
