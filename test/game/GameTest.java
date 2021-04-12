@@ -11,21 +11,6 @@ import org.junit.Test;
  *
  */
 public class GameTest {
-  Game makeGame = new Game;
-  @Test
-  public void nextTurnTest{
-    
-  }
 
-  @Test
-  public void nextRoundTest{
-
-  }
-
-
-  // ---For test execution----------------------
-  public static junit.framework.Test suite() {
-      return new junit.framework.JUnit4TestAdapter(GameTest.class);
-  }
 
 }

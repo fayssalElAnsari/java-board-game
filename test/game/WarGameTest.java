@@ -14,24 +14,22 @@ import org.junit.Test;
  *
  */
 public class WarGameTest {
+	private WarGame war;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public void testCreatePlayers() {
+		//pass
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
+	public void testStartGame() {
+		//pass
 	}
+	
+	public void testMakeChoice(String line) {
+		//pass
+	}
+	
+	
+	
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
 
 }
