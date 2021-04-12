@@ -29,8 +29,14 @@ public abstract class Unit {
 	}
 
 	public boolean eat() {
-		System.out.println(" just ate: " + foodConsumption);
-		return this.getOwner().loseFood(this.foodConsumption);
+		boolean ate = false;
+		if (this.owner != null) {
+			ate = this.getOwner().loseFood(this.foodConsumption);
+			if (ate) {
+				System.out.println(" just ate: " + foodConsumption);
+			}
+		}
+		return ate;
 	}
 
 	public int getAttackPoints() {
@@ -71,17 +77,30 @@ public abstract class Unit {
 	}
 
 	/**
+	 * as the name suggest this unit will either take the required number of food
+	 * units from its owner or it will die and give him one gold; if the eating is
+	 * successful the unit will be able to put in work by calling the function
+	 * harvest()
+	 * 
+	 */
+	public void eatOrDie() {
+		if (this.owner != null) {
+			if (this.eat()) {
+				this.harvest();
+			} else {
+				this.owner.sell(this);
+			}
+		}
+	}
+
+	/**
 	 * performs the actions needed by the unit at the beginning of each turn if the
 	 * unit is working in its tile it will add the resources according the unit's
 	 * speed if the resources were added to the unit's inventory it will print it
 	 * out
 	 */
 	public void startTurn() {
-		if (this.eat()) {
-			this.harvest();
-		} else {
-			this.owner.sell(this);
-		}
+		eatOrDie();
 
 //		this.getTurnSalary();
 	}
@@ -152,7 +171,9 @@ public abstract class Unit {
 	 * send the resources to the owner of this unit
 	 */
 	public void sendResources() {
-		this.owner.receiveResources(this.tile.getTileProd(), resources);
+		if (this.owner != null) {
+			this.owner.receiveResources(this.tile.getTileProd(), resources);
+		}
 		this.resources = 0;
 	}
 

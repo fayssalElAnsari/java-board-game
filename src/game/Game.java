@@ -111,6 +111,9 @@ public abstract class Game {
 	 * doing tests for certain actions
 	 */
 	public static void clearConsole() {
+//		final String ESC = "\033[";
+//		System.out.print(ESC + "2J");
+
 		try {
 			if (System.getProperty("os.name").contains("Windows")) {
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -120,7 +123,7 @@ public abstract class Game {
 		} catch (IOException | InterruptedException ex) {
 			System.out.println("couldn't clear console :( " + ex.getMessage());
 		}
-//		
+
 //		System.out.print("\033[H\033[2J");  
 //	    System.out.flush(); 
 	}

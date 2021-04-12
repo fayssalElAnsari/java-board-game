@@ -197,7 +197,7 @@ public class Map {
 			for (int j = y - 2; j < y + 2; j++) {
 				try {
 					if (!(i == x && j == y)) {
-						if (tiles[i][j] instanceof OceanTile) {
+						if (tiles[i][j].isOcean()) {
 							result++;
 						}
 					}
@@ -245,7 +245,7 @@ public class Map {
 				for (int i = 0; i < width; i++) {
 					tileSymbol = tiles[i][j].getTypeSymbol();
 					ownerSymbol = tiles[i][j].getOwnerSymbol();
-					// sets the color symbol for every tile type
+					// sets the color theme for every tile type
 					colorCodeFg = tiles[i][j].colorCodeFg;
 					colorCodeFg = tiles[i][j].colorCodeBg;
 					if (tiles[i][j].getOwner() == GameMain.game.activePlayer) {// bold;underlined
@@ -253,7 +253,8 @@ public class Map {
 					}
 					if (tiles[i][j].getOwner() == null) {
 //						colorCodeFg = colorCodeBg;
-						System.out.print(colorCodeBg + colorCodeFg + "      " + "\033[0m");
+						System.out.print(colorCodeBg + colorCodeFg + "      " + "\033[0m");// empty tiles have no text
+																							// (6 spaces)
 					} else {
 						System.out
 								.print(colorCodeBg + colorCodeFg + "[" + tileSymbol + ", " + ownerSymbol + "]\033[0m");

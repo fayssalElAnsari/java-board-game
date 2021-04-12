@@ -57,6 +57,7 @@ public abstract class Player {
 			this.foodUnits = this.foodUnits - foodConsumption;
 			return true;
 		} else {
+//			this.foodUnits = 0;
 			System.out.println("You don't have enough [FOOD UNITS] to feed.");
 			return false;
 		}
@@ -70,6 +71,7 @@ public abstract class Player {
 	 */
 	public void sell(Unit unit) {
 		try {
+			unit.getTile().setOwner(null);
 			killUnit(unit);
 			getPayed(1);
 		} catch (Exception e) {

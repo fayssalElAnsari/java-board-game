@@ -53,6 +53,7 @@ public class PlayerWar extends Player {
 				return true;
 			} else {
 				System.out.println("/!\\ The number of soldiers left is not enough :(");
+				createArmy(n, tile);
 				return false;
 			}
 		} else {

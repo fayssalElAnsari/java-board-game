@@ -22,7 +22,7 @@ public abstract class Tile {
 	protected String colorCodeBg = "";
 	protected boolean isOcean = false;
 	protected int bonusAttackPoints = 0;
-	protected int bonusFoodConsumption = 0;
+	protected int bonusFoodConsumption = 1;
 	protected int bonusPoints = 0;
 	protected int turnSalary = 0;
 
