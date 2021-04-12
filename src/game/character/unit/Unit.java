@@ -15,7 +15,7 @@ public abstract class Unit {
 	protected int size = 1;
 	protected int resources = 0;
 	protected int attackPoints = 1;
-	protected int foodConsumption = 1;
+	protected int foodConsumption = 0;
 
 	/**
 	 * 

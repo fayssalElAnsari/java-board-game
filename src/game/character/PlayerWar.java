@@ -1,8 +1,12 @@
 package game.character;
 
+import java.util.Map.Entry;
+
 import game.character.unit.Army;
 import game.character.unit.Unit;
+import game.util.ActionPlayer;
 import game.util.Tile;
+import game.util.tile.TileProd;
 
 public class PlayerWar extends Player {
 
@@ -60,7 +64,30 @@ public class PlayerWar extends Player {
 			System.out.println("/!\\ You have no soldiers left :(");
 			return false;
 		}
+	}
 
+	/**
+	 * exchanges the resources in the inventory of this player for gold $
+	 */
+	public void sellResources() {
+		this.lastAction = ActionPlayer.EXCHANGE;
+		for (Entry<TileProd, Integer> entry : this.inventory.entrySet()) {
+			TileProd product = entry.getKey();
+			Integer quantity = entry.getValue();
+			int profit = 0;
+
+			if (product == TileProd.ROCK) {
+				profit = 0;
+			} else if (product == TileProd.CORN) {
+				profit = quantity * 5;
+			} else if (product == TileProd.SAND) {
+				profit = 0;
+			} else if (product == TileProd.WOOD) {
+				profit = quantity;// *1
+			}
+			this.setFoodUnits(this.getFoodUnits() + profit);
+			entry.setValue(0);
+		}
 	}
 
 }

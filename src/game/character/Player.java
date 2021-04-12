@@ -57,7 +57,7 @@ public abstract class Player {
 			this.foodUnits = this.foodUnits - foodConsumption;
 			return true;
 		} else {
-//			this.foodUnits = 0;
+//			this.foodUnits = 0; // should we eat everything before dying XD
 			System.out.println("You don't have enough [FOOD UNITS] to feed.");
 			return false;
 		}
@@ -175,7 +175,7 @@ public abstract class Player {
 	 */
 	public Unit getLastUnit() {
 		Unit u;
-		if (hasUnits()) {// if the player has atleast a unit
+		if (hasUnits()) {// if the player has at least a unit
 			u = units[getFirstEmptySlot() - 1];
 			return u;
 		} else {
