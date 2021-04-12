@@ -238,4 +238,12 @@ public abstract class Tile {
 		return "pos: " + this.position.toString() + "; Owner: " + owner + "; Type: " + this.getTypeSymbol();
 	}
 
+	public int getBonusPoints() {
+		return bonusPoints;
+	}
+
+	public void setBonusPoints(int bonusPoints) {
+		this.bonusPoints = bonusPoints;
+	}
+
 }

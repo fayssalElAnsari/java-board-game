@@ -28,7 +28,7 @@ public abstract class Game {
 	 * public constructor for the game class
 	 */
 	public Game() {
-		map = new Map("testMap", 10, 10, 1);
+		map = new Map("testMap", 3, 3, 1);
 		createPlayers();
 		// chose the first player in a random way
 		Random r = new Random();
@@ -69,6 +69,9 @@ public abstract class Game {
 		}
 		activePlayer = players[(n + 1) % players.length];
 		clearConsole();
+		if (this.map.noTilesLeft()) {
+			this.gameEnd();
+		}
 
 	}
 
@@ -76,10 +79,15 @@ public abstract class Game {
 		currentRound++;
 	}
 
+	/**
+	 * finding the winner by calculating the total number of points for each player
+	 * the player who has the most amount of points is the winner
+	 */
 	public void findWinner() {
 		winner = players[0];
 		for (int i = 0; i < players.length - 1; i++) {
-			if (players[i].getGold() < players[i + 1].getGold()) {
+			players[i].calculateTotalPoints();
+			if (players[i].getPoints() < players[i + 1].getPoints()) {
 				winner = players[i + 1];
 			}
 		}
@@ -88,7 +96,7 @@ public abstract class Game {
 	public void gameEnd() {
 		findWinner();
 		System.out.println("The winner is...");
-		System.out.println(winner.getName() + " with " + winner.getGold() + " points!!");
+		System.out.println(winner.getName() + " with " + winner.getPoints() + " points!!");
 	}
 
 	public abstract void startGame();

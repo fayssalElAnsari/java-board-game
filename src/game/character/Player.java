@@ -9,6 +9,7 @@ import game.util.Tile;
 import game.util.tile.TileProd;
 
 public abstract class Player {
+	int points = 0;
 	protected String name;
 	protected Unit[] units;
 	protected int soldiers;
@@ -358,4 +359,13 @@ public abstract class Player {
 		this.foodUnits = foodUnits;
 	}
 
+	public abstract int calculateTotalPoints();
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
 }

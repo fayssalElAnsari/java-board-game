@@ -298,4 +298,23 @@ public class Map {
 		return this.width;
 	}
 
+	/**
+	 * check to see if there are no tiles left to be colonized in this map
+	 * 
+	 * @return false if there are tiles left; true if the whole map has been
+	 *         colonized
+	 */
+	public boolean noTilesLeft() {
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
+				if (!tiles[i][j].isOcean && tiles[i][j].getOwner() != null) {
+					System.out.println("there are no tiles left to be taken in this map :(");
+					return true;
+				}
+			}
+		}
+		System.out.println("there ARE tiles left to be taken in this map :)");
+		return false;
+	}
+
 }

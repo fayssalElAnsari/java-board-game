@@ -67,7 +67,7 @@ public class PlayerWar extends Player {
 	}
 
 	/**
-	 * exchanges the resources in the inventory of this player for gold $
+	 * exchanges the resources in the inventory of this player for food
 	 */
 	public void sellResources() {
 		this.lastAction = ActionPlayer.EXCHANGE;
@@ -88,6 +88,26 @@ public class PlayerWar extends Player {
 			this.setFoodUnits(this.getFoodUnits() + profit);
 			entry.setValue(0);
 		}
+	}
+
+	/**
+	 * calculate and return the total number of points acquired by this war player
+	 * the amount is calculated by adding the number of gold coins this war player
+	 * has to the bonus points points gotten for each tile type and if he has at
+	 * least 10 tiles in total he will get an additional 5 points
+	 */
+	public int calculateTotalPoints() {
+		this.points = 0;
+		int nbTerritories = 0;
+		this.points += this.gold;
+		for (int i = 0; i < units.length; i++) {
+			this.points += units[i].getTile().getBonusPoints();
+			nbTerritories++;
+		}
+		if (nbTerritories >= 10) {
+			this.points += 5;
+		}
+		return points;
 	}
 
 }
