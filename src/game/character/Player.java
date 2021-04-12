@@ -72,7 +72,8 @@ public abstract class Player {
 	public void sell(Unit unit) {
 		try {
 			unit.getTile().setOwner(null);
-			killUnit(unit);
+			unit.setOwner(null);
+			buryDeadUnits();
 			getPayed(1);
 		} catch (Exception e) {
 			System.out.println("couldn't sell unit :(");
@@ -136,13 +137,20 @@ public abstract class Player {
 	}
 
 	/**
-	 * a method to delete a certain object of type Unit it will be used to kill
-	 * units
+	 * since we can't pas an object by reference and set it to null we will just set
+	 * the owner of the unit we want to kill to null and loop through all the units
+	 * and whenever we find a non null unit that doesn't have an owner it's a flag
+	 * that it should be killed
+	 * 
 	 * 
 	 * @param unit the unit to be killed
 	 */
-	private void killUnit(Unit unit) {
-		unit = null;
+	private void buryDeadUnits() {
+		for (int i = 0; i < units.length; i++) {
+			if (units[i] != null && units[i].getOwner() == null) {
+				units[i] = null;
+			}
+		}
 	}
 
 	/**

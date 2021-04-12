@@ -35,6 +35,8 @@ public abstract class Unit {
 			if (ate) {
 				System.out.println(" just ate: " + foodConsumption);
 			}
+		} else {
+			System.out.println("trying to feed a non existing unit!");
 		}
 		return ate;
 	}
@@ -90,6 +92,8 @@ public abstract class Unit {
 			} else {
 				this.owner.sell(this);
 			}
+		} else {
+			System.out.println("calling eat or die on a unit without an owner");
 		}
 	}
 
