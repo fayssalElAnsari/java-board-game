@@ -1,46 +1,55 @@
-/**
- * 
- */
 package game.character;
+import game.util.Tile;
+import game.util.tile.DesertsTile;
+import game.util.tile.TileProd;
+import game.util.*;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerTestWar {
-	private PlayerWar P1;
-	private PlayerWar P2;
-	private PlayerWar P3;
-	private PlayerWar P4;
 	
-	@Before
-	public void before(){
-		this.P1 = new PlayerWar("Fayssal");
-	    this.P2 = new PlayerWar("Aya");
-	    this.P3 = new PlayerWar("Mehdi");
-	    this.P4 = new PlayerWar("Zicko");
+	PlayerWar P1 = new PlayerWar("Fayssal");
+	PlayerWar P2 = new PlayerWar("Aya");
+	PlayerWar P3 = new PlayerWar("Mehdi");
+	PlayerWar P4 = new PlayerWar("Zicko");
+	
+	Tile desertTile = new DesertsTile(new Position(0,0));
+	
 
-	  }
-	
 	  @Test
-	  public void testGetName(){
-		  assertEquals("Fayssal",this.P1.getName());
-		  assertEquals("Aya",this.P2.getName());
-		  assertEquals("Mehdi",this.P3.getName());
-		  assertEquals("Zicko",this.P4.getName());
-
+	  public void initAndGettersTest(){
+	    assertSame(P1.getName(),"Fayssal");
+	    assertEquals(P1.getSoldiers(),35);
 	  }
-	  
 	  
 	  @Test
-	  public void testgetSoldiers() {
-		  assertEquals("35",this.P1.getSoldiers());
-		  assertEquals("35",this.P2.getSoldiers());
-		  assertEquals("35",this.P3.getSoldiers());
-		  assertEquals("35",this.P4.getSoldiers());
+	  public void testCreateArmy(){
+		  assertEquals(true, P1.createArmy(10, desertTile));
+		  //assertEquals(false, P1.createArmy(3, desertTile));
+		  
+	  }
+	  @Test
+	  public void testSellResources() {
+		  P1.setResource(TileProd.CORN, 5);
+		  assertEquals(5,P1.getResource(TileProd.CORN));
 	  }
 	  
+	  
+	  /*@Test
+	  public void testCalculateTotalPoints() {
+		  assertEquals();
+	  }*/
+
+	  
+	  // ---For test execution----------------------
+	  public static junit.framework.Test suite() {
+	      return new junit.framework.JUnit4TestAdapter(PlayerTestWar.class);
+	  }
+
 }
