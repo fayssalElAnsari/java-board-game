@@ -18,6 +18,14 @@ public abstract class Player {
 	protected ActionPlayer lastAction;
 	protected HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
 
+	public HashMap<TileProd, Integer> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(HashMap<TileProd, Integer> inventory) {
+		this.inventory = inventory;
+	}
+
 	/**
 	 * public constructor for the Player class each player starts off the game with
 	 * 0 gold pieces the last action performed by this player is nothing (or skip)
@@ -35,6 +43,19 @@ public abstract class Player {
 		for (TileProd resource : TileProd.values()) {
 			inventory.put(resource, 0);
 		}
+	}
+	
+	/**
+	 * sets the resource qauntity to a certain value
+	 * @param tileProd the resource type
+	 * @param quantity the new quantity
+	 */
+	public void setResource(TileProd tileProd, int quantity) {
+		this.inventory.put(tileProd, quantity);
+	}
+	
+	public int getResource(TileProd tileProd) {
+		return this.inventory.get(tileProd);
 	}
 
 	/**
