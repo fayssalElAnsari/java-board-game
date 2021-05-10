@@ -38,12 +38,6 @@ public class Map {
 		int nbNonOceans = 0;
 		double ratio;
 		Random r = new Random();
-		// making all the tiles oceans
-//		for (int j = 0; j < height; j++) {
-//			for (int i = 0; i < width; i++) {
-//				tiles[i][j] = new OceanTile(new Position(i, j));
-//			}
-//		}
 
 		if (seed == 1) {// start off by by making the two thirds full of oceans then random tiles
 						// including oceans since it's >= 2/3 oceans and not strictly > 2/3
@@ -284,7 +278,6 @@ public class Map {
 
 			}
 		}
-//		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
 		return result;
 
 	}

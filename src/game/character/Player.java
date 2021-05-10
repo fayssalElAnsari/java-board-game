@@ -55,16 +55,17 @@ public abstract class Player {
 			inventory.put(resource, 0);
 		}
 	}
-	
+
 	/**
 	 * sets the resource qauntity to a certain value
+	 * 
 	 * @param tileProd the resource type
 	 * @param quantity the new quantity
 	 */
 	public void setResource(TileProd tileProd, int quantity) {
 		this.inventory.put(tileProd, quantity);
 	}
-	
+
 	public int getResource(TileProd tileProd) {
 		return this.inventory.get(tileProd);
 	}
@@ -391,16 +392,32 @@ public abstract class Player {
 		return foodUnits;
 	}
 
+	/**
+	 * 
+	 * @param foodUnits
+	 */
 	public void setFoodUnits(int foodUnits) {
 		this.foodUnits = foodUnits;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract int calculateTotalPoints();
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getPoints() {
 		return points;
 	}
 
+	/**
+	 * 
+	 * @param points
+	 */
 	public void setPoints(int points) {
 		this.points = points;
 	}
