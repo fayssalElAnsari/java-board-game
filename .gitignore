@@ -6,6 +6,9 @@
 **/.vscode/*
 *.code-workspace
 **/ignore/**
+.project
+.classpath
+
 
 ### Java ###
 # Compiled class file
