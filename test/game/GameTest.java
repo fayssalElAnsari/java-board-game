@@ -11,6 +11,20 @@ import org.junit.Test;
  *
  */
 public class GameTest {
-
+	@Test
+	public void getMap() {
+		
+	}
+	
+	@Test
+	public void getnbRound() {
+		
+	}
+	
+	@Test void getCurrentRound() {
+		
+	}
+	
+	
 
 }

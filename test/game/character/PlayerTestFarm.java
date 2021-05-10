@@ -17,7 +17,7 @@ public class PlayerTestFarm {
 		this.P1 = new PlayerFarm("Fayssal");
 	    this.P2 = new PlayerFarm("Aya");
 	    this.P3 = new PlayerFarm("Mehdi");
-	    this.P4 = new PlayerFarm("Zicko");
+	    this.P4 = new PlayerFarm("Ziko");
 
 	  }
 	
@@ -26,7 +26,7 @@ public class PlayerTestFarm {
 		  assertEquals("Fayssal",this.P1.getName());
 		  assertEquals("Aya",this.P2.getName());
 		  assertEquals("Mehdi",this.P3.getName());
-		  assertEquals("Zicko",this.P4.getName());
+		  assertEquals("Ziko",this.P4.getName());
 
 	  }
 
