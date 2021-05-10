@@ -27,7 +27,7 @@ public class Map {
 	 * @param width  the width of the map
 	 * @param height the height of the map
 	 */
-	public Map(String name, int width, int height, int mode) {
+	public Map(String name, int width, int height, int seed) {
 		this.name = name;
 		this.width = width;
 		this.height = height;
@@ -37,19 +37,11 @@ public class Map {
 		int nbOceans = 0;
 		int nbNonOceans = 0;
 		double ratio;
+		Random r = new Random();
 
-		// making all the tiles oceans
-//		for (int j = 0; j < height; j++) {
-//			for (int i = 0; i < width; i++) {
-//				tiles[i][j] = new OceanTile(new Position(i, j));
-//			}
-//		}
-
-		if (mode == 1) {// start off by by making the two thirds full of oceans then random tiles
-						// including oceans since it's bigger >= 2/3 oceans and not strictly > 2/3
+		if (seed == 1) {// start off by by making the two thirds full of oceans then random tiles
+						// including oceans since it's >= 2/3 oceans and not strictly > 2/3
 			ratioLimit = (double) 2 / (double) 3;
-			Random r = new Random();
-			ratio = (double) nbOceans / (double) nbNonOceans;// div by 0?
 			int n;
 
 			for (int j = 0; j < height; j++) {
@@ -69,16 +61,95 @@ public class Map {
 					}
 				}
 			}
+		} else if (seed == 2) {// put an island of random tile in the middle surrounded by oceans tiles only
+			int minX = 0;
+			int minY = 0;
+			int maxX = this.getWidth() - 1;
+			int maxY = this.getHeight() - 1;
+			int i = 0;
+			int j = 0;
+			int repetitions = this.getHeight() / 2;
+			int n = 0;
+			ratio = (double) nbOceans / totalTiles;
+			int xDirection = 1;
+			int yDirection = 0;
 
-		} else if (mode == 2) {// put an island of random tile in the middle surrounded by oceans tiles only
-			int centerX = this.getWidth() / 2;
-			int centerY = this.getHeight() / 2;
-			int wantedNonOceans = totalTiles / 3;
-//			while ( centerX < )
-		} else if (mode == 3) {// Divide map into sections and alternate between making a section strictly not
-								// ocean or ocean
+			// we will start off by the first (0,0) tile then go right then enter the loop
+			// after defining the directions
+			tiles[0][0] = new OceanTile(new Position(i, j));
+			i = 1;
+			while (ratio < ratioLimit) {
+				// reached the limit going right (will go down)
+				System.out.println("the diff is: i(" + (i - maxX) + "); j(" + (j - minY) + ")");
+				if (i == maxX && j == minY) {
+					System.out.println(" !! will go down");
+					xDirection = 0;
+					yDirection = 1;
+					i--;
+					maxX--;
+				}
+				// reached the limit going down (will go left)
+				if (j == maxY && i == maxX) {
+					System.out.println(" !! will go left");
+					xDirection = -1;
+					yDirection = 0;
+					maxY--;
+				}
+				// reached the limit going left (will go up)
+				if (i == minX && j == maxY) {
+					System.out.println(" !! will go up");
+					xDirection = 0;
+					yDirection = -1;
+					minX++;
+				}
+				// reached the limit going up (will go right)
+				if (j == minY && i == minY) {
+					System.out.println(" !! will go right");
+					xDirection = 1;
+					yDirection = 0;
+					minY++;
+				} else {
+					System.out.println(minX + "," + maxX + " ; " + minX + "," + maxX);
+				}
+				i = i + xDirection;
+				j = j + yDirection;
+				tiles[i][j] = new OceanTile(new Position(i, j));
+				nbOceans++;
+				ratio = (double) nbOceans / totalTiles;
+				System.out.println(tiles[i][j].toString() + " " + ratio);
 
-		} else if (mode == 4) {// a combination of mode 2 and 3 by making a couple of islands inside sections
+			}
+			System.out.println("Got out of the loop!");
+
+			for (int j2 = 0; j2 < height; j2++) {
+				for (int i2 = 0; i2 < width; i2++) {
+					try {
+						if (!tiles[i2][j2].isOcean) {
+							ratio = (double) nbOceans / totalTiles;
+							n = r.nextInt(5);
+							System.out.println(tiles[i2][j2].toString());
+							tiles[i2][j2] = chooseRandomTileType(i2, j2, n);
+
+						}
+						if (tiles[i2][j2].isOcean) {
+							nbOceans++;
+						} else {
+							nbNonOceans++;
+						}
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			}
+
+			maxX = maxX - 1;
+
+		} else if (seed == 3)
+
+		{// Divide map into sections and alternate between making a section strictly not
+			// ocean or ocean
+
+		} else if (seed == 4) {// a combination of mode 2 and 3 by making a couple of islands inside sections
 								// surrounded by oceans
 
 		}
@@ -207,7 +278,6 @@ public class Map {
 
 			}
 		}
-//		System.out.println(tile.getPosition().toString() + " has " + result + " ocean tiles.");
 		return result;
 
 	}
@@ -307,14 +377,14 @@ public class Map {
 	public boolean noTilesLeft() {
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width; i++) {
-				if (!tiles[i][j].isOcean && tiles[i][j].getOwner() != null) {
-					System.out.println("there are no tiles left to be taken in this map :(");
-					return true;
+				if (!tiles[i][j].isOcean && tiles[i][j].getOwner() == null) {
+//					System.out.println("there ARE tiles left to be taken in this map :)");
+					return false;
 				}
 			}
 		}
-		System.out.println("there ARE tiles left to be taken in this map :)");
-		return false;
+		System.out.println("there are no tiles left to be taken in this map :(");
+		return true;
 	}
 
 }

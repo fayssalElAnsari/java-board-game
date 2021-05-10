@@ -14,6 +14,7 @@ public class DesertsTile extends Tile {
 		bonusFoodConsumption = 2;
 		bonusPoints = 4;
 		turnSalary = 3;
+		exchangeRate = 0;
 	}
 
 }

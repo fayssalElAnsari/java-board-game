@@ -25,7 +25,24 @@ public abstract class Tile {
 	protected int bonusFoodConsumption = 1;
 	protected int bonusPoints = 0;
 	protected int turnSalary = 0;
+	protected int exchangeRate = 1;
 
+	/**
+	 * public constructor for Tile
+	 * 
+	 * @param position the position of the time in the map
+	 * @param tileProd the type of resource to be produced by the tile
+	 */
+	public Tile(final Position position, final TileProd tileProd) {
+		this.position = position;
+		this.tileProd = tileProd;
+	}
+
+	/**
+	 * get the salary of this turn
+	 * 
+	 * @return the salary
+	 */
 	public int getTurnSalary() {
 		return turnSalary;
 	}
@@ -60,17 +77,6 @@ public abstract class Tile {
 
 	public void setMaxNbSoldiers(int maxNbSoldiers) {
 		this.maxNbSoldiers = maxNbSoldiers;
-	}
-
-	/**
-	 * public constructor for Tile
-	 * 
-	 * @param position the position of the time in the map
-	 * @param tileProd the type of resource to be produced by the tile
-	 */
-	public Tile(final Position position, final TileProd tileProd) {
-		this.position = position;
-		this.tileProd = tileProd;
 	}
 
 	/**
@@ -160,8 +166,9 @@ public abstract class Tile {
 		this.unit = unit;
 	}
 
+	// TODO no idea how to improve this method
+
 	/**
-	 * this need a lot of modifications but we'll just try to make it work for now
 	 * 
 	 * @return an array containing all the adjacent tiles to this one
 	 */

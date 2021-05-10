@@ -198,7 +198,11 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 ## Livrable 7
 
 ## Livrable 8
-
+* creation d'un diagramme uml final
+* ajoute des commentaires pour toutes les methodes
+* extraction des constantes (ctrl+1 sur eclipse) pour mieux organiser le code
+* ajout des tests map, game, gameWar
+* suppression des fichier non necessaires du depot git.
 
 
 ### Atteinte des objectifs

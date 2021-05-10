@@ -17,12 +17,12 @@ public abstract class Game {
 	private Map map;
 	public Player activePlayer;
 
-	public Player[] players;
+	public Player[] players;// the number of players will not change during the game so an array is perfect
 	private Player winner;
 	public int nbRounds = 10;
 	public int currentRound = 1;
 
-	boolean debugMode = true;
+	boolean debugMode = true;// bypass unnecessary prompts
 
 	/**
 	 * public constructor for the game class
@@ -43,20 +43,35 @@ public abstract class Game {
 	 */
 	public abstract void createPlayers();
 
+	/**
+	 * get the map of this player
+	 * 
+	 * @return the map of the current game
+	 */
 	public Map getMap() {
 		return this.map;
 	}
 
+	/**
+	 * get the number of rounds
+	 * 
+	 * @return the number of rounds
+	 */
 	public int getnbRounds() {
 		return this.nbRounds;
 	}
 
+	/**
+	 * get the number of the current round
+	 * 
+	 * @return the number of the current round
+	 */
 	public int getCurrentRound() {
 		return this.currentRound;
 	}
 
 	/**
-	 * IN EACH ROUND THERE ARE AS MUCH TURNSS AS THE NUMBER OF PLAYERS
+	 * IN EACH ROUND THERE ARE AS MUCH TURNS AS THE NUMBER OF PLAYERS
 	 */
 	public void nextTurn() {
 		// find the next player
@@ -72,9 +87,11 @@ public abstract class Game {
 		if (this.map.noTilesLeft()) {
 			this.gameEnd();
 		}
-
 	}
 
+	/**
+	 * increment the currentRound variable by one
+	 */
 	public void nextRound() {
 		currentRound++;
 	}
@@ -93,12 +110,19 @@ public abstract class Game {
 		}
 	}
 
+	/**
+	 * find the winner by calling the findWinner() method and then end the game and
+	 * print out the winner's name and its total number of points acquired
+	 */
 	public void gameEnd() {
 		findWinner();
 		System.out.println("The winner is...");
 		System.out.println(winner.getName() + " with " + winner.getPoints() + " points!!");
 	}
 
+	/**
+	 * start out a new game
+	 */
 	public abstract void startGame();
 
 	/*
