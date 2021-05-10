@@ -17,7 +17,7 @@ public class PlayerTestWar {
 	PlayerWar P1 = new PlayerWar("Fayssal");
 	PlayerWar P2 = new PlayerWar("Aya");
 	PlayerWar P3 = new PlayerWar("Mehdi");
-	PlayerWar P4 = new PlayerWar("Zicko");
+	PlayerWar P4 = new PlayerWar("Ziko");
 	
 	Tile desertTile = new DesertsTile(new Position(0,0));
 	
@@ -31,7 +31,7 @@ public class PlayerTestWar {
 	  @Test
 	  public void testCreateArmy(){
 		  assertEquals(true, P1.createArmy(10, desertTile));
-		  //assertEquals(false, P1.createArmy(3, desertTile));
+		  assertEquals(false, P1.createArmy(3, desertTile));
 		  
 	  }
 	  @Test

@@ -23,7 +23,7 @@ public class PlayerTest {
 	    this.P1 = new Player("Fayssal");
 	    this.P2 = new Player("Aya");
 	    this.P3 = new Player("Mehdi");
-	    this.P4 = new Player("Zicko");
+	    this.P4 = new Player("Ziko");
 
 	  }
 	  @Test
@@ -31,7 +31,7 @@ public class PlayerTest {
 		  assertEquals("Fayssal",this.P1.getName());
 		  assertEquals("Aya",this.P2.getName());
 		  assertEquals("Mehdi",this.P3.getName());
-		  assertEquals("Zicko",this.P4.getName());
+		  assertEquals("Ziko",this.P4.getName());
 
 	  }
 	  @Test

@@ -39,7 +39,7 @@ public abstract class Player {
 		this.gold = 0;
 		this.units = new Unit[40];// i think it would be simpler to just use a list instead could do it later idk
 		this.lastAction = ActionPlayer.NOTHING;
-		// if wargame create army else creaate workers
+		// if wargame create army else create workers
 		for (TileProd resource : TileProd.values()) {
 			inventory.put(resource, 0);
 		}
