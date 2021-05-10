@@ -51,12 +51,9 @@ public class PlayerWar extends Player {
 	public boolean createArmy(int n, Tile tile) {
 		if (soldiers > 0) {
 			if (n < soldiers) {
-				int slot = getFirstEmptySlot();
-				if (slot != -1) {// if there's a slot available and it's not full
-					soldiers = soldiers - n;
-					Unit newArmy = new Army(this, tile, n);
-					units[slot] = newArmy;
-				}
+				soldiers = soldiers - n;
+				Unit newArmy = new Army(this, tile, n);
+				tile.setUnit(newArmy);
 				return true;
 			} else {
 				System.out.println("/!\\ The number of soldiers left is not enough :(");
@@ -104,11 +101,9 @@ public class PlayerWar extends Player {
 		this.points = 0;
 		int nbTerritories = 0;
 		this.points += this.gold;
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				this.points += units[i].getTile().getBonusPoints();
-				nbTerritories++;
-			}
+		for (int i = 0; i < this.tiles.size(); i++) {
+			this.points += this.tiles.get(i).getBonusPoints();
+			nbTerritories++;
 		}
 		if (nbTerritories >= 10) {
 			this.points += 5;

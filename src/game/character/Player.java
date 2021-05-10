@@ -1,7 +1,7 @@
 package game.character;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -11,7 +11,6 @@ import game.util.Tile;
 import game.util.tile.TileProd;
 
 public abstract class Player {
-	private static final int MAX_UNIT_SLOTS = 40;
 	int points = 0;
 	protected String name;
 	/**
@@ -21,7 +20,6 @@ public abstract class Player {
 	 * partir de ces tuiles on peux acceder au armees qui sont dedant
 	 **/
 	protected List<Tile> tiles;
-	protected Unit[] units;
 	protected int soldiers;
 	protected int gold;
 	protected int foodUnits;
@@ -47,9 +45,8 @@ public abstract class Player {
 	public Player(String name) {
 		this.name = name;
 		this.gold = 0;
-		this.units = new Unit[MAX_UNIT_SLOTS];
+		this.tiles = new LinkedList<Tile>();
 		this.lastAction = ActionPlayer.NOTHING;
-		this.tiles = new ArrayList();
 		// if wargame create army else creaate workers
 		for (TileProd resource : TileProd.values()) {
 			inventory.put(resource, 0);
@@ -106,7 +103,6 @@ public abstract class Player {
 		try {
 			unit.getTile().setOwner(null);
 			unit.setOwner(null);
-			buryDeadUnits();
 			getPayed(1);
 		} catch (Exception e) {
 			System.out.println("couldn't sell unit :(");
@@ -137,51 +133,19 @@ public abstract class Player {
 	 * @param i the index of the wanted unit
 	 * @return the unit in index i
 	 */
-	public Unit getUnitByIndex(int i) {
-		return this.units[i];
-	}
-
-	/**
-	 * finds the first empty unit slot of this player
-	 * 
-	 * @return the index of the first empty slot in this player
-	 */
-	public int getFirstEmptySlot() {
-		int result = -1;
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] == null) {
-				result = i;
-				break;
-			}
-		}
-		return result;
+	public Tile getTileByIndex(int i) {
+//		return this.units[i];
+		return this.tiles.get(i);
 	}
 
 	/**
 	 * tells the workers to do the actions they need to do at the start of the turn
+	 * will iterate through all the tiles of this player and call for each tile the
+	 * startTurn() method
 	 */
 	public void startTurn() {
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				units[i].startTurn();
-			}
-		}
-	}
-
-	/**
-	 * since we can't pas an object by reference and set it to null we will just set
-	 * the owner of the unit we want to kill to null and loop through all the units
-	 * and whenever we find a non null unit that doesn't have an owner it's a flag
-	 * that it should be killed
-	 * 
-	 * 
-	 * @param unit the unit to be killed
-	 */
-	private void buryDeadUnits() {
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null && units[i].getOwner() == null) {
-				units[i] = null;
-			}
+		for (int i = 0; i < tiles.size(); i++) {
+			tiles.get(i).getUnit().startTurn();
 		}
 	}
 
@@ -190,28 +154,8 @@ public abstract class Player {
 	 * need to do at the end of each turn
 	 */
 	public void nextTurn() {
-		if (units != null) {
-			for (int i = 0; i < units.length; i++) {
-				if (units[i] != null) {
-					units[i].nextTurn();
-				}
-			}
-		}
-	}
-
-	/**
-	 * get the unit with the biggest index (last unit) from this player's array of
-	 * workers
-	 * 
-	 * @return the unit with the biggest index
-	 */
-	public Unit getLastUnit() {
-		Unit u;
-		if (hasUnits()) {// if the player has at least a unit
-			u = units[getFirstEmptySlot() - 1];
-			return u;
-		} else {
-			return units[0];
+		for (int i = 0; i < this.tiles.size(); i++) {
+			this.tiles.get(i).getUnit().nextTurn();
 		}
 	}
 
@@ -221,12 +165,7 @@ public abstract class Player {
 	 * @return true if he has no workers; false if he has a unit
 	 */
 	public boolean hasUnits() {
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				return true;
-			}
-		}
-		return false;
+		return !this.tiles.isEmpty();
 	}
 
 	/**
@@ -291,10 +230,11 @@ public abstract class Player {
 	 */
 	public void printOutUnitsList() {
 		System.out.println("Available workers: ");
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				System.out.print(i + ": in " + units[i].getTile().getPosition().toString() + " working "
-						+ units[i].getTile().getTileProd() + " has " + units[i].getResources() + "; ");
+		for (int i = 0; i < this.tiles.size(); i++) {
+			if (tiles.get(i) != null) {
+				System.out.print(i + ": in " + this.tiles.get(i).getPosition().toString() + " working "
+						+ this.tiles.get(i).getTileProd() + " has " + this.tiles.get(i).getUnit().getResources()
+						+ "; ");
 			} else {
 				System.out.print(i + ": NONE! ");
 			}
@@ -316,15 +256,7 @@ public abstract class Player {
 	 * @return the number of initiated workers in the workers array of this player
 	 */
 	public int getNumberOfUnits() {
-		int result = 0;
-
-		for (int i = 0; i < units.length; i++) {
-			if (units[i] != null) {
-				result += 1;
-				break;
-			}
-		}
-		return result;
+		return this.tiles.size();
 	}
 
 	/**
