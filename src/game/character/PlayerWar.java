@@ -10,6 +10,9 @@ import game.util.tile.TileProd;
 
 public class PlayerWar extends Player {
 
+	private static final int FOOD_UNITS = 10;
+	private static final int SOLDIERS_COUNT = 35;
+
 	/**
 	 * public constructor for the Player class each player starts off the game with
 	 * only 15 gold pieces the last action performed by this player is nothing (or
@@ -22,8 +25,8 @@ public class PlayerWar extends Player {
 		// call the constructor of Player
 		super(name);
 		// create the units as some armies
-		soldiers = 35;
-		foodUnits = 10;
+		soldiers = SOLDIERS_COUNT;
+		foodUnits = FOOD_UNITS;
 	}
 
 	/**
@@ -71,6 +74,7 @@ public class PlayerWar extends Player {
 	 */
 	public void sellResources() {
 		this.lastAction = ActionPlayer.EXCHANGE;
+
 		for (Entry<TileProd, Integer> entry : this.inventory.entrySet()) {
 			TileProd product = entry.getKey();
 			Integer quantity = entry.getValue();
@@ -93,16 +97,18 @@ public class PlayerWar extends Player {
 	/**
 	 * calculate and return the total number of points acquired by this war player
 	 * the amount is calculated by adding the number of gold coins this war player
-	 * has to the bonus points points gotten for each tile type and if he has at
-	 * least 10 tiles in total he will get an additional 5 points
+	 * has to the bonus points gotten for each tile type and if he has at least 10
+	 * tiles in total he will get an additional 5 points
 	 */
 	public int calculateTotalPoints() {
 		this.points = 0;
 		int nbTerritories = 0;
 		this.points += this.gold;
 		for (int i = 0; i < units.length; i++) {
-			this.points += units[i].getTile().getBonusPoints();
-			nbTerritories++;
+			if (units[i] != null) {
+				this.points += units[i].getTile().getBonusPoints();
+				nbTerritories++;
+			}
 		}
 		if (nbTerritories >= 10) {
 			this.points += 5;

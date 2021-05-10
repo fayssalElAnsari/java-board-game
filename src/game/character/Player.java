@@ -1,6 +1,8 @@
 package game.character;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import game.character.unit.Unit;
@@ -9,8 +11,16 @@ import game.util.Tile;
 import game.util.tile.TileProd;
 
 public abstract class Player {
+	private static final int MAX_UNIT_SLOTS = 40;
 	int points = 0;
 	protected String name;
+	/**
+	 * dans ce jeu un objet qui existe doit absoluement avoir une place dans une
+	 * tuile c'est a dire au lieu de mettre une liste des armmee dans cette class
+	 * c'est mieux de mettre une liste des tuiles qui appartient a ce joueur et a
+	 * partir de ces tuiles on peux acceder au armees qui sont dedant
+	 **/
+	protected List<Tile> tiles;
 	protected Unit[] units;
 	protected int soldiers;
 	protected int gold;
@@ -29,8 +39,9 @@ public abstract class Player {
 	public Player(String name) {
 		this.name = name;
 		this.gold = 0;
-		this.units = new Unit[40];// i think it would be simpler to just use a list instead could do it later idk
+		this.units = new Unit[MAX_UNIT_SLOTS];
 		this.lastAction = ActionPlayer.NOTHING;
+		this.tiles = new ArrayList();
 		// if wargame create army else creaate workers
 		for (TileProd resource : TileProd.values()) {
 			inventory.put(resource, 0);
@@ -62,7 +73,6 @@ public abstract class Player {
 			System.out.println("You don't have enough [FOOD UNITS] to feed.");
 			return false;
 		}
-
 	}
 
 	/**
@@ -79,7 +89,6 @@ public abstract class Player {
 		} catch (Exception e) {
 			System.out.println("couldn't sell unit :(");
 		}
-
 	}
 
 	/**
@@ -155,7 +164,7 @@ public abstract class Player {
 	}
 
 	/**
-	 * ends the turn for this player buy telling the unitss to do the actions they
+	 * ends the turn for this player buy telling the units to do the actions they
 	 * need to do at the end of each turn
 	 */
 	public void nextTurn() {
@@ -272,6 +281,12 @@ public abstract class Player {
 		System.out.println();
 	}
 
+	public void printOutTilesList() {
+		System.out.println("Player's tiles list: ");
+
+		System.out.println();
+	}
+
 	/**
 	 * get the exact number of NON NULL unit objects of this player if there are non
 	 * it will return 0
@@ -368,4 +383,5 @@ public abstract class Player {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
 }

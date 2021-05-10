@@ -31,7 +31,7 @@ public class WarGame extends Game {
 			players[3] = new PlayerWar("ziko");
 		} else {
 			System.out.println("Possible number of players between 2 and 4");
-			System.out.println("Chose number of players :>");
+			System.out.println("Choose number of players :>");
 			int nbPlayers = Integer.parseInt(scanner.nextLine());
 			if (nbPlayers >= 2 && nbPlayers <= 4) {
 				players = new PlayerWar[nbPlayers];
@@ -75,11 +75,11 @@ public class WarGame extends Game {
 			activePlayer.setLastAction(ActionPlayer.DEPLOY);
 			/**
 			 * should check if player has some units left if not he should buy if he does
-			 * have workers already he should chose which worker to move and where to move
+			 * have workers already he should choose which worker to move and where to move
 			 * him to if the move is successful it's the end of the player's turn if it's
-			 * not successful he has to chose a worker again...
+			 * not successful he has to choose a worker again...
 			 */
-			System.out.print("chose a position :> ");
+			System.out.print("choose a position :> ");
 			String position = scanner.nextLine();
 			if (!position.matches("[0-9]+,[0-9]+")) {
 				System.out.print("/!\\ Please enter a valid coordinate like: 1,1 \n");
@@ -95,13 +95,13 @@ public class WarGame extends Game {
 				return;
 			}
 			if (this.getMap().findTileByPosition(newPos).isOcean()) {
-				System.out.println(" [NOTE]: Please chose another tile this one will [~]drown[~] your army XD");
+				System.out.println(" [NOTE]: Please choose another tile this one will [~]drown[~] your army XD");
 				makeChoice("1");
 			} else if (this.getMap().findTileByPosition(newPos).checkIfEmpty()) {
-				System.out.println("/!\\ This tile isn't empty unfortunately, please chose another one.");
+				System.out.println("/!\\ This tile isn't empty unfortunately, please choose another one.");
 				makeChoice("1");
 			} else {
-				choseArmySize(newPos);
+				chooseArmySize(newPos);
 
 			}
 
@@ -123,30 +123,29 @@ public class WarGame extends Game {
 
 	/**
 	 * function defining only the part of choosing an army size after choosing a
-	 * precise tile on the map we need to chose the tile first because each tile
+	 * precise tile on the map we need to choose the tile first because each tile
 	 * type has a maximum number of soldiers that could be put onto it
 	 * 
 	 * @param newPos the position of the tile to put the army on
 	 */
-	private void choseArmySize(Position newPos) {
-		// TODO Auto-generated method stub
-		System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; chose army size :> ");
+	private void chooseArmySize(Position newPos) {
+		System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; choose army size :> ");
 		Tile chosenTile = this.getMap().findTileByPosition(newPos);
 		String armySize = scanner.nextLine();
 		if (!armySize.matches("[0-9]+")) {
 			System.out.println("/!\\ Please enter a valid integer!");
-			choseArmySize(newPos);
+			chooseArmySize(newPos);
 			return;
 		} else {
 			int size = Integer.parseInt(armySize);
 			if (size < 1) {
-				System.out.println("/!\\ number chosen is < 1; please chose a valid number of soldiers!");
-				choseArmySize(newPos);
+				System.out.println("/!\\ number chosen is < 1; please choose a valid number of soldiers!");
+				chooseArmySize(newPos);
 				return;
 			} else if (size > chosenTile.getMaxNbSoldiers()) {
 				System.out.println("/!\\ Maximum possible number of soldiers on this tile type is ["
 						+ chosenTile.getMaxNbSoldiers() + " soldiers] only!");
-				choseArmySize(newPos);
+				chooseArmySize(newPos);
 				return;
 			} else {
 				activePlayer.createArmy(size, chosenTile);
