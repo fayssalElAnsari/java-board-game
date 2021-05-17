@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import test.game.character.unit.UnitTest;
+import test.game.character.unit.junit;
+
 /**
  * @author aya
  *
@@ -42,6 +45,11 @@ public class PlayerTest {
 	    assertEquals(15,this.P4.getGold());
 
 	  }
+	  
+	  
+	  public static junit.framework.Test suite() {
+	        return new junit.framework.JUnit4TestAdapter(UnitTest.class);
+	    }
 
 
 }
