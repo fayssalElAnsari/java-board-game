@@ -42,8 +42,8 @@ Suppression des méthodes répétées dans les classes héritées
 faire presque toutes les classes necessaire pour le jeu
 ### Difficultés restant à résoudre
 pouvoir affichée l'interface graphique (map)
-## Livrable 4
-Dans cette semaie on a pu réaliser les deux condition pour pouvoir créer "Map" qui sont 
+
+on a pu réaliser les deux condition pour pouvoir créer "Map" qui sont 
  • le plateau doit comporter au minimum deux tiers de tuiles de type océan 
  • toutes les tuiles de type montagne, plaine, désert ou forêt doivent au moins avoir une tuile adjacente qui n’est pas
 de type océan.
@@ -185,19 +185,13 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 </details>
 
 
-## Livrable 5
+## Livrable 4
 * les methodes unecessaires ont etes supprimes
 * les methodes repetes entre les superclass et les subclasses ont etes suprimme
 * utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
 * division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
 * le programme maintenant nous donne comme output: <br /> 
   ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
-
-## Livrable 6
-
-## Livrable 7
-
-## Livrable 8
 * creation d'un diagramme uml final
 * ajoute des commentaires pour toutes les methodes
 * extraction des constantes (ctrl+1 sur eclipse) pour mieux organiser le code

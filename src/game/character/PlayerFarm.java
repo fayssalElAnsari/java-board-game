@@ -15,18 +15,6 @@ import game.util.tile.TileProd;
 
 public class PlayerFarm extends Player {
 
-	public PlayerFarm(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-
-	}
-
-	private String name;
-	private Unit[] units;
-	private int gold;
-	private ActionPlayer lastAction;
-	private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
-
 	/**
 	 * public constructor for the Player class each player starts off the game with
 	 * only 15 gold pieces the last action performed by this player is nothing (or
@@ -34,15 +22,25 @@ public class PlayerFarm extends Player {
 	 * the game each player will have an inventory having 0 of each resource kind
 	 * @param name the name to be given to this player
 	 */
-	public Player(String name) {
-		this.name = name;
+	public PlayerFarm(String name) {
+		super(name);
 		this.gold = 15;
-		this.lastAction = ActionPlayer.NOTHING;
+//		this.lastAction = ActionPlayer.NOTHING;
 		// if wargame create army else creaate workers
-		for (TileProd resource : TileProd.values()) {
-			inventory.put(resource, 0);
-		}
+//		for (TileProd resource : TileProd.values()) {
+//			inventory.put(resource, 0);
+//		}
+		// TODO Auto-generated constructor stub
+
 	}
+
+	private Unit[] units;
+	private int gold;
+	private ActionPlayer lastAction;
+	private HashMap<TileProd, Integer> inventory = new HashMap<TileProd, Integer>();
+
+
+
 
 	/**
 	 * sets the last action performed by this player to one of the actions from
@@ -324,6 +322,12 @@ public class PlayerFarm extends Player {
 	public boolean createArmy(int armySize, Tile tile) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int calculateTotalPoints() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

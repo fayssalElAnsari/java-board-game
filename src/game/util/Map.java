@@ -3,11 +3,7 @@ package game.util;
 import java.util.Random;
 
 import game.GameMain;
-import game.util.tile.DesertsTile;
-import game.util.tile.ForestsTile;
-import game.util.tile.MountainsTile;
 import game.util.tile.OceanTile;
-import game.util.tile.PlainsTile;
 
 /**
  * @author fayssal
@@ -19,6 +15,7 @@ public class Map {
 	private int width;
 	private int height;
 	private boolean colorEnabled = true;
+	private TileFactory tileFactory;
 
 	/**
 	 * public constructor of the map
@@ -38,6 +35,7 @@ public class Map {
 		int nbNonOceans = 0;
 		double ratio;
 		Random r = new Random();
+		tileFactory = new TileFactory();
 
 		if (seed == 1) {// start off by by making the two thirds full of oceans then random tiles
 						// including oceans since it's >= 2/3 oceans and not strictly > 2/3
@@ -52,7 +50,7 @@ public class Map {
 						nbOceans++;
 					} else {// Reached the wanted ratio therefore make random tile types
 						n = r.nextInt(5);
-						tiles[i][j] = chooseRandomTileType(i, j, n);
+						tiles[i][j] = tileFactory.chooseRandomTileType(i, j, n);
 						if (tiles[i][j].isOcean) {
 							nbOceans++;
 						} else {
@@ -128,7 +126,7 @@ public class Map {
 							ratio = (double) nbOceans / totalTiles;
 							n = r.nextInt(5);
 							System.out.println(tiles[i2][j2].toString());
-							tiles[i2][j2] = chooseRandomTileType(i2, j2, n);
+							tiles[i2][j2] = tileFactory.chooseRandomTileType(i2, j2, n);
 
 						}
 						if (tiles[i2][j2].isOcean) {
@@ -173,30 +171,6 @@ public class Map {
 				+ nbOceans + "; NonOceans=" + nbNonOceans);
 		System.out.println(ratio > ratioLimit);
 
-	}
-
-	/**
-	 * choose a random tile type for a tile and return it
-	 * 
-	 * @param i
-	 * @param j
-	 * @param n
-	 * @return
-	 */
-	public Tile chooseRandomTileType(int i, int j, int n) {
-		Tile tile;
-		if (n == 0) {
-			tile = new MountainsTile(new Position(i, j));
-		} else if (n == 1) {
-			tile = new PlainsTile(new Position(i, j));
-		} else if (n == 2) {
-			tile = new DesertsTile(new Position(i, j));
-		} else if (n == 3) {
-			tile = new ForestsTile(new Position(i, j));
-		} else {
-			tile = new OceanTile(new Position(i, j));
-		}
-		return tile;
 	}
 
 	/**
