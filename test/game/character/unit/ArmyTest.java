@@ -14,8 +14,8 @@ import game.*;
 public class ArmyTest {
 
 
-	private Player P1;
-	private Player P2;
+	private PlayerWar P1;
+	private PlayerWar P2;
 	private Map testMap;
 	private Army unite1;
 	private Army unite2;
@@ -23,8 +23,8 @@ public class ArmyTest {
 	
 	@Before
 	public void setUp() {
-		this.P1 = new Player("Ziko");
-		this.P2 = new Player("Aya");
+		this.P1 = new PlayerWar("Ziko");
+		this.P2 = new PlayerWar("Aya");
 		this.testMap = new Map("Maptest", 10, 10, 1);
 		Tile tilesTest1 = tiles[0][0];
 		Tile tilesTest2 = tiles[5][7];
@@ -75,9 +75,5 @@ public class ArmyTest {
 		assertEquals("Owner:Ziko; AP:1", TestString);
 	}
 	
-	// ---Pour permettre l'exécution des test----------------------
-    public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(ArmyTest.class);
-    }
 	
 }

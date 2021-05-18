@@ -6,13 +6,18 @@ package game.character.unit;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+import src.game.character.unit.*;
+import src.game.util.*;
+import src.game.util.tile.*;
 import src.game.character.unit.Player;
 
 /**
  * @author aya ziko
  *
  */
+@RunWith(Suite.class)
+@SuiteClasses({ ProductDAOTest.class, UserDAOTest.class })
+
 public class UnitTest {
 	
 	private Player P1;
@@ -33,7 +38,7 @@ public class UnitTest {
 
 	@Test
 	public void eatWW() {
-		assertEquals(true, unite1.eat())
+		assertEquals(true, unite1.eat());
 		assertEquals(false, unite3.eat());
 	}
 	
@@ -135,22 +140,6 @@ public class UnitTest {
 	public void incrementSizeWW() {
 		idem
 	}*/
-	
-	
-	// ---Pour permettre l'exécution des test----------------------
-    public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(UnitTest.class);
-    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

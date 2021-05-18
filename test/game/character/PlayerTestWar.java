@@ -47,9 +47,5 @@ public class PlayerTestWar {
 	  }*/
 
 	  
-	  // ---For test execution----------------------
-	  public static junit.framework.Test suite() {
-	      return new junit.framework.JUnit4TestAdapter(PlayerTestWar.class);
-	  }
 
 }
