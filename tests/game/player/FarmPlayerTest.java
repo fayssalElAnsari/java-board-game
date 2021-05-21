@@ -48,7 +48,7 @@ public class FarmPlayerTest {
 	 */
 	@Test
 	public void testGetRessources() {
-		for (int resourceQuantity : ((FarmPlayer) this.player1).getResources().values()) {
+		for (int resourceQuantity : ((FarmPlayer) this.player1).getRessources().values()) {
 		    assertEquals(resourceQuantity, 0);
 		}
 	}
@@ -82,10 +82,10 @@ public class FarmPlayerTest {
 	 */
 	@Test
 	public void testRecolteRessources() {
-		assertEquals(((FarmPlayer) this.player1).getResources().get(Tiletype.WOOD.name()).intValue(), 0);
+		assertEquals(((FarmPlayer) this.player1).getRessources().get(Tiletype.WOOD.name()).intValue(), 0);
 		this.player1.addOwnedTile(this.tileForest);
 		((FarmPlayer) this.player1).recolteRessources();
-		assertEquals(((FarmPlayer) this.player1).getResources().get(Tiletype.WOOD.name()).intValue(), 1);
+		assertEquals(((FarmPlayer) this.player1).getRessources().get(Tiletype.WOOD.name()).intValue(), 1);
 		
 	}
 
