@@ -1,88 +1,34 @@
 package game.util;
 
 /**
- * 
- * @author fayss
- *
+ * A class to create and manage the position .
  */
 public class Position {
+	
 	private int x;
 	private int y;
-
-	public Position(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	public String toString() {
-		return "(" + x + "," + y + ")";
-	}
-
-	public int getXCoordinate() {
-		return this.x;
-	}
-
-	public int getYCoordinate() {
-		return this.y;
-	}
-
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	public void setXCoordinate(int x) {
-		this.x = x;
-	}
-
-	public void setYCoordiante(int y) {
-		this.y = y;
-	}
-
 	/**
-	 * 
-	 * move to a direction by 1 tile
-	 * 
-	 * @param c the direction to move to
+	 * the constructor of position 
+	 * @param x : the x of the position
+	 * @param y : the y of position
 	 */
-	public void move(char c) {
-		if (c == 'N' || c == 'n') {
-			this.y = this.y + 1;
-		} else if (c == 'S' || c == 's') {
-			this.y = this.y - 1;
-		} else if (c == 'E' || c == 'e') {
-			this.x = this.x + 1;
-		} else if (c == 'W' || c == 'w') {
-			this.x = this.x - 1;
-		} else {
-			System.out.println("the direction entered is invalid!");
-		}
+	public Position(int x,int y) {
+		this.x=x;
+		this.y=y;
 	}
-
 	/**
-	 * 
-	 * move to a direction by n tiles
-	 * 
-	 * @param c the direction to move to
-	 * @param n the number of tiles to traverse
+	 * get the x of the  position 
+	 * @return x : the x of the position
 	 */
-	public void move(char c, int n) {
-		if (c == 'N' || c == 'n') {
-			this.y = this.y + n;
-		} else if (c == 'S' || c == 's') {
-			this.y = this.y - n;
-		} else if (c == 'E' || c == 'e') {
-			this.x = this.x + n;
-		} else if (c == 'W' || c == 'w') {
-			this.x = this.x - n;
-		} else {
-			System.out.println("the direction entered is invalid!");
-		}
+	public int getX() {
+		return x;
 	}
-
-	public double calculateDistance(Position position) {
-		return Math.sqrt(
-				Math.pow(this.x - position.getXCoordinate(), 2) + (Math.pow(this.y - position.getYCoordinate(), 2)));
+	/**
+	 * get the y of the  position  
+	 * @return y : the y of position
+	 */
+	public int getY() {
+		return y;
 	}
-
+	
 }

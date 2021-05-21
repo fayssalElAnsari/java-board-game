@@ -1,167 +1,317 @@
 package game;
 
-import game.character.PlayerWar;
-import game.util.ActionPlayer;
-import game.util.Position;
+import java.util.List;
+import java.util.Scanner;
+
+import game.player.Player;
+import game.player.WarPlayer;
 import game.util.Tile;
+import game.util.Tiletype;
+import game.util.Util;
 
 /**
- * 
- * @author fayss
- *
+ * A class to create and manage the wargame
  */
+
 public class WarGame extends Game {
-
-	public WarGame() {
-		super();
-		// TODO Auto-generated constructor stub
-
+	/**
+	 * number of tours in the game
+	 */
+	private int nbTourJoue;
+	/**
+	 * public constructor for the war game class
+	 * @param x the x position of the player
+	 * @param y the y position of the player
+	 * @param players list of players 
+	 */
+	public WarGame(int x, int y, List<Player> players) {
+		super(x,y);
+		this.nbTourJoue=0;
+		this.players=players;
 	}
 
 	/**
-	 * create the players objects and populate the players array with them
+	 * progress of the game with 10 as maximum of towers and choosing the action of the player 
+	 * Collection food and a distribution  of food 
 	 */
-	public void createPlayers() {
-		if (debugMode) {
-			players = new PlayerWar[4];
-			// setting names
-			players[0] = new PlayerWar("fayssal");
-			players[1] = new PlayerWar("aya");
-			players[2] = new PlayerWar("mehdi");
-			players[3] = new PlayerWar("ziko");
-		} else {
-			System.out.println("Possible number of players between 2 and 4");
-			System.out.println("Choose number of players :>");
-			int nbPlayers = Integer.parseInt(scanner.nextLine());
-			if (nbPlayers >= 2 && nbPlayers <= 4) {
-				players = new PlayerWar[nbPlayers];
-				// will make this using user input later
-				// setting names
-				String playerName;
-				for (int i = 0; i < nbPlayers; i++) {
-					System.out.println("Enter name of player nb " + i + 1 + " :> ");
-					playerName = scanner.nextLine();
-					players[i] = new PlayerWar(playerName);
+	public void start() {
+		System.out.println("war game start");
+		this.displayGame();
+		while(true) {
+			for(int i =0; i<this.players.size();i++) {
+				Player currentPlayer= this.players.get(i);
+				int choixAction = Util.choixActionWarGame(currentPlayer);
+				switch (choixAction) {
+				case 1: {
+					boolean test;
+					int[] pos;
+					do {
+						pos=Util.choixPos(this.board.getWidth()-1, this.board.getHeight()-1);
+						test=this.affectArmee(currentPlayer, pos);
+					}while(test==false);
+					this.isEndGame();
+					this.deploiementAdjacent(currentPlayer, pos);
+					((WarPlayer)currentPlayer).recolteFood();
+					((WarPlayer)currentPlayer).distribFood();
+					break;
 				}
-			} else {
-				createPlayers();
+				case 2 :{
+					System.out.println("choix2\n");
+					((WarPlayer)currentPlayer).recolteFood();
+					((WarPlayer)currentPlayer).distribFood();
+					break;
+				}
+				}
+				this.isEndGame();
+				this.displayGame();
 			}
+			this.nbTourJoue++;
+			System.out.println("round nb :"+this.nbTourJoue);
 		}
+		
 	}
-
-	public void startGame() {
-		while (this.getCurrentRound() <= this.getnbRounds()) {
-			for (int i = 0; i < players.length; i++) {
-				System.out.println("ROUND: " + currentRound + " OF " + nbRounds);
-				showStats();
-				this.getMap().printMap();
-				System.out.println("It's " + activePlayer.getName() + "\'s turn: ");
-				activePlayer.startTurn();
-				activePlayer.printOutInventory();// print out the inventory after the start of the turn so the data is
-													// updated
-				System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
-				System.out.print("make your choice :> ");
-				String choiceOf3 = scanner.nextLine();
-				makeChoice(choiceOf3);
-				nextTurn();
-			}
-			this.nextRound();
-		}
-		this.gameEnd();
-	}
-
-	private void makeChoice(String line) {
-		if (line.equals("1")) {
-			activePlayer.setLastAction(ActionPlayer.DEPLOY);
-			/**
-			 * should check if player has some units left if not he should buy if he does
-			 * have workers already he should choose which worker to move and where to move
-			 * him to if the move is successful it's the end of the player's turn if it's
-			 * not successful he has to choose a worker again...
-			 */
-			System.out.print("choose a position :> ");
-			String position = scanner.nextLine();
-			if (!position.matches("[0-9]+,[0-9]+")) {
-				System.out.print("/!\\ Please enter a valid coordinate like: 1,1 \n");
-				makeChoice("1");
-				return;
-			}
-			Position newPos = new Position(Integer.parseInt(position.split(",")[0]),
-					Integer.parseInt(position.split(",")[1]));
-			if (newPos.getXCoordinate() < 0 || newPos.getXCoordinate() > this.getMap().getWidth() - 1
-					|| newPos.getYCoordinate() < 0 || newPos.getYCoordinate() > this.getMap().getHeight() - 1) {
-				System.out.print("/!\\ The tile: " + newPos.toString() + " does not exist on this map XD \n");
-				makeChoice("1");
-				return;
-			}
-			if (this.getMap().findTileByPosition(newPos).isOcean()) {
-				System.out.println(" [NOTE]: Please choose another tile this one will [~]drown[~] your army XD");
-				makeChoice("1");
-			} else if (this.getMap().findTileByPosition(newPos).checkIfEmpty()) {
-				System.out.println("/!\\ This tile isn't empty unfortunately, please choose another one.");
-				makeChoice("1");
-			} else {
-				chooseArmySize(newPos);
-
-			}
-
-		} else if (line.equals("2")) {
-			activePlayer.setLastAction(ActionPlayer.EXCHANGE);
-			// String choiceOf3 = scanner.nextLine();
-			activePlayer.sellResources();
-		} else if (line.equals("3")) {
-			activePlayer.setLastAction(ActionPlayer.NOTHING);
-			// String choiceOf3 = scanner.nextLine();
-			activePlayer.skipRound();
-		} else {
-			System.out.println("1 => DEPLOY; 2 => EXCHANGE; 3 => SKIP");
-			System.out.println("It's " + activePlayer.getName() + "\'s turn>");
-			String choiceOf3 = scanner.nextLine();
-			makeChoice(choiceOf3);
-		}
-	}
-
 	/**
-	 * function defining only the part of choosing an army size after choosing a
-	 * precise tile on the map we need to choose the tile first because each tile
-	 * type has a maximum number of soldiers that could be put onto it
-	 * 
-	 * @param newPos the position of the tile to put the army on
+	 * Affect players in the game and making them get there own tile with choosing position 
+	 * @param player the war game player
+	 * @param pos the position of player
 	 */
-	private void chooseArmySize(Position newPos) {
-		System.out.print("you have " + activePlayer.getSoldiers() + " soldiers left; choose army size :> ");
-		Tile chosenTile = this.getMap().findTileByPosition(newPos);
-		String armySize = scanner.nextLine();
-		if (!armySize.matches("[0-9]+")) {
-			System.out.println("/!\\ Please enter a valid integer!");
-			chooseArmySize(newPos);
-			return;
-		} else {
-			int size = Integer.parseInt(armySize);
-			if (size < 1) {
-				System.out.println("/!\\ number chosen is < 1; please choose a valid number of soldiers!");
-				chooseArmySize(newPos);
-				return;
-			} else if (size > chosenTile.getMaxNbSoldiers()) {
-				System.out.println("/!\\ Maximum possible number of soldiers on this tile type is ["
-						+ chosenTile.getMaxNbSoldiers() + " soldiers] only!");
-				chooseArmySize(newPos);
-				return;
-			} else {
-				activePlayer.createArmy(size, chosenTile);
+	public boolean affectArmee(Player player, int[] pos) {
+		if(this.board.getTiles()[pos[1]][pos[0]].getOwner()!=null) {
+			System.out.println("il y a d�j� un joueur sur cette case");
+			return false;
+		}
+		if(this.board.getTiles()[pos[1]][pos[0]].getOwner()==player) {
+			System.out.println("vous etes d�j� pr�sent sur cette case");
+			return false;
+		}
+		//get the desired tile 
+		Tile tile = this.board.getTiles()[pos[1]][pos[0]];
+		int nbUnitDeplo=this.askNbUnitToDeploy(tile);
+		if(nbUnitDeplo>((WarPlayer)player).getNbWarAvailable()) {
+			System.out.println("vous n'avez pas assez de guerrier");
+			return false;
+		}
+		tile.setUnit(nbUnitDeplo);
+		((WarPlayer) player).deployedWar(nbUnitDeplo);
+		this.newOwner(player,tile );
+		this.attaqueVoisins(player, pos);
+		return true;
+		
+	}
+	/**
+	 * Neighbors attack depending on the position of the player
+	 * check if the owner of the tile in the east is different from null and different from the current player 
+	 * check the owner of the tile to the south is different from null and different from the current player 
+	 * check the owner of the tile to the north is different from null and different from the current player 
+	 * check the owner of the west tile is different from null and different from the current player 
+	 * @param player the war player
+	 * @param pos the position of the player
+	 */
+	public void attaqueVoisins(Player player, int[] pos) {
+		Tile currentTile=this.board.getTiles()[pos[1]][pos[0]];
+		//south
+		if(pos[1]+1<this.board.getHeight()){
+			Tile tile=this.board.getTiles()[pos[1]+1][pos[0]];
+			this.attaque(player, currentTile, tile);
+		}
+		//north
+		if(pos[1]-1>=0){			
+			Tile tile=this.board.getTiles()[pos[1]-1][pos[0]];
+			this.attaque(player, currentTile, tile);
+		}
+		//west
+		if(pos[0]-1>=0){
+			Tile tile=this.board.getTiles()[pos[1]][pos[0]-1];
+			this.attaque(player, currentTile, tile);
+		}
+		//east
+		if(pos[0]+1<this.board.getWidth()){
+			Tile tile=this.board.getTiles()[pos[1]][pos[0]+1];
+			this.attaque(player, currentTile, tile);
+		}
+		
+		
+	}
+	/**
+	 * attacking from current tile to the new tile 
+	 * @param player owner of tile
+	 * @param currentTile the current tile of player 
+	 * @param tile the tile of player
+	 */
+	public void attaque(Player player, Tile currentTile, Tile tile) {
+		if(tile.getOwner()!=player && tile.getOwner()!=null) {
+			int currentUnit=currentTile.getUnit();
+			int tileUnit= tile.getUnit();
+			if(currentTile.getType()==Tiletype.MONTAIN) {
+				currentUnit+=2;
+			}
+			if(tile.getType()==Tiletype.MONTAIN) {
+				tileUnit+=2;
+			}
+			
+			if(currentUnit>tileUnit) {
+				if(tile.getUnit()==1) {
+					tile.getOwner().lostTile(tile);
+					this.newOwner(player, tile);
+					player.setGolds(player.getGolds()+2);
+				}else {
+					tile.setUnit((int)(tile.getUnit()/2));
+				}
+				
 			}
 		}
-
 	}
-
 	/**
-	* 
-	*/
-	public void showStats() {
-		for (int i = 0; i < players.length; i++) {
-			System.out.println(players[i].getName() + " has " + players[i].getGold() + " gold; and "
-					+ players[i].getSoldiers() + " soldiers; and " + players[i].getFoodUnits() + " food units;");
+	 * deploiement Adjacent of players in the board accruent to the given position 
+	 * @param player the war player
+	 * @param pos he position of player
+	 */
+	public void deploiementAdjacent(Player player, int[] pos) {
+		Tile currentTile=this.board.getTiles()[pos[1]][pos[0]];
+		//south
+		if(pos[1]+1<this.board.getHeight()){
+			
+			Tile tile=this.board.getTiles()[pos[1]+1][pos[0]];
+
+			this.deploiement(player, currentTile, tile);
 		}
+		//north
+		if(pos[1]-1>=0){
+			
+			Tile tile=this.board.getTiles()[pos[1]-1][pos[0]];
+			this.deploiement(player, currentTile, tile);
+		}
+		//west
+		if(pos[0]-1>=0){
+			
+			Tile tile=this.board.getTiles()[pos[1]][pos[0]-1];
+			this.deploiement(player, currentTile, tile);
+		}
+		//east
+		if(pos[0]+1<this.board.getWidth()){
+			
+			Tile tile=this.board.getTiles()[pos[1]][pos[0]+1];
+			this.deploiement(player, currentTile, tile);
+		}
+	}
+	/**
+	 * deploiment of player according to the own tile into the new file
+	 * @param player war player
+	 * @param currentTile the current tile
+	 * @param tile the next tile 
+	 */
+	public void deploiement(Player player, Tile currentTile, Tile tile) {
+		if(currentTile.getUnit()>tile.getUnit() && currentTile.getOwner()==tile.getOwner()) {
+			if (tile.getType()==Tiletype.DESERT ||tile.getType()==Tiletype.MONTAIN) {
+				if (tile.getUnit()<3) {
+					currentTile.setUnit(currentTile.getUnit()-1);
+					tile.setUnit(tile.getUnit()+1);
+					player.setGolds(player.getGolds()+1);
+				}
+			}else {
+				currentTile.setUnit(currentTile.getUnit()-1);
+				tile.setUnit(tile.getUnit()+1);
+				player.setGolds(player.getGolds()+1);
+			}
+		}
+	}
+	
+	/**
+	 * asking the number of units to deploy according to the type of tile 
+	 * if the type tile is desert or montain the number units to be deployed is 3 as max 
+	 * it the type tile is a plain or wood, number of units to be deployed is 5 s max
+	 * @param tile the tile in the board
+	 * @return the choice have been chosen by the player
+	 */
+	public int askNbUnitToDeploy(Tile tile) {
+		int nbMax=0;
+		
+		if (tile.getType()==Tiletype.DESERT ||tile.getType()==Tiletype.MONTAIN) {
+			nbMax=3;
+		}else {
+			nbMax=5;
+		}
+		
+		int choix=0;
+		Scanner entree = new Scanner(System.in);
+		while(choix<1 || choix>nbMax) {
+			System.out.println("Combien de troupe voulez vous deployer? (max:"+nbMax+")");;
+			try {
+				choix=entree.nextInt();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("il faut entrer un chiffre entre 1 et "+nbMax);
+				entree.nextLine();
+			}
+		}
+		
+		return choix;
+		
+	}
+	/**
+	 * the game will be ended when the number of towers is more than 10 or when he gets ocen tile type 
+	 */
+	@Override
+	public boolean isEndGame() {
+		if(this.nbTourJoue==10) {
+			this.resultat();
+			return true;
+		}
+		for(int i =0; i<board.getTiles().length;i++) {
+			for(int j =0; j<board.getTiles()[0].length;j++) {
+				if(board.getTiles()[i][j].getOwner()!=null && board.getTiles()[i][j].getType()!=Tiletype.OCEAN ) {
+					return false;
+				}
+			}
+		}
+		
+		this.resultat();
+		return true;
+	}
+	/**
+	 * the final results of game and the number of point fo each player in the game 
+	 */
+	@Override
+	public void resultat() {
+		int[] gagne= {-1,-1} ;
+		for(int i =0; i<this.players.size();i++) {
+			int nbPoint=0;
+			Player current = this.players.get(i);
+			for(int j =0; j<current.getTileOwned().size();j++) {
+				switch (current.getTileOwned().get(i).getType()) {
+				
+				case PLAIN: {
+					nbPoint++;
+					break;
+				}
+				case WOOD: {
+					nbPoint+=2;
+					break;
+				}
+				case MONTAIN: {
+					nbPoint+=4;
+					break;
+				}
+				case DESERT: {
+					nbPoint+=4;
+					break;
+				}
+				}
+				nbPoint+=current.getGolds();
+				if(current.getTileOwned().size()>=10) {
+					nbPoint+=5;
+				}
+			}
+			System.out.println("joueur :"+current.getName()+" "+nbPoint+" points!");
+			if(gagne[1]<nbPoint) {
+				gagne[0]=i;
+				gagne[1]=nbPoint;
+			}	
+		}
+		
+		
+		System.out.println("le joueur gagnant est "+this.players.get(gagne[0]).getName()+" avec "+gagne[1]+" points!");
+		System.exit(0);
 	}
 
 }
