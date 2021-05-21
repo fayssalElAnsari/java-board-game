@@ -15,8 +15,7 @@ import src.game.character.unit.Player;
  * @author aya ziko
  *
  */
-@RunWith(Suite.class)
-@SuiteClasses({ ProductDAOTest.class, UserDAOTest.class })
+
 
 public class UnitTest {
 	

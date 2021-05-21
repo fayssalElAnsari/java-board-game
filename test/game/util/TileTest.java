@@ -3,7 +3,7 @@ package game.util;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import game.util.*
+import game.util.*;
 import org.junit.Test;
 
 import game.character.*;
