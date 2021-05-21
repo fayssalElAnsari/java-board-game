@@ -197,19 +197,31 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 * extraction des constantes (ctrl+1 sur eclipse) pour mieux organiser le code
 * ajout des tests map, game, gameWar
 * suppression des fichier non nécessaires du depot git.
-=====
-* l'execution des tests se fait dans eclipse avec success.
-* une version minimalist complete du projet est disponible.
-* en lancant WarGame/FarmGame on peut tester les 2 programmes de chaque jeu.
-
-
 ### Atteinte des objectifs
 finir la classe Map
 ### Difficultés restant à résoudre
 On a eu des difficultés au niveau de tuiles pour qu’elles doivent au moins avoir une tuile adjacente qui n’est pas
 de type océan.
-# Journal de bord
+=====
+* l'execution des tests se fait dans eclipse avec success.
+* une version minimalist complete du projet est disponible.
+* en lancant WarGame/FarmGame on peut tester les 2 programmes de chaque jeu.
+## Dernier Livrable
+* La classe Map a été supprimer et remplacer pas la class Board
+* supression de certains classes comme DesertTile.java, ForrestTile.java, Array.java,.. 
+* Ajouter des methodes d'actions pour FarmGame et WarGame
+* ajoute des commentaires pour toutes les méthodes
+* Pouvoir réaliser  toutes les actions demandées dans le sujet .
+* ajouter des tests pour chaque methode dans les classes 
+* création d'un diagramme uml final
+* creer un makefile pour compiler les commandes .
 
+### Atteinte des objectifs
+* pouvoir réaliser toutes les actions necessaire pour le jeu de wargale et farmgame .
+### Difficultés restant à résoudre
+* Dans ce livrable On a eu des difficultés au niveau des actions et dans ce cas on a essayé de simplifier les choses au maximum juste pour pouvoir réaliser les actions de chaque jeu .
+# Journal de bord
+====
 ## Semaine 1
 on a essayé de faire le diagramme UML qui représente notre projet pour mieux comprendre et faciliter le travail.
 ## Semaine 2
@@ -254,6 +266,14 @@ dans cette semaine on a finit la classe Map pour pouvoir continuer le reste des 
 * Modifier la classe Game :ajouter la fonction displayGame() qui est pour afficher le jeu, et ajouter les méthode  pour pouvoir afficher le résultats et indiquer si le jeu est terminé.
 * Modifier la classe WarGame : dans cette classe où toutes les règles du jeu de guerre sont définies 
 ## Semaine 11
-* Modifier la classe FarmGame :
+* Modifier la classe FarmGame
 * Faire les tests nécessaire pour chaque méthode 
 * Créer le Makefile de fichier et génerer le Readme 
+## L'éxecution du projet :
+* Pour tester la fonctionnalitée du jeu de guerre, il faut se mettre dans le fichier ../l2s4-projet-2021/src/main
+et lancer WarMain.java dans exclipse 
+* Pour tester la fonctionnalitée du jeu d'agricole , il faut se mettre dans le fichier ../l2s4-projet-2021/src/main
+et lancer FarmMain.java dans exclipse 
+* ===> C'est a vous de jouer <=====
+* Pour générer les tests il faut les génerer sue Eclipse 
+
