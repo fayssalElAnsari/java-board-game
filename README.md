@@ -197,6 +197,10 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 * extraction des constantes (ctrl+1 sur eclipse) pour mieux organiser le code
 * ajout des tests map, game, gameWar
 * suppression des fichier non nécessaires du depot git.
+=====
+* l'execution des tests se fait dans eclipse avec success.
+* une version minimalist complete du projet est disponible.
+* en lancant WarGame/FarmGame on peut tester les 2 programmes de chaque jeu.
 
 
 ### Atteinte des objectifs
