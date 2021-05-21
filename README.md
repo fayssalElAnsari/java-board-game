@@ -277,3 +277,5 @@ et lancer FarmMain.java dans exclipse
 * ===> C'est a vous de jouer <=====
 * Pour générer les tests il faut les génerer sue Eclipse 
 
+![demoFarm](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/Demo_FarmGAme.gif)
+![demoWar](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/demo_warGame.gif)
