@@ -1,6 +1,6 @@
-# l2s4-projet-2021 - Groupe 3
+# -projet-2021 - Groupe 3
 
-# Equipe
+# 
 
 - Aya LAKEHAL
 - Mehdi BOUTAB  
@@ -14,10 +14,10 @@
 # Livrables
 
 ## Livrable 1
-Nous avons réalisé le diagramme necessaire qui représente les deux jeux .
+Nous avons réalisé le diagramme nécessaire qui représente les deux jeux .
 
 ### Atteinte des objectifs
-faire les classes necessaire et deviser le travail entre les membres de groupe .
+faire les classes nécessaire et deviser le travail entre les membres de groupe .
 
 ### Difficultés restant à résoudre
 
@@ -27,7 +27,7 @@ Nous avons réalisé la classe :
  * Game qui représente le jeu 
  * Unit 
  * Map qui représente la table du jeu.
- * Tile qui réprésente les différents tuiles 
+ * Tile qui représente les différents tuiles 
 
 ### Atteinte des objectifs
 
@@ -39,7 +39,7 @@ Nous avons réalisé la classe :
 - Changement du nom de certaines méthodes pour mieux s'adapter au diagramme UML
 Suppression des méthodes répétées dans les classes héritées
 ### Atteinte des objectifs
-faire presque toutes les classes necessaire pour le jeu
+faire presque toutes les classes nécessaire pour le jeu
 ### Difficultés restant à résoudre
 pouvoir affichée l'interface graphique (map)
 
@@ -186,61 +186,70 @@ Pour faire les tests il suffit de lancer le jeu en Map et on obtient :
 
 
 ## Livrable 4
-* les methodes unecessaires ont etes supprimes
-* les methodes repetes entre les superclass et les subclasses ont etes suprimme
-* utilisation des methodes abstract pour definir des fonctionalites communs antre les subclasses
+* les méthodes non nécessaires ont étés supprimes
+* les méthodes répétés entre les superclasse et les surclasses ont étés supprimé
+* utilisation des méthodes abstract pour definir des fonctionnalités communs antre les surclasses
 * division de la classe player en 2 subclasses PlayerWar et PlayerFarm.
 * le programme maintenant nous donne comme output: <br /> 
-  ![une gif contenant l'execution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
-* creation d'un diagramme uml final
-* ajoute des commentaires pour toutes les methodes
+  ![une gif contenant l’exécution](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-09%2010-25-34.gif)
+* création d'un diagramme uml final
+* ajoute des commentaires pour toutes les méthodes
 * extraction des constantes (ctrl+1 sur eclipse) pour mieux organiser le code
 * ajout des tests map, game, gameWar
-* suppression des fichier non necessaires du depot git.
+* suppression des fichier non nécessaires du depot git.
 
 
 ### Atteinte des objectifs
 finir la classe Map
 ### Difficultés restant à résoudre
-On a eu des diffecultés au niveu de tuiles pour qui'elles doivent au moins avoir une tuile adjacente qui n’est pas
+On a eu des difficultés au niveau de tuiles pour qu’elles doivent au moins avoir une tuile adjacente qui n’est pas
 de type océan.
 # Journal de bord
 
 ## Semaine 1
-on a essayé de faire le diagramme UML qui représente notre projet pour meiux comprendre et faciliter le travail.
+on a essayé de faire le diagramme UML qui représente notre projet pour mieux comprendre et faciliter le travail.
 ## Semaine 2
-On a eu du mal pour comprendre si certaine classes sont necessaire où pas comme la class soldiers et army et c'est quoi la nature de chaqu'une 
+On a eu du mal pour comprendre si certaine classes sont nécessaire où pas comme la classe soldiers et army et c'est quoi la nature de chaqu'une 
 ## Semaine 3
-Dans l'evolution de faire des nouvelles methodes pour pouvoir affficher le plateau avec les tuiles et les joeurs. 
+Dans l’évolution de faire des nouvelles methodes pour pouvoir affficher le plateau avec les tuiles et les joueurs. 
 ## Semaine 4
-danscette semaine on a finit la classe Map pour pouvoir continuer le reste des condtion pour chaque jeux . 
+dans cette semaine on a finit la classe Map pour pouvoir continuer le reste des condition pour chaque jeux . 
 ## Semaine 5
 
 ## Semaine 6
 
 ## Semaine 7
-* suppression des methodes unecessaires/repetees.
-* changement de la visibilite de quelque variables de publique vers privees/protected
+* suppression des méthodes nécessaires/repetees.
+* changement de la visibilité de quelque variables de publique vers privees/protected
 * correction du design des classes utilises dans le projet
   
 ## Semaine 8
-* todo: actions des characters
+* todo: actions des caractères
 * todo: les tests de quelques classes
-* todo: ajoute de couleurs a la class map pour chaque systeme d'exploitation.
+* todo: ajoute de couleurs a la class map pour chaque système d'exploitation.
 * test de map qui s'affiche maintenant avec des couleurs:  
 ![map](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/map_with_color.png)
 
-    * des fois les couleurs ne marchent pas a cause du manque du support code ASCII dans la console utilisee.
-* apres ajoute de couleurs et ajout de l'analyse de l'entrée utilisateur:
-![gif contenant un test apres modifications](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-10%2005-03-41.gif)
-* demonstration actions support:
+    * des fois les couleurs ne marchent pas a cause du manque du support code ASCII dans la console utilisée.
+* après ajoute de couleurs et ajout de l'analyse de l'entrée utilisateur:
+![gif contenant un test après modifications](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-10%2005-03-41.gif)
+* démonstration actions support:
 ![gif support](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-11%2018-12-54.gif)
 * demonstration actions attack:
 ![gif attack](https://gitlab-etu.fil.univ-lille1.fr/lakehala/l2s4-projet-2021/-/raw/master/images/2021-04-11%2018-17-04.gif)
 ## Semaine 9
-
+* suppression de la classe Map et la remplacer avec Board( juste pour ne pas confondre entre l'élément Map qui existe déja en java ).
+* Ajouter quelque méthode dans classe Board.java comme : la fonction random qui est pour avoir un x et un y qui vont introduire une cas au départ au hasard et construire au tour de cette case
+* Supprimer les classe DesertTile.java, ForrestTile.java, MountainsTile.java, OceanTile.java et PlainsTile.java et mettre toutes ces classes dans une seule class Tile.java  pour pouvoir coder les tuiles dans la classe Tile directement .
+* Supprimer la classe Army.java car on a vu qu’elle sert a rien et on a pu la remplacer avec l’attribut nbUnits dans la classe Tile qui pour ajouter 1 soldats où retirer 1 soldats dans le jeu .
 ## Semaine 10
-
+* Dans cette semaine on a basé sur les actions
+* Créer la classe Util.java pour pouvoir jouer et choisir entre les deux jeux et mettre les actions nécessaires pour chaque jeu
+* Modifier la classe Player : supprimer quelques méthodes et ajouter d’autres comme addgol, lostTile si la tuile est attaquée par exemple
+* Modifier la classe WarPlayer et ajouter des fonctions d’action spécialement au jeu de guerre comme deployWar(), recoltFood() et distribFood() 
+* Modifier la classe Game :ajouter la fonction displayGame() qui est pour afficher le jeu, et ajouter les méthode  pour pouvoir afficher le résultats et indiquer si le jeu est terminé.
+* Modifier la classe WarGame : dans cette classe où toutes les règles du jeu de guerre sont définies 
 ## Semaine 11
-
-## Semaine 12
+* Modifier la classe FarmGame :
+* Faire les tests nécessaire pour chaque méthode 
+* Créer le Makefile de fichier et génerer le Readme 
